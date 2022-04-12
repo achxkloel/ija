@@ -40,4 +40,10 @@ public class Method extends Attribute {
         attributeList.add(newAttribute);
     }
 
+    @Override
+    public String toString () {
+        return  "name: " + this.getName() +
+                ", type: " + this.returnType + "\n\t" +
+                "params:\n\t\t" + this.attributeList.get(0).toString();
+    }
 }

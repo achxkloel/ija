@@ -3,13 +3,13 @@ package ija.project.uml;
 public class UMLRelation extends Element {
 
     private final String type;
-    private final UMLClass source;
-    private final UMLClass target;
+    private final String source;
+    private final String target;
     private final String description;
     private final String cardinalityFrom;
     private final String cardinalityTo;
 
-    public UMLRelation (String name, String type, UMLClass source, UMLClass target, String description, String cardinalityFrom, String cardinalityTo) {
+    public UMLRelation (String name, String type, String source, String target, String description, String cardinalityFrom, String cardinalityTo) {
         super(name);
         this.type = type;
         this.source = source;
@@ -23,11 +23,11 @@ public class UMLRelation extends Element {
         return type;
     }
 
-    public UMLClass getSource() {
+    public String getSource() {
         return source;
     }
 
-    public UMLClass getTarget() {
+    public String getTarget() {
         return target;
     }
 

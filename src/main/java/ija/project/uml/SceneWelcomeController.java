@@ -34,7 +34,32 @@ public class SceneWelcomeController {
         fileChooser.getExtensionFilters().add( new FileChooser.ExtensionFilter("JSON files", "*.json"));
         File selectedFile = fileChooser.showOpenDialog(stage);
         if (selectedFile != null) {
-            switchToSceneMain(event, selectedFile.getName());
+            ClassDiagram classDiagram = DataParser.parseClassDiagram(selectedFile);
+            UMLClass CDClass = classDiagram.findClass("testClass");
+            String CDName = "undefined";
+            String CDAttribute = "undefined";
+            String CDMethod = "undefined";
+
+            if (CDClass != null) {
+                CDName = CDClass.getName();
+                Attribute attr = CDClass.findAttribute("testAttribute");
+                if (attr != null) {
+                    CDAttribute = attr.toString();
+                }
+                Method method = CDClass.findMethod("testMethod");
+                if (method != null) {
+                    CDMethod = method.toString();
+                }
+            }
+
+            String output = "testClassDiagram\n" +
+                            "Class:\n" +
+                            "\tname: " + CDName + "\n" +
+                            "Attribute:\n\t" + CDAttribute + "\n" +
+                            "Method:\n\t" + CDMethod;
+
+//            switchToSceneMain(event, selectedFile.getName());
+            switchToSceneMain(event, output);
         }
     }
 

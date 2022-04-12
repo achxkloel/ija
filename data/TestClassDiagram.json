@@ -1,39 +1,29 @@
 {
   "type": "ClassDiagram",
-  "name": "",
+  "name": "testClassDiagram",
   "classes": [
     {
-      "name": "",
+      "name": "testClass",
       "items": [
         {
           "item_type": "Attribute",
-          "name": "",
-          "type": ""
+          "name": "testAttribute",
+          "type": "int"
         },
         {
           "item_type": "Method",
-          "name": "",
-          "type": "",
-          "return_type": "",
+          "name": "testMethod",
+          "type": "String",
+          "return_type": "Boolean",
           "params": [
             {
-              "name": "",
-              "type": ""
+              "name": "testParam",
+              "type": "int"
             }
           ]
         }
       ]
     }
   ],
-  "relations": [
-    {
-      "name": "",
-      "type": "",
-      "source": "",
-      "target": "",
-      "description": "",
-      "cardinality_from": "",
-      "cardinality_to": ""
-    }
-  ]
+  "relations": []
 }

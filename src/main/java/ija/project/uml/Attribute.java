@@ -17,4 +17,9 @@ public class Attribute extends Element {
         return type;
     }
 
+
+    @Override
+    public String toString () {
+        return "name: " + this.getName() + ", type: " + this.type;
+    }
 }
