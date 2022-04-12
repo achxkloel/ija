@@ -13,8 +13,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("scenes/sceneMain.fxml"));
-        stage.setTitle("Test Application");
+        Parent root = FXMLLoader.load(getClass().getResource("scenes/sceneWelcome.fxml"));
+        stage.setTitle("IJA Project");
         stage.setScene(new Scene(root));
         stage.show();
     }
