@@ -1,24 +1,24 @@
 {
-  "typ": "ClassDiagram",
-  "nazev": "",
+  "type": "ClassDiagram",
+  "name": "",
   "classes": [
     {
-      "nazev": "",
+      "name": "",
       "items": [
         {
-          "item_typ": "Atribut",
-          "nazev": "",
-          "typ": ""
+          "item_type": "Attribute",
+          "name": "",
+          "type": ""
         },
         {
-          "item_typ": "Metoda",
-          "nazev": "",
-          "typ": "",
-          "navratovy_typ": "",
-          "parametry": [
+          "item_type": "Method",
+          "name": "",
+          "type": "",
+          "return_type": "",
+          "params": [
             {
-              "nazev": "",
-              "typ": ""
+              "name": "",
+              "type": ""
             }
           ]
         }
@@ -27,10 +27,11 @@
   ],
   "relations": [
     {
-      "relation_typ": "",
+      "type": "",
       "source": "",
       "target": "",
-      "popis": "",
+      "name": "",
+      "description": "",
       "cardinality_from": "",
       "cardinality_to": ""
     }
