@@ -1,5 +1,6 @@
 package ija.project.uml;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -11,26 +12,30 @@ import java.nio.file.Files;
  */
 public class DataParser {
     /**
-     * JSON Object.
-     */
-    private JSONObject jsonObj;
-
-    /**
-     * Creates an empty JSON object.
-     */
-    public DataParser () {
-        this.jsonObj = new JSONObject();
-    }
-
-    /**
      * Parse input data file and save json object.
      * 
-     * @param dataFile input data file.
+     * @param f input data file.
      * @throws IOException
      */
-    public void parse (File dataFile) throws IOException {
-        String jsonData = Files.readString(dataFile.toPath());
-        System.out.println(jsonData);
-        this.jsonObj = new JSONObject(jsonData);
+    private static JSONObject parse (File f) throws IOException, JSONException {
+        String jsonData = Files.readString(f.toPath());
+        return new JSONObject(jsonData);
+    }
+
+    public static ClassDiagram parseClassDiagram (File dataFile) {
+        JSONObject jsonObject;
+        ClassDiagram classDiagram = null;
+
+        try {
+            jsonObject = DataParser.parse(dataFile);
+            System.out.println(jsonObject);
+
+        } catch (IOException ioException) {
+            System.out.println("Error reading input file.");
+        } catch (JSONException jsonException) {
+            System.out.println("Wrong json format.");
+        }
+
+        return classDiagram;
     }
 }

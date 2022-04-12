@@ -34,8 +34,6 @@ public class SceneWelcomeController {
         fileChooser.getExtensionFilters().add( new FileChooser.ExtensionFilter("JSON files", "*.json"));
         File selectedFile = fileChooser.showOpenDialog(stage);
         if (selectedFile != null) {
-            DataParser p = new DataParser();
-            p.parse(selectedFile);
             switchToSceneMain(event, selectedFile.getName());
         }
     }
