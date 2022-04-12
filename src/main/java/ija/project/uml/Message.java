@@ -8,6 +8,9 @@
 
 package ija.project.uml;
 
+/**
+ * Message between participants.
+ */
 public class Message extends Element {
 
     private final String type;

@@ -8,6 +8,9 @@
 
 package ija.project.uml;
 
+/**
+ * Action class for participants.
+ */
 public class Action extends Element {
 
     private final Participant target;

@@ -11,6 +11,9 @@ package ija.project.uml;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Participant of the sequence diagram.
+ */
 public class Participant extends Element {
 
     private final List<Action> actionList = new ArrayList<>();

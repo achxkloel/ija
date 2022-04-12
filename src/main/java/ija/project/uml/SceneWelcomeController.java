@@ -18,6 +18,9 @@ import javafx.stage.Stage;
 
 import java.io.File;
 
+/**
+ * Controller for the welcome scene, which the file select button.
+ */
 public class SceneWelcomeController {
 
     private Stage stage;

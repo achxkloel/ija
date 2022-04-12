@@ -11,6 +11,10 @@ package ija.project.uml;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
+
+/**
+ * Controller for the main scene, which displays diagrams.
+ */
 public class SceneMainController {
 
     @FXML

@@ -11,6 +11,9 @@ package ija.project.uml;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Methods of classes.
+ */
 public class Method extends Attribute {
 
     /**

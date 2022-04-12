@@ -8,5 +8,8 @@
 
 package ija.project.uml;
 
+/**
+ * Sequence diagram.
+ */
 public class SequenceDiagram {
 }

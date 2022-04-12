@@ -8,6 +8,9 @@
 
 package ija.project.uml;
 
+/**
+ * Attribute of the class
+ */
 public class Attribute extends Element {
 
     private final String type;

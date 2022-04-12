@@ -8,6 +8,9 @@
 
 package ija.project.uml;
 
+/**
+ * Relation between classes.
+ */
 public class UMLRelation extends Element {
 
     private final String type;
