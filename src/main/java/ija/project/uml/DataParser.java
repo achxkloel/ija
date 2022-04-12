@@ -3,7 +3,7 @@
  * Authors:     Lukáš Vincenc <xvince01@vut.cz>
  *              Evgeny Torbin <xtorbi00@vut.cz>
  * File:        DataParser.java
- * Description:
+ * Description: Parse JSON data and store them to app datastructures.
  */
 
 package ija.project.uml;
@@ -33,6 +33,12 @@ public class DataParser {
         return new JSONObject(jsonData);
     }
 
+    /**
+     * Parse class diagram
+     *
+     * @param dataFile input file
+     * @return ClassDiagram created class diagram or null.
+     */
     public static ClassDiagram parseClassDiagram (File dataFile) {
         JSONObject jsonObject;
         ClassDiagram classDiagram;
