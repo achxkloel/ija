@@ -30,6 +30,7 @@ public class DataParser {
      */
     public void parse (File dataFile) throws IOException {
         String jsonData = Files.readString(dataFile.toPath());
+        System.out.println(jsonData);
         this.jsonObj = new JSONObject(jsonData);
     }
 }
