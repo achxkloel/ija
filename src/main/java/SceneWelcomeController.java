@@ -1,5 +1,3 @@
-package src;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -27,7 +25,7 @@ public class SceneWelcomeController {
     }
 
     public void switchToSceneMain(ActionEvent event) throws Exception {
-        root = FXMLLoader.load(getClass().getResource("scenes/sceneMain.fxml"));
+        root = FXMLLoader.load(getClass().getResource("/scenes/sceneMain.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
         stage.show();
