@@ -1,12 +1,12 @@
 {
-  "typ": "SequenceDiagram",
-  "nazev": "",
+  "type": "SequenceDiagram",
+  "name": "",
   "participants": [
     {
-      "nazev": "",
-      "akce": [
+      "name": "",
+      "action": [
         {
-          "nazev": "",
+          "name": "",
           "target": ""
         }
       ]
@@ -14,10 +14,11 @@
   ],
   "messages": [
     {
-      "message_typ": "",
+      "name": "",
+      "message_type": "",
       "source": "",
       "target": "",
-      "popis": ""
+      "description": ""
     }
   ]
 }
