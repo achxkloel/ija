@@ -14,7 +14,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-
+/**
+ * Main class, that launches the GUI window
+ */
 public class Main extends Application {
     public static void main(String[] args) {
         launch(args);
