@@ -21,13 +21,17 @@ public class SceneWelcomeController {
         fileChooser.getExtensionFilters().add( new FileChooser.ExtensionFilter("JSON files", "*.json"));
         File selectedFile = fileChooser.showOpenDialog(stage);
         if (selectedFile != null) {
-            System.out.println(selectedFile.getName());
-            switchToSceneMain(event);
+            switchToSceneMain(event, selectedFile.getName());
         }
     }
 
-    public void switchToSceneMain(ActionEvent event) throws Exception {
-        root = FXMLLoader.load(getClass().getResource("/scenes/sceneMain.fxml"));
+    public void switchToSceneMain(ActionEvent event, String fileName) throws Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/scenes/sceneMain.fxml"));
+        root = loader.load();
+
+        SceneMainController sceneMainController = loader.getController();
+        sceneMainController.displayResult(fileName);
+
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
         stage.show();
