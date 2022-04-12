@@ -1,0 +1,23 @@
+{
+  "typ": "SequenceDiagram",
+  "nazev": "",
+  "participants": [
+    {
+      "nazev": "",
+      "akce": [
+        {
+          "nazev": "",
+          "target": ""
+        }
+      ]
+    }
+  ],
+  "messages": [
+    {
+      "message_typ": "",
+      "source": "",
+      "target": "",
+      "popis": ""
+    }
+  ]
+}

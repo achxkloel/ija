@@ -1,0 +1,38 @@
+{
+  "typ": "ClassDiagram",
+  "nazev": "",
+  "classes": [
+    {
+      "nazev": "",
+      "items": [
+        {
+          "item_typ": "Atribut",
+          "nazev": "",
+          "typ": ""
+        },
+        {
+          "item_typ": "Metoda",
+          "nazev": "",
+          "typ": "",
+          "navratovy_typ": "",
+          "parametry": [
+            {
+              "nazev": "",
+              "typ": ""
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "relations": [
+    {
+      "relation_typ": "",
+      "source": "",
+      "target": "",
+      "popis": "",
+      "cardinality_from": "",
+      "cardinality_to": ""
+    }
+  ]
+}
