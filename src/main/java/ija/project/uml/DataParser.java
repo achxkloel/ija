@@ -1,10 +1,17 @@
+/**
+ * Project:     IJA, UML Editor
+ * Authors:     Lukáš Vincenc <xvince01@vut.cz>
+ *              Evgeny Torbin <xtorbi00@vut.cz>
+ * File:        DataParser.java
+ * Description:
+ */
+
 package ija.project.uml;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import javax.management.relation.Relation;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;

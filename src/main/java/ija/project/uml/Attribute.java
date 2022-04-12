@@ -1,3 +1,11 @@
+/**
+ * Project:     IJA, UML Editor
+ * Authors:     Lukáš Vincenc <xvince01@vut.cz>
+ *              Evgeny Torbin <xtorbi00@vut.cz>
+ * File:        Attribute.java
+ * Description: Attribute class
+ */
+
 package ija.project.uml;
 
 public class Attribute extends Element {

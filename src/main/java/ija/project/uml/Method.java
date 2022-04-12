@@ -1,3 +1,11 @@
+/**
+ * Project:     IJA, UML Editor
+ * Authors:     Lukáš Vincenc <xvince01@vut.cz>
+ *              Evgeny Torbin <xtorbi00@vut.cz>
+ * File:        Method.java
+ * Description: Method class
+ */
+
 package ija.project.uml;
 
 import java.util.ArrayList;
