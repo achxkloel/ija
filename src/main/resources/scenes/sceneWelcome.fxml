@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SceneWelcomeController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -38,7 +38,7 @@
       <items>
         <AnchorPane>
                <children>
-                  <Button layoutX="374.0" layoutY="307.0" mnemonicParsing="false" text="Load Class Diagram">
+                  <Button layoutX="374.0" layoutY="307.0" mnemonicParsing="false" onAction="#openFileWindow" text="Load Class Diagram">
                      <font>
                         <Font size="15.0" />
                      </font>
