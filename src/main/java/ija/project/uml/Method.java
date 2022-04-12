@@ -1,4 +1,4 @@
 package ija.project.uml;
 
-public class Relations {
+public class Method {
 }

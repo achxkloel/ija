@@ -1,4 +1,4 @@
 package ija.project.uml;
 
-public class Methods {
+public class Message {
 }

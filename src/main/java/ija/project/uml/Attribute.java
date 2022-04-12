@@ -1,4 +1,4 @@
 package ija.project.uml;
 
-public class Attributes {
+public class Attribute {
 }
