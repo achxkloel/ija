@@ -38,6 +38,7 @@ public class SceneWelcomeController {
         File selectedFile = fileChooser.showOpenDialog(stage);
         if (selectedFile != null) {
             ClassDiagram classDiagram = DataParser.parseClassDiagram(selectedFile);
+
             UMLClass CDClass = classDiagram.findClass("testClass");
             String CDName = "undefined";
             String CDAttribute = "undefined";

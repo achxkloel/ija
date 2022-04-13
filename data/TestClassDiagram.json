@@ -7,18 +7,27 @@
       "items": [
         {
           "item_type": "Attribute",
-          "name": "testAttribute",
+          "name": "testAttribute 1",
           "type": "int"
+        },
+        {
+          "item_type": "Attribute",
+          "name": "testAttribute 2",
+          "type": "string"
         },
         {
           "item_type": "Method",
           "name": "testMethod",
-          "type": "String",
-          "return_type": "Boolean",
+          "type": "string",
+          "return_type": "boolean",
           "params": [
             {
-              "name": "testParam",
+              "name": "testParam 1",
               "type": "int"
+            },
+            {
+              "name": "testParam 2",
+              "type": "string"
             }
           ]
         }
