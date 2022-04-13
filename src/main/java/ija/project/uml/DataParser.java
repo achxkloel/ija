@@ -28,8 +28,6 @@ public class DataParser {
      */
     private static JSONObject parse (File f) throws IOException, JSONException {
         String jsonData = Files.readString(f.toPath());
-        System.out.println(jsonData);
-        System.out.println(new JSONObject(jsonData));
         return new JSONObject(jsonData);
     }
 

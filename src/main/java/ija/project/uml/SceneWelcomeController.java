@@ -46,7 +46,7 @@ public class SceneWelcomeController {
 
             if (CDClass != null) {
                 CDName = CDClass.getName();
-                Attribute attr = CDClass.findAttribute("testAttribute");
+                Attribute attr = CDClass.findAttribute("testAttribute 1");
                 if (attr != null) {
                     CDAttribute = attr.toString();
                 }
