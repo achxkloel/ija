@@ -3,7 +3,7 @@
  * Authors:     Lukáš Vincenc <xvince01@vut.cz>
  *              Evgeny Torbin <xtorbi00@vut.cz>
  * File:        SceneMainController.java
- * Description: Controller for the welcome scene, which the file select button
+ * Description: Controller for the welcome scene, which contains the file select button
  */
 
 package ija.project.uml;
@@ -82,6 +82,8 @@ public class SceneWelcomeController {
 
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
+        stage.setMinWidth(1000);
+        stage.setMinHeight(720);
         stage.show();
     }
 
