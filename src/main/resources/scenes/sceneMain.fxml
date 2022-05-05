@@ -37,14 +37,14 @@
          <items>
             <SplitPane dividerPositions="0.19821826280623608" prefHeight="160.0" prefWidth="200.0">
               <items>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                <AnchorPane SplitPane.resizableWithParent="false">
                      <children>
                         <Label layoutX="41.0" layoutY="278.0" text="Click something..." textFill="#00000080" />
                      </children>
                   </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                      <children>
-                        <MenuBar layoutY="547.0" prefHeight="25.0" prefWidth="717.0">
+                        <MenuBar layoutY="547.0" prefHeight="25.0" prefWidth="717.0" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                           <menus>
                             <Menu mnemonicParsing="false" text="Select">
                               <items>

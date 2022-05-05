@@ -26,6 +26,8 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/scenes/sceneWelcome.fxml"));
         stage.setTitle("IJA Project");
+        stage.setMinWidth(500);
+        stage.setMinHeight(400);
         stage.setScene(new Scene(root));
         stage.show();
     }

@@ -8,6 +8,7 @@
 
 package ija.project.uml;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -84,4 +85,10 @@ public class SceneWelcomeController {
         stage.show();
     }
 
+    /**
+     * A method, that shuts down the application
+     */
+    public void quitApplication() {
+        Platform.exit();
+    }
 }
