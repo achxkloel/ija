@@ -11,6 +11,7 @@ package ija.project.uml;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -104,6 +105,7 @@ public class SceneMainController {
 
             vbox.setOnMousePressed(vboxOnMousePressedEventHandler);
             vbox.setOnMouseDragged(vboxOnMouseDraggedEventHandler);
+            vbox.setOnMouseClicked(vboxOnMouseClickedEventHandler);
 
             mainPane.getChildren().add(vbox);
         }
@@ -146,5 +148,17 @@ public class SceneMainController {
                 ((VBox)(t.getSource())).setTranslateY(newTranslateY);
             }
         };
+
+    EventHandler<MouseEvent> vboxOnMouseClickedEventHandler =
+            new EventHandler<>() {
+                @Override
+                public void handle(MouseEvent t) {
+                    if(t.getButton().equals(MouseButton.PRIMARY)){
+                        if(t.getClickCount() == 2){
+                            System.out.println(((VBox)(t.getSource())).getId().toString());
+                        }
+                    }
+                }
+            };
 
 }
