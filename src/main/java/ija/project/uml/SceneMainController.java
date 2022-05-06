@@ -45,7 +45,7 @@ public class SceneMainController {
         return label;
     }
 
-    private VBox getAttributes(String text) {
+    private VBox getAttributeList(String text) {
         Text attributes = new Text();
         attributes.setText(text);
 
@@ -74,8 +74,8 @@ public class SceneMainController {
 
         vbox.setStyle(cssLayoutVbox);
         vbox.getChildren().add(getLabel("Test label"));
-        vbox.getChildren().add(getAttributes("Test attribute 1\nTest attribute 2"));
-        vbox.getChildren().add(getAttributes("Test method 1\nTest method 2\nTest method 3"));
+        vbox.getChildren().add(getAttributeList("Test attribute 1\nTest attribute 2"));
+        vbox.getChildren().add(getAttributeList("Test method 1\nTest method 2\nTest method 3"));
 
         vbox.setOnMousePressed(vboxOnMousePressedEventHandler);
         vbox.setOnMouseDragged(vboxOnMouseDraggedEventHandler);
