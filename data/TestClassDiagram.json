@@ -75,10 +75,10 @@
     {
       "source": "testClass",
       "target": "testClass 1",
-      "type": "agregation",
-      "description": "Test relation",
-      "cardinalityFrom": "1",
-      "cardinalityTo": "*"
+      "type": "aggregation",
+      "name": "Test relation",
+      "cardinality_from": "1",
+      "cardinality_to": "*"
     }
   ]
 }

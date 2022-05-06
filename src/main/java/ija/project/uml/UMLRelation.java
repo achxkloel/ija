@@ -16,16 +16,14 @@ public class UMLRelation extends Element {
     private final String type;
     private final String source;
     private final String target;
-    private final String description;
     private final String cardinalityFrom;
     private final String cardinalityTo;
 
-    public UMLRelation (String name, String type, String source, String target, String description, String cardinalityFrom, String cardinalityTo) {
+    public UMLRelation (String name, String type, String source, String target, String cardinalityFrom, String cardinalityTo) {
         super(name);
         this.type = type;
         this.source = source;
         this.target = target;
-        this.description = description;
         this.cardinalityFrom = cardinalityFrom;
         this.cardinalityTo = cardinalityTo;
     }
@@ -40,10 +38,6 @@ public class UMLRelation extends Element {
 
     public String getTarget() {
         return target;
-    }
-
-    public String getDescription() {
-        return description;
     }
 
     public String getCardinalityFrom() {

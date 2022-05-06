@@ -110,7 +110,6 @@ public class DataParser {
                 String RType = relation.getString("type");
                 String RSource = relation.getString("source");
                 String RTarget = relation.getString("target");
-                String RDescription = relation.getString("description");
                 String RCardFrom = relation.getString("cardinality_from");
                 String RCardTo = relation.getString("cardinality_to");
                 classDiagram.addRelation(new UMLRelation(
@@ -118,7 +117,6 @@ public class DataParser {
                     RType,
                     RSource,
                     RTarget,
-                    RDescription,
                     RCardFrom,
                     RCardTo
                 ));
