@@ -10,12 +10,18 @@ package ija.project.uml;
 
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 import java.util.List;
 
 
@@ -155,7 +161,31 @@ public class SceneMainController {
                 public void handle(MouseEvent t) {
                     if(t.getButton().equals(MouseButton.PRIMARY)){
                         if(t.getClickCount() == 2){
-                            System.out.println(((VBox)(t.getSource())).getId().toString());
+                            VBox currentVBox = ((VBox)(t.getSource()));
+                            Label currVBoxLabel = (Label)(currentVBox.getChildren().get(0));
+                            UMLClass currClass = classDiagram.findClass(currVBoxLabel.getText());
+//                            System.out.println(currClass.getName());
+
+                            Parent root;
+                            Stage stage = new Stage();
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/scenes/sceneEditUMLClass.fxml"));
+
+                            try {
+                                root = loader.load();
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+
+                            SceneEditUMLClassController sceneEditUMLClassController = loader.getController();
+                            sceneEditUMLClassController.setUMLClass(currClass);
+                            sceneEditUMLClassController.setVBox(currentVBox);
+
+                            Scene scene = new Scene(root);
+                            stage.setTitle("Edit UMLClass");
+                            stage.setMinWidth(300);
+                            stage.setMinHeight(300);
+                            stage.setScene(scene);
+                            stage.show();
                         }
                     }
                 }
