@@ -10,12 +10,11 @@ package ija.project.uml;
 
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 
 
 /**
@@ -34,23 +33,39 @@ public class SceneMainController {
      */
     public void displayResult(String result) {
         final VBox vbox = new VBox();
-        final VBox nestedVbox = new VBox();
+        final VBox nestedVboxAttributes = new VBox();
+        final VBox nestedVboxMethods = new VBox();
 
-        Text testText = new Text();
-        testText.setText("Test attribute");
-        Text testText1 = new Text();
-        testText1.setText("Test attribute 1");
+        Label label = new Label();
+        label.setText("Test label");
+        Text attributes = new Text();
+        attributes.setText("Test attribute 1\nTest attribute 2");
+        Text methods = new Text();
+        methods.setText("Test method 1\nTest method 2\nTest method 3");
 
-        String cssLayout = "-fx-border-color: black;\n" +
+        String cssLabel = "-fx-text-fill: black;\n" +
+                "-fx-padding: 5px";
+
+        String cssLayoutVbox = "-fx-border-color: black;\n" +
                 "-fx-border-width: 2;\n" +
                 "-fx-border-style: solid;\n" +
                 "-fx-background-color: white;\n";
 
-        vbox.setStyle(cssLayout);
-        nestedVbox.setStyle(cssLayout);
-        vbox.getChildren().add(testText);
-        vbox.getChildren().add(nestedVbox);
-        nestedVbox.getChildren().add(testText1);
+        String cssLayoutNestedVbox = "-fx-border-color: black;\n" +
+                "-fx-border-width: 2;\n" +
+                "-fx-border-style: solid none none none;\n" +
+                "-fx-background-color: white;\n" +
+                "-fx-padding: 3px";
+
+        vbox.setStyle(cssLayoutVbox);
+        label.setStyle(cssLabel);
+        nestedVboxAttributes.setStyle(cssLayoutNestedVbox);
+        nestedVboxMethods.setStyle(cssLayoutNestedVbox);
+        vbox.getChildren().add(label);
+        vbox.getChildren().add(nestedVboxAttributes);
+        vbox.getChildren().add(nestedVboxMethods);
+        nestedVboxAttributes.getChildren().add(attributes);
+        nestedVboxMethods.getChildren().add(methods);
 
         vbox.setOnMousePressed(vboxOnMousePressedEventHandler);
         vbox.setOnMouseDragged(vboxOnMouseDraggedEventHandler);
