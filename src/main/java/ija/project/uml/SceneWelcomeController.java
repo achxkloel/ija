@@ -14,7 +14,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -62,7 +61,7 @@ public class SceneWelcomeController {
         root = loader.load();
 
         SceneMainController sceneMainController = loader.getController();
-        sceneMainController.displayResult(classDiagram.getName());
+        sceneMainController.displayResult(classDiagram);
 
         Scene scene = new Scene(root);
         scene.getStylesheets().add(getClass().getResource("/styles/styles.css").toExternalForm());

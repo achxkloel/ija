@@ -56,28 +56,12 @@ public class SceneMainController {
         return vboxAttributes;
     }
 
-    private VBox getMethods(String text) {
-        final VBox vboxMethods = new VBox();
-
-        Text methods = new Text();
-        methods.setText(text);
-        String cssLayoutNestedVbox = "-fx-border-color: black;\n" +
-                "-fx-border-width: 2;\n" +
-                "-fx-border-style: solid none none none;\n" +
-                "-fx-background-color: white;\n" +
-                "-fx-padding: 3px";
-
-        vboxMethods.setStyle(cssLayoutNestedVbox);
-        vboxMethods.getChildren().add(methods);
-
-        return vboxMethods;
-    }
-
     /**
      * method to display a string, that was passed to it
-     * @param result the displayed string
+     * @param classDiagram the displayed diagram
      */
-    public void displayResult(String result) {
+    public void displayResult(ClassDiagram classDiagram) {
+        System.out.println(classDiagram);
         final VBox vbox = new VBox();
         String cssLayoutVbox = "-fx-border-color: black;\n" +
                 "-fx-border-width: 2;\n" +
@@ -87,7 +71,7 @@ public class SceneMainController {
         vbox.setStyle(cssLayoutVbox);
         vbox.getChildren().add(getLabel("Test label"));
         vbox.getChildren().add(getAttributes("Test attribute 1\nTest attribute 2"));
-        vbox.getChildren().add(getMethods("Test method 1\nTest method 2\nTest method 3"));
+        vbox.getChildren().add(getAttributes("Test method 1\nTest method 2\nTest method 3"));
 
         vbox.setOnMousePressed(vboxOnMousePressedEventHandler);
         vbox.setOnMouseDragged(vboxOnMouseDraggedEventHandler);
