@@ -27,6 +27,12 @@ public class SceneMainController {
     double orgSceneX, orgSceneY;
     double orgTranslateX, orgTranslateY;
 
+    ClassDiagram classDiagram;
+
+    public void setClassDiagram (ClassDiagram classDiagram) {
+        this.classDiagram = classDiagram;
+    }
+
     private Label getLabel(String text) {
         Label label = new Label();
         label.setText(text);
