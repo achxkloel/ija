@@ -61,6 +61,7 @@ public class SceneWelcomeController {
         root = loader.load();
 
         SceneMainController sceneMainController = loader.getController();
+        sceneMainController.setClassDiagram(classDiagram);
         sceneMainController.displayResult();
 
         Scene scene = new Scene(root);
