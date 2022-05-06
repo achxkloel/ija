@@ -24,10 +24,9 @@ public class SceneMainController {
 
     @FXML
     Pane mainPane;
+    ClassDiagram classDiagram;
     double orgSceneX, orgSceneY;
     double orgTranslateX, orgTranslateY;
-
-    ClassDiagram classDiagram;
 
     public void setClassDiagram (ClassDiagram classDiagram) {
         this.classDiagram = classDiagram;
@@ -62,10 +61,7 @@ public class SceneMainController {
         return vboxAttributes;
     }
 
-    /**
-     * method to display a string, that was passed to it
-     */
-    public void displayResult() {
+    private void displayVbox (UMLClass umlClass) {
         final VBox vbox = new VBox();
         String cssLayoutVbox = "-fx-border-color: black;\n" +
                 "-fx-border-width: 2;\n" +
@@ -73,14 +69,21 @@ public class SceneMainController {
                 "-fx-background-color: white;\n";
 
         vbox.setStyle(cssLayoutVbox);
-        vbox.getChildren().add(getLabel("Test label"));
-        vbox.getChildren().add(getAttributeList("Test attribute 1\nTest attribute 2"));
-        vbox.getChildren().add(getAttributeList("Test method 1\nTest method 2\nTest method 3"));
+        vbox.getChildren().add(getLabel(umlClass.getName()));
+        vbox.getChildren().add(getAttributeList(umlClass.getAttributesString()));
+        vbox.getChildren().add(getAttributeList(umlClass.getMethodsString()));
 
         vbox.setOnMousePressed(vboxOnMousePressedEventHandler);
         vbox.setOnMouseDragged(vboxOnMouseDraggedEventHandler);
 
         mainPane.getChildren().add(vbox);
+    }
+
+    /**
+     * method to display a string, that was passed to it
+     */
+    public void displayResult() {
+        classDiagram.getClassList().forEach(this::displayVbox);
     }
 
     EventHandler<MouseEvent> vboxOnMousePressedEventHandler =

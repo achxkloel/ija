@@ -78,4 +78,24 @@ public class UMLClass extends Element {
                 findFirst().
                 orElse(null);
     }
+
+    public String getAttributesString () {
+        StringBuilder attributesString = new StringBuilder();
+        attributeList.forEach((attribute) -> {
+            attributesString.append(attribute.getName());
+            attributesString.append("\n");
+        });
+        attributesString.deleteCharAt(attributesString.length() - 1);
+        return attributesString.toString();
+    }
+
+    public String getMethodsString () {
+        StringBuilder methodsString = new StringBuilder();
+        methodList.forEach((method) -> {
+            methodsString.append(method.getName());
+            methodsString.append("\n");
+        });
+        methodsString.deleteCharAt(methodsString.length() - 1);
+        return methodsString.toString();
+    }
 }

@@ -64,4 +64,8 @@ public class ClassDiagram extends Element {
                 findFirst().
                 orElse(null);
     }
+
+    public List<UMLClass> getClassList () {
+        return classList;
+    }
 }
