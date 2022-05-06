@@ -29,8 +29,8 @@ public class Method extends Attribute {
      * Creates new method
      * @param name name of method
      */
-    public Method (String name, String type, String returnType) {
-        super(name, type);
+    public Method (String name, String type, String returnType, String visibility) {
+        super(name, type, visibility);
         this.returnType = returnType;
     }
 
@@ -53,8 +53,28 @@ public class Method extends Attribute {
 
     @Override
     public String toString () {
-        return  "name: " + this.getName() +
-                ", type: " + this.returnType + "\n\t" +
-                "params:\n\t\t" + this.attributeList.get(0).toString();
+        StringBuilder methodSb = new StringBuilder();
+        methodSb
+            .append(this.getVisibilityChar())
+            .append(" ")
+            .append(this.name)
+            .append(" (");
+
+        for (int i = 0; i < this.attributeList.size(); i++) {
+            methodSb
+                .append(this.name)
+                .append(" : ")
+                .append(this.type);
+
+            if (i + 1 != this.attributeList.size()) {
+                methodSb.append(", ");
+            }
+        }
+
+        methodSb
+            .append(") : ")
+            .append(this.returnType);
+
+        return methodSb.toString();
     }
 }

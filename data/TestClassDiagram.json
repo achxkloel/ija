@@ -7,16 +7,53 @@
       "items": [
         {
           "item_type": "Attribute",
+          "visibility": "private",
           "name": "testAttribute 1",
           "type": "int"
         },
         {
           "item_type": "Attribute",
+          "visibility": "private",
           "name": "testAttribute 2",
           "type": "string"
         },
         {
           "item_type": "Method",
+          "visibility": "private",
+          "name": "testMethod",
+          "type": "string",
+          "return_type": "boolean",
+          "params": [
+            {
+              "name": "testParam 1",
+              "type": "int"
+            },
+            {
+              "name": "testParam 2",
+              "type": "string"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "testClass 1",
+      "items": [
+        {
+          "item_type": "Attribute",
+          "visibility": "private",
+          "name": "testAttribute 1",
+          "type": "int"
+        },
+        {
+          "item_type": "Attribute",
+          "visibility": "private",
+          "name": "testAttribute 2",
+          "type": "string"
+        },
+        {
+          "item_type": "Method",
+          "visibility": "private",
           "name": "testMethod",
           "type": "string",
           "return_type": "boolean",

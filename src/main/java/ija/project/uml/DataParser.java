@@ -73,14 +73,16 @@ public class DataParser {
                     String itemType = item.getString("item_type");
 
                     if (Objects.equals(itemType, "Attribute")) {
+                        String AVisibility = item.getString("visibility");
                         String AName = item.getString("name");
                         String AType = item.getString("type");
-                        umlClass.addAttribute(new Attribute(AName, AType));
+                        umlClass.addAttribute(new Attribute(AName, AType, AVisibility));
                     } else if (Objects.equals(itemType, "Method")) {
+                        String MVisibility = item.getString("visibility");
                         String MName = item.getString("name");
                         String MType = item.getString("type");
                         String MReturnType = item.getString("return_type");
-                        Method classMethod = new Method(MName, MType, MReturnType);
+                        Method classMethod = new Method(MName, MType, MReturnType, MVisibility);
                         JSONArray methodParams = item.getJSONArray("params");
 
                         // Add method parameters

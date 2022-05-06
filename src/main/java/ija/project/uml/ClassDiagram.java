@@ -9,6 +9,7 @@
 package ija.project.uml;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -63,5 +64,9 @@ public class ClassDiagram extends Element {
                 filter(U -> U.getName().equals(UMLClassName)).
                 findFirst().
                 orElse(null);
+    }
+
+    public List<UMLClass> getClassList () {
+        return Collections.unmodifiableList(this.classList);
     }
 }

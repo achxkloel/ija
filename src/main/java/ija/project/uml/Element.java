@@ -16,7 +16,7 @@ public class Element {
     /**
      * Name of element.
      */
-    private String name;
+    protected String name;
 
     /**
      * Create new element.

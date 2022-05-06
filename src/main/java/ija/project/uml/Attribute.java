@@ -13,12 +13,20 @@ package ija.project.uml;
  */
 public class Attribute extends Element {
 
-    private final String type;
+    protected final String type;
+
+    private String visibility = "";
 
     /**
      * Creates new attribute
      * @param name name of attribute
      */
+    public Attribute (String name, String type, String visibility) {
+        super(name);
+        this.type = type;
+        this.visibility = visibility;
+    }
+
     public Attribute (String name, String type) {
         super(name);
         this.type = type;
@@ -28,9 +36,23 @@ public class Attribute extends Element {
         return type;
     }
 
+    protected String getVisibilityChar () {
+        switch (this.visibility) {
+            case "public":
+                return "+";
+            case "protected":
+                return "#";
+            case "private":
+                return "-";
+            case "package private":
+                return "~";
+            default:
+                return "?";
+        }
+    }
 
     @Override
     public String toString () {
-        return "name: " + this.getName() + ", type: " + this.type;
+        return this.getVisibilityChar() + " " + this.name + " : " + this.type;
     }
 }

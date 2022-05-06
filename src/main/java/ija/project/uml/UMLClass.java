@@ -9,6 +9,7 @@
 package ija.project.uml;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -77,5 +78,13 @@ public class UMLClass extends Element {
                 filter(U -> U.getName().equals(methodName)).
                 findFirst().
                 orElse(null);
+    }
+
+    public List<Attribute> getAttributeList () {
+        return Collections.unmodifiableList(this.attributeList);
+    }
+
+    public List<Method> getMethodList () {
+        return Collections.unmodifiableList(this.methodList);
     }
 }

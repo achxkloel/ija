@@ -16,6 +16,10 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
+import javax.naming.directory.AttributeInUseException;
+import java.util.List;
+import java.util.Locale;
+
 
 /**
  * Controller for the main scene, which displays diagrams.
@@ -45,12 +49,14 @@ public class SceneMainController {
         return label;
     }
 
-    private VBox getAttributeList(String text) {
-        Text attributes = new Text();
-        attributes.setText(text);
-
+    private VBox getAttributeList(List<Attribute> attributeList) {
         final VBox vboxAttributes = new VBox();
-        vboxAttributes.getChildren().add(attributes);
+
+        for (Attribute currentAttribute : attributeList) {
+            Text attribute = new Text();
+            attribute.setText(currentAttribute.toString());
+            vboxAttributes.getChildren().add(attribute);
+        }
 
         String cssLayoutNestedVbox = "-fx-border-color: black;\n" +
                 "-fx-border-width: 2;\n" +
@@ -58,29 +64,56 @@ public class SceneMainController {
                 "-fx-background-color: white;\n" +
                 "-fx-padding: 3px";
         vboxAttributes.setStyle(cssLayoutNestedVbox);
-
         return vboxAttributes;
+    }
+
+    private VBox getMethodList(List<Method> methodList) {
+        final VBox vboxMethods = new VBox();
+
+        for (Method currentMethod : methodList) {
+            Text methods = new Text();
+            methods.setText(currentMethod.toString());
+            vboxMethods.getChildren().add(methods);
+        }
+
+        String cssLayoutNestedVbox = "-fx-border-color: black;\n" +
+                "-fx-border-width: 2;\n" +
+                "-fx-border-style: solid none none none;\n" +
+                "-fx-background-color: white;\n" +
+                "-fx-padding: 3px";
+        vboxMethods.setStyle(cssLayoutNestedVbox);
+
+        return vboxMethods;
     }
 
     /**
      * method to display a string, that was passed to it
      */
     public void displayResult() {
-        final VBox vbox = new VBox();
-        String cssLayoutVbox = "-fx-border-color: black;\n" +
-                "-fx-border-width: 2;\n" +
-                "-fx-border-style: solid;\n" +
-                "-fx-background-color: white;\n";
+        List<UMLClass> classList = this.classDiagram.getClassList();
 
-        vbox.setStyle(cssLayoutVbox);
-        vbox.getChildren().add(getLabel("Test label"));
-        vbox.getChildren().add(getAttributeList("Test attribute 1\nTest attribute 2"));
-        vbox.getChildren().add(getAttributeList("Test method 1\nTest method 2\nTest method 3"));
+        for (UMLClass currentClass : classList) {
+            final VBox vbox = new VBox();
+            String cssLayoutVbox = "-fx-border-color: black;\n" +
+                    "-fx-border-width: 2;\n" +
+                    "-fx-border-style: solid;\n" +
+                    "-fx-background-color: white;\n";
 
-        vbox.setOnMousePressed(vboxOnMousePressedEventHandler);
-        vbox.setOnMouseDragged(vboxOnMouseDraggedEventHandler);
+            vbox.setId(this.generateClassId(currentClass.getName()));
+            vbox.setStyle(cssLayoutVbox);
+            vbox.getChildren().add(getLabel(currentClass.getName()));
+            vbox.getChildren().add(getAttributeList(currentClass.getAttributeList()));
+            vbox.getChildren().add(getMethodList(currentClass.getMethodList()));
 
-        mainPane.getChildren().add(vbox);
+            vbox.setOnMousePressed(vboxOnMousePressedEventHandler);
+            vbox.setOnMouseDragged(vboxOnMouseDraggedEventHandler);
+
+            mainPane.getChildren().add(vbox);
+        }
+    }
+
+    private String generateClassId(String className) {
+        return className.replaceAll("\\s+", "_").toLowerCase();
     }
 
     EventHandler<MouseEvent> vboxOnMousePressedEventHandler =
