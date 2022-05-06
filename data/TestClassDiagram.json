@@ -71,5 +71,14 @@
       ]
     }
   ],
-  "relations": []
+  "relations": [
+    {
+      "source": "testClass",
+      "target": "testClass 1",
+      "type": "agregation",
+      "description": "Test relation",
+      "cardinalityFrom": "1",
+      "cardinalityTo": "*"
+    }
+  ]
 }
