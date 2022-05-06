@@ -89,7 +89,7 @@ public class SceneMainController {
     /**
      * method to display a string, that was passed to it
      */
-    public void displayResult() {
+    public void displayVbox() {
         List<UMLClass> classList = this.classDiagram.getClassList();
 
         for (UMLClass currentClass : classList) {
