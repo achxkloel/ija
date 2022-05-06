@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
@@ -33,33 +31,20 @@
                 </Menu>
             </menus>
         </MenuBar>
-        <SplitPane focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
-         <items>
-            <SplitPane dividerPositions="0.20044543429844097" prefHeight="160.0" prefWidth="200.0">
-              <items>
-                <AnchorPane SplitPane.resizableWithParent="false">
-                     <children>
-                        <Label layoutX="41.0" layoutY="278.0" text="Click something..." textFill="#00000080" />
-                     </children>
-                  </AnchorPane>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-                     <children>
-                        <Pane fx:id="mainPane" layoutX="-1.0" layoutY="-1.0" prefHeight="573.0" prefWidth="715.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                        <MenuBar layoutY="540.0" prefHeight="25.0" prefWidth="717.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-                          <menus>
-                            <Menu mnemonicParsing="false" text="Select">
-                              <items>
-                                <MenuItem mnemonicParsing="false" text="Class Diagram" />
-                                    <MenuItem mnemonicParsing="false" text="Sequence Diagram" />
-                              </items>
-                            </Menu>
-                          </menus>
-                        </MenuBar>
-                     </children>
-                  </AnchorPane>
-              </items>
-            </SplitPane>
-         </items>
-        </SplitPane>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="577.0" prefWidth="900.0">
+         <children>
+            <Pane fx:id="mainPane" layoutX="-1.0" layoutY="-1.0" prefHeight="573.0" prefWidth="715.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+         </children>
+      </AnchorPane>
+      <MenuBar prefHeight="25.0" prefWidth="717.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="Select">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Class Diagram" />
+                  <MenuItem mnemonicParsing="false" text="Sequence Diagram" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
     </children>
 </VBox>
