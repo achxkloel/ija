@@ -22,7 +22,7 @@ import javafx.scene.text.Text;
 public class SceneMainController {
 
     @FXML
-    Pane mainCanvas;
+    Pane mainPane;
     double orgSceneX, orgSceneY;
     double orgTranslateX, orgTranslateY;
     double originalX, originalY;
@@ -42,8 +42,8 @@ public class SceneMainController {
         circle.setOnMousePressed(circleOnMousePressedEventHandler);
         circle.setOnMouseDragged(circleOnMouseDraggedEventHandler);
 
-        mainCanvas.getChildren().add(text);
-        mainCanvas.getChildren().add(circle);
+        mainPane.getChildren().add(text);
+        mainPane.getChildren().add(circle);
     }
 
     EventHandler<MouseEvent> circleOnMousePressedEventHandler =
@@ -69,8 +69,8 @@ public class SceneMainController {
                     double newTranslateY = orgTranslateY + t.getSceneY() - orgSceneY;
                     double originalX = ((Circle)(t.getSource())).getCenterX();
                     double originalY = ((Circle)(t.getSource())).getCenterY();
-                    double paneX = mainCanvas.getWidth();
-                    double paneY = mainCanvas.getHeight();
+                    double paneX = mainPane.getWidth();
+                    double paneY = mainPane.getHeight();
 
                     if (originalX + newTranslateX < 0) newTranslateX = -originalX;
                     if (originalX + newTranslateX > paneX) newTranslateX = paneX - originalX;
