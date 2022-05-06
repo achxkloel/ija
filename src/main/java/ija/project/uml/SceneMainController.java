@@ -22,9 +22,10 @@ import javafx.scene.text.Text;
 public class SceneMainController {
 
     @FXML
-    Pane mainCanvas;
+    Pane mainPane;
     double orgSceneX, orgSceneY;
     double orgTranslateX, orgTranslateY;
+    double originalX, originalY;
 
     /**
      * method to display a string, that was passed to it
@@ -41,8 +42,8 @@ public class SceneMainController {
         circle.setOnMousePressed(circleOnMousePressedEventHandler);
         circle.setOnMouseDragged(circleOnMouseDraggedEventHandler);
 
-        mainCanvas.getChildren().add(text);
-        mainCanvas.getChildren().add(circle);
+        mainPane.getChildren().add(text);
+        mainPane.getChildren().add(circle);
     }
 
     EventHandler<MouseEvent> circleOnMousePressedEventHandler =
@@ -54,6 +55,8 @@ public class SceneMainController {
                     orgSceneY = t.getSceneY();
                     orgTranslateX = ((Circle)(t.getSource())).getTranslateX();
                     orgTranslateY = ((Circle)(t.getSource())).getTranslateY();
+                    originalX = t.getScreenX();
+                    originalY = t.getScreenY();
                 }
             };
 
@@ -62,10 +65,17 @@ public class SceneMainController {
 
                 @Override
                 public void handle(MouseEvent t) {
-                    double offsetX = t.getSceneX() - orgSceneX;
-                    double offsetY = t.getSceneY() - orgSceneY;
-                    double newTranslateX = orgTranslateX + offsetX;
-                    double newTranslateY = orgTranslateY + offsetY;
+                    double newTranslateX = orgTranslateX + t.getSceneX() - orgSceneX;
+                    double newTranslateY = orgTranslateY + t.getSceneY() - orgSceneY;
+                    double originalX = ((Circle)(t.getSource())).getCenterX();
+                    double originalY = ((Circle)(t.getSource())).getCenterY();
+                    double paneX = mainPane.getWidth();
+                    double paneY = mainPane.getHeight();
+
+                    if (originalX + newTranslateX < 0) newTranslateX = -originalX;
+                    if (originalX + newTranslateX > paneX) newTranslateX = paneX - originalX;
+                    if (originalY + newTranslateY < 0) newTranslateY = -originalY;
+                    if (originalY + newTranslateY > paneY) newTranslateY = paneY - originalY;
 
                     ((Circle)(t.getSource())).setTranslateX(newTranslateX);
                     ((Circle)(t.getSource())).setTranslateY(newTranslateY);
