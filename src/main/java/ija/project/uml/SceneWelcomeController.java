@@ -38,35 +38,18 @@ public class SceneWelcomeController {
         fileChooser.setTitle("Open Class Diagram File");
         fileChooser.getExtensionFilters().add( new FileChooser.ExtensionFilter("JSON files", "*.json"));
         File selectedFile = fileChooser.showOpenDialog(stage);
-        if (selectedFile != null) {
-            ClassDiagram classDiagram = DataParser.parseClassDiagram(selectedFile);
 
-            UMLClass CDClass = classDiagram.findClass("testClass");
-            String CDName = "undefined";
-            String CDAttribute = "undefined";
-            String CDMethod = "undefined";
-
-            if (CDClass != null) {
-                CDName = CDClass.getName();
-                Attribute attr = CDClass.findAttribute("testAttribute 1");
-                if (attr != null) {
-                    CDAttribute = attr.toString();
-                }
-                Method method = CDClass.findMethod("testMethod");
-                if (method != null) {
-                    CDMethod = method.toString();
-                }
-            }
-
-            String output = "testClassDiagram\n" +
-                            "Class:\n" +
-                            "\tname: " + CDName + "\n" +
-                            "Attribute:\n\t" + CDAttribute + "\n" +
-                            "Method:\n\t" + CDMethod;
-
-//            switchToSceneMain(event, selectedFile.getName());
-            switchToSceneMain(event, output);
+        if (selectedFile == null) {
+            return;
         }
+
+        ClassDiagram classDiagram = DataParser.parseClassDiagram(selectedFile);
+
+        if (classDiagram == null) {
+            return;
+        }
+
+        switchToSceneMain(event, classDiagram);
     }
 
     /**
@@ -74,12 +57,12 @@ public class SceneWelcomeController {
      * @param event is used for stage
      * @throws Exception
      */
-    public void switchToSceneMain(ActionEvent event, String fileName) throws Exception {
+    public void switchToSceneMain(ActionEvent event, ClassDiagram classDiagram) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/scenes/sceneMain.fxml"));
         root = loader.load();
 
         SceneMainController sceneMainController = loader.getController();
-        sceneMainController.displayResult(fileName);
+        sceneMainController.displayResult(classDiagram.getName());
 
         Scene scene = new Scene(root);
         scene.getStylesheets().add(getClass().getResource("/styles/styles.css").toExternalForm());
