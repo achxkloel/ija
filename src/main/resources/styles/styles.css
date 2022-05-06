@@ -1,0 +1,41 @@
+.root {
+    -fx-background-color: #4d494d;
+    -fx-font-family: SansSerif;
+}
+
+.menu-bar {
+    -fx-background-color: #3e383e;
+}
+
+.label {
+    -fx-text-fill: #ece3e3;
+}
+
+.menu:hover {
+    -fx-background-color: grey;
+    -fx-cursor: hand;
+}
+
+.menu-item:hover {
+    -fx-background-color: #3e383e;
+    -fx-cursor: hand;
+}
+
+.context-menu {
+    -fx-background-color: #1c1a1a;
+}
+
+.button {
+    -fx-background-color: #2b2a2b;
+    -fx-text-fill: white;
+    -fx-padding: 15px 20px;
+    -fx-cursor: hand;
+}
+
+.split-pane {
+    -fx-background-color: #4d494d;
+}
+
+.split-pane:horizontal > .split-pane-divider {
+    -fx-background-color: grey;
+}
