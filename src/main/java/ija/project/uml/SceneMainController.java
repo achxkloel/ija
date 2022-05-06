@@ -15,10 +15,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-
-import javax.naming.directory.AttributeInUseException;
 import java.util.List;
-import java.util.Locale;
 
 
 /**
