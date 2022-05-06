@@ -3,11 +3,12 @@
  * Authors:     Lukáš Vincenc <xvince01@vut.cz>
  *              Evgeny Torbin <xtorbi00@vut.cz>
  * File:        SceneMainController.java
- * Description: Controller for the welcome scene, which the file select button
+ * Description: Controller for the welcome scene, which contains the file select button
  */
 
 package ija.project.uml;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -81,7 +82,15 @@ public class SceneWelcomeController {
 
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
+        stage.setMinWidth(1000);
+        stage.setMinHeight(720);
         stage.show();
     }
 
+    /**
+     * A method, that shuts down the application
+     */
+    public void quitApplication() {
+        Platform.exit();
+    }
 }
