@@ -5,11 +5,12 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="600.0" prefWidth="900.0" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ija.project.uml.SceneMainController">
-    <children>
-        <MenuBar VBox.vgrow="NEVER">
+
+<AnchorPane prefHeight="547.0" prefWidth="699.0" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ija.project.uml.SceneMainController">
+   <children>
+      <Pane fx:id="mainPane" layoutY="25.0" prefHeight="176.0" prefWidth="778.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0" />
+        <MenuBar AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <menus>
                 <Menu mnemonicParsing="false" text="File">
                     <items>
@@ -18,6 +19,12 @@
                         <MenuItem mnemonicParsing="false" text="Quit" />
                     </items>
                 </Menu>
+          <Menu mnemonicParsing="false" text="Select">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Class Diagram" />
+                  <MenuItem mnemonicParsing="false" text="Sequence Diagram" />
+            </items>
+          </Menu>
                 <Menu mnemonicParsing="false" text="Edit">
                     <items>
                         <MenuItem mnemonicParsing="false" text="Undo" />
@@ -31,20 +38,5 @@
                 </Menu>
             </menus>
         </MenuBar>
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="577.0" prefWidth="900.0">
-         <children>
-            <Pane fx:id="mainPane" layoutX="-1.0" layoutY="-1.0" prefHeight="573.0" prefWidth="715.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-         </children>
-      </AnchorPane>
-      <MenuBar prefHeight="25.0" prefWidth="717.0">
-        <menus>
-          <Menu mnemonicParsing="false" text="Select">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Class Diagram" />
-                  <MenuItem mnemonicParsing="false" text="Sequence Diagram" />
-            </items>
-          </Menu>
-        </menus>
-      </MenuBar>
-    </children>
-</VBox>
+   </children>
+</AnchorPane>
