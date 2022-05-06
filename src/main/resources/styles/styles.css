@@ -39,3 +39,7 @@
 .split-pane:horizontal > .split-pane-divider {
     -fx-background-color: grey;
 }
+
+.sub-scene {
+    -fx-background-color: white;
+}
