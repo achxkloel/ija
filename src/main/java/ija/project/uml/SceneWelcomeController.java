@@ -61,7 +61,7 @@ public class SceneWelcomeController {
         root = loader.load();
 
         SceneMainController sceneMainController = loader.getController();
-        sceneMainController.displayResult(classDiagram);
+        sceneMainController.displayResult();
 
         Scene scene = new Scene(root);
         scene.getStylesheets().add(getClass().getResource("/styles/styles.css").toExternalForm());

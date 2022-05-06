@@ -64,10 +64,8 @@ public class SceneMainController {
 
     /**
      * method to display a string, that was passed to it
-     * @param classDiagram the displayed diagram
      */
-    public void displayResult(ClassDiagram classDiagram) {
-        System.out.println(classDiagram);
+    public void displayResult() {
         final VBox vbox = new VBox();
         String cssLayoutVbox = "-fx-border-color: black;\n" +
                 "-fx-border-width: 2;\n" +
