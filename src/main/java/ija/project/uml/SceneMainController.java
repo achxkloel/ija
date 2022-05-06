@@ -119,9 +119,9 @@ public class SceneMainController {
             vbox.setOnMouseDragged(vboxOnMouseDraggedEventHandler);
             vbox.setOnMouseClicked(vboxOnMouseClickedEventHandler);
 
-            classVboxList.add(vbox);
+            vbox.toFront();
 
-            mainPane.getChildren().add(vbox);
+            classVboxList.add(vbox);
         }
 
         List<UMLRelation> relationList = this.classDiagram.getRelationList();
@@ -142,6 +142,9 @@ public class SceneMainController {
 
             mainPane.getChildren().add(line);
         }
+
+        for (VBox vbox : this.classVboxList)
+            mainPane.getChildren().add(vbox);
     }
 
     private String generateClassId(String className) {
@@ -177,7 +180,6 @@ public class SceneMainController {
                 if (originalY + newTranslateY < 0) newTranslateY = -originalY;
                 if (originalY + newTranslateY > paneY) newTranslateY = paneY - originalY;
 
-                mainPane.getChildren().remove(line);
                 List<UMLRelation> relationList = classDiagram.getRelationList();
 
                 for (UMLRelation currentRelation : relationList) {
@@ -188,10 +190,9 @@ public class SceneMainController {
                     line.setStartY(source.getLayoutY() + source.getHeight()/2 + source.getTranslateY());
                     line.setEndX(target.getLayoutX() + target.getWidth()/2 + target.getTranslateX());
                     line.setEndY(target.getLayoutY() + target.getHeight()/2 + target.getTranslateY());
-                    line.toBack();
-
-                    mainPane.getChildren().add(line);
                 }
+
+                ((VBox)(t.getSource())).toFront();
 
                 ((VBox)(t.getSource())).setTranslateX(newTranslateX);
                 ((VBox)(t.getSource())).setTranslateY(newTranslateY);
