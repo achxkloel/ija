@@ -1,3 +1,5 @@
+/* Main styles */
+
 .root {
     -fx-background-color: #4d494d;
     -fx-font-family: SansSerif;
@@ -42,4 +44,13 @@
 
 .sub-scene {
     -fx-background-color: white;
+}
+
+/* Class container styles */
+
+.vbox {
+    -fx-border-color: white;
+    -fx-border-insets: 5;
+    -fx-border-width: 3;
+    -fx-border-style: solid;
 }
