@@ -80,8 +80,11 @@ public class SceneWelcomeController {
         SceneMainController sceneMainController = loader.getController();
         sceneMainController.displayResult(fileName);
 
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource("/styles/styles.css").toExternalForm());
+
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root));
+        stage.setScene(scene);
         stage.setMinWidth(1000);
         stage.setMinHeight(720);
         stage.show();

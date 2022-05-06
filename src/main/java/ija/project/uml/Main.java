@@ -25,10 +25,14 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/scenes/sceneWelcome.fxml"));
+
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource("/styles/styles.css").toExternalForm());
+
         stage.setTitle("IJA Project");
         stage.setMinWidth(500);
         stage.setMinHeight(400);
-        stage.setScene(new Scene(root));
+        stage.setScene(scene);
         stage.show();
     }
 }
