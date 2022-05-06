@@ -2,7 +2,7 @@
  * Project:     IJA, UML Editor
  * Authors:     Lukáš Vincenc <xvince01@vut.cz>
  *              Evgeny Torbin <xtorbi00@vut.cz>
- * File:        SceneMainController.java
+ * File:        SceneWelcomeController.java
  * Description: Controller for the welcome scene, which contains the file select button
  */
 

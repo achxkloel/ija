@@ -69,4 +69,8 @@ public class ClassDiagram extends Element {
     public List<UMLClass> getClassList () {
         return Collections.unmodifiableList(this.classList);
     }
+
+    public List<UMLRelation> getRelationList() {
+        return relationList;
+    }
 }

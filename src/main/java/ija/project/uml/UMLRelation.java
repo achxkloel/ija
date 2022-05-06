@@ -8,6 +8,8 @@
 
 package ija.project.uml;
 
+import javafx.scene.layout.VBox;
+
 /**
  * Relation between classes.
  */
@@ -18,6 +20,8 @@ public class UMLRelation extends Element {
     private final String target;
     private final String cardinalityFrom;
     private final String cardinalityTo;
+    private VBox vboxFrom;
+    private VBox vboxTo;
 
     public UMLRelation (String name, String type, String source, String target, String cardinalityFrom, String cardinalityTo) {
         super(name);
@@ -46,5 +50,21 @@ public class UMLRelation extends Element {
 
     public String getCardinalityTo() {
         return cardinalityTo;
+    }
+
+    public VBox getVboxFrom() {
+        return vboxFrom;
+    }
+
+    public VBox getVboxTo() {
+        return vboxTo;
+    }
+
+    public void setVboxFrom(VBox vboxFrom) {
+        this.vboxFrom = vboxFrom;
+    }
+
+    public void setVboxTo(VBox vboxTo) {
+        this.vboxTo = vboxTo;
     }
 }

@@ -11,6 +11,7 @@ package ija.project.uml;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -18,11 +19,15 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 /**
@@ -31,11 +36,13 @@ import java.util.List;
 public class SceneMainController {
 
     @FXML
-    Pane mainPane;
-    double orgSceneX, orgSceneY;
-    double orgTranslateX, orgTranslateY;
+    private Pane mainPane;
+    private double orgSceneX, orgSceneY;
+    private double orgTranslateX, orgTranslateY;
 
-    ClassDiagram classDiagram;
+    private ClassDiagram classDiagram;
+    private final List<VBox> classVboxList = new ArrayList<>();
+    Line line;
 
     public void setClassDiagram (ClassDiagram classDiagram) {
         this.classDiagram = classDiagram;
@@ -113,7 +120,28 @@ public class SceneMainController {
             vbox.setOnMouseDragged(vboxOnMouseDraggedEventHandler);
             vbox.setOnMouseClicked(vboxOnMouseClickedEventHandler);
 
+            classVboxList.add(vbox);
+
             mainPane.getChildren().add(vbox);
+        }
+
+        List<UMLRelation> relationList = this.classDiagram.getRelationList();
+
+        for (UMLRelation currentRelation : relationList) {
+            for (VBox vbox : this.classVboxList) {
+                if (Objects.equals(vbox.getId(), generateClassId(currentRelation.getSource())))
+                    currentRelation.setVboxFrom(vbox);
+                if (Objects.equals(vbox.getId(), generateClassId(currentRelation.getTarget())))
+                    currentRelation.setVboxTo(vbox);
+            }
+
+            line = new Line();
+            line.setStartX(currentRelation.getVboxFrom().getLayoutX());
+            line.setStartY(currentRelation.getVboxFrom().getLayoutY());
+            line.setEndX(currentRelation.getVboxTo().getLayoutX());
+            line.setEndY(currentRelation.getVboxTo().getLayoutY());
+
+            mainPane.getChildren().add(line);
         }
     }
 
@@ -149,6 +177,22 @@ public class SceneMainController {
                 if (originalX + newTranslateX > paneX) newTranslateX = paneX - originalX;
                 if (originalY + newTranslateY < 0) newTranslateY = -originalY;
                 if (originalY + newTranslateY > paneY) newTranslateY = paneY - originalY;
+
+                mainPane.getChildren().remove(line);
+                List<UMLRelation> relationList = classDiagram.getRelationList();
+
+                for (UMLRelation currentRelation : relationList) {
+                    VBox source = currentRelation.getVboxFrom();
+                    VBox target = currentRelation.getVboxTo();
+
+                    line.setStartX(source.getLayoutX() + source.getWidth()/2 + source.getTranslateX());
+                    line.setStartY(source.getLayoutY() + source.getHeight()/2 + source.getTranslateY());
+                    line.setEndX(target.getLayoutX() + target.getWidth()/2 + target.getTranslateX());
+                    line.setEndY(target.getLayoutY() + target.getHeight()/2 + target.getTranslateY());
+                    line.toBack();
+
+                    mainPane.getChildren().add(line);
+                }
 
                 ((VBox)(t.getSource())).setTranslateX(newTranslateX);
                 ((VBox)(t.getSource())).setTranslateY(newTranslateY);
