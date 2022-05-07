@@ -56,7 +56,7 @@ public class SceneEditUMLClassController {
         deleteButton.setOnAction(event -> {
             for (UMLRelation relation : parentDiagram.getRelationList()) {
                 if (relation.getSource().equals(editedClass.getName()) ||
-                        relation.getTarget().equals(editedClass.getName())) {
+                    relation.getTarget().equals(editedClass.getName())) {
                     parentDiagram.removeRelation(relation);
                 }
             }
