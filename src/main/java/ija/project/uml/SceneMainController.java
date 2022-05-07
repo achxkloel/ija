@@ -170,6 +170,7 @@ public class SceneMainController {
         sceneEditUMLClassController.setUMLClass(currClass);
 
         Scene scene = new Scene(root);
+        stage.setResizable(false);
         stage.setTitle("Edit UMLClass");
         stage.setMinWidth(300);
         stage.setMinHeight(300);
@@ -192,6 +193,7 @@ public class SceneMainController {
         sceneAddAttributeController.setUMLClass(currClass);
 
         Scene scene = new Scene(root);
+        stage.setResizable(false);
         stage.setTitle("Add class attribute");
         stage.setMinWidth(300);
         stage.setMinHeight(300);
@@ -214,6 +216,7 @@ public class SceneMainController {
         sceneEditAttributeController.setAttribute(attr);
 
         Scene scene = new Scene(root);
+        stage.setResizable(false);
         stage.setTitle("Edit attribute");
         stage.setMinWidth(300);
         stage.setMinHeight(300);
