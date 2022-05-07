@@ -9,14 +9,13 @@
 package ija.project.uml;
 
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+import java.util.Objects;
 
 /**
  * Controller for the editUMLClass scene.
@@ -59,12 +58,14 @@ public class SceneEditUMLClassController {
             }
         });
 
-        deleteButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                parentDiagram.removeClass(editedClass);
-                closeWindow(event);
-            }
+        deleteButton.setOnAction(event -> {
+            for (UMLRelation relation : parentDiagram.getRelationList())
+                if (Objects.equals(relation.getSource(), editedClass.getName()) ||
+                        Objects.equals(relation.getTarget(), editedClass.getName()))
+                    parentDiagram.removeRelation(relation);
+
+            parentDiagram.removeClass(editedClass);
+            closeWindow(event);
         });
     }
 
