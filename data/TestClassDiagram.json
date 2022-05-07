@@ -118,6 +118,6 @@
       "name": "Test relation",
       "cardinality_from": "1",
       "cardinality_to": "*"
-    },
+    }
   ]
 }
