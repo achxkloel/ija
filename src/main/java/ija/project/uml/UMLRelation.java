@@ -8,6 +8,7 @@
 
 package ija.project.uml;
 
+import javafx.geometry.Point2D;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Line;
 
@@ -91,5 +92,33 @@ public class UMLRelation extends Element {
         this.line.setStartY(vboxFrom.getLayoutY() + vboxFrom.getTranslateY() + vboxFrom.getHeight() / 2);
         this.line.setEndX(vboxTo.getLayoutX() + vboxTo.getTranslateX() + vboxTo.getWidth() / 2);
         this.line.setEndY(vboxTo.getLayoutY() + vboxTo.getTranslateY() + vboxTo.getHeight() / 2);
+    }
+
+    public Point2D getIntersectionPoint() {
+        Point2D point = new Point2D(
+                vboxTo.getLayoutX() + vboxTo.getTranslateX(),
+                vboxTo.getLayoutY() + vboxTo.getTranslateY()
+        );
+
+        for (double x = 0; x < vboxTo.getWidth(); x++) {
+            if (line.contains(point)) return point;
+            point = point.add(0, vboxTo.getHeight());
+            if (line.contains(point)) return point;
+            point = point.add(1, -vboxTo.getHeight());
+        }
+
+        point = new Point2D(
+                vboxTo.getLayoutX() + vboxTo.getTranslateX(),
+                vboxTo.getLayoutY() + vboxTo.getTranslateY()
+        );
+
+        for (double y = 0; y < vboxTo.getHeight(); y++) {
+            if (line.contains(point)) return point;
+            point = point.add(vboxTo.getWidth(), 0);
+            if (line.contains(point)) return point;
+            point = point.add(-vboxTo.getWidth(), 1);
+        }
+
+        return point;
     }
 }

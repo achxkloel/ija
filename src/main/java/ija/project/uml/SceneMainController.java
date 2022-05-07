@@ -9,7 +9,6 @@
 package ija.project.uml;
 
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -136,7 +135,9 @@ public class SceneMainController {
             currentRelation.setLine(line);
             currentRelation.updateCoordinates();
 
-            Point2D point = new Point2D(currentRelation.getVboxTo().getLayoutX(), currentRelation.getVboxTo().getLayoutY());
+            Point2D point = currentRelation.getIntersectionPoint();
+
+            System.out.println("X: " + point.getX() + "Y: " + point.getY());
 
             mainPane.getChildren().add(currentRelation.getLine());
         }
@@ -312,7 +313,7 @@ public class SceneMainController {
     }
 
     @FXML
-    private void saveClassDiagram (ActionEvent event) throws IOException {
+    private void saveClassDiagram () throws IOException {
         JSONObject classDiagramObject = new JSONObject();
         classDiagramObject.put("type", "ClassDiagram");
         classDiagramObject.put("name", classDiagram.getName());
@@ -428,49 +429,9 @@ public class SceneMainController {
                         currentRelation.updateCoordinates();
                     else continue;
 
-                    VBox vbox = Objects.equals(currentRelation.getVboxTo().getId(), generateClassId(currentRelation.getTarget()))
-                            ? currentRelation.getVboxTo()
-                            : currentRelation.getVboxFrom();
+                    Point2D point = currentRelation.getIntersectionPoint();
 
-                    Point2D point = new Point2D(
-                            vbox.getLayoutX() + vbox.getTranslateX(),
-                            vbox.getLayoutY() + vbox.getTranslateY()
-                    );
-
-                    double intersectX = 0;
-                    double intersectY = 0;
-
-                    for (double x = 0; x < vbox.getWidth(); x++) {
-                        if (currentRelation.getLine().contains(point)) {
-                            intersectX = point.getX();
-                            intersectY = point.getY();
-                            break;
-                        }
-                        point = point.add(0, vbox.getHeight());
-                        if (currentRelation.getLine().contains(point)) {
-                            intersectX = point.getX();
-                            intersectY = point.getY();
-                            break;
-                        }
-                        point = point.add(1, -vbox.getHeight());
-                    }
-
-                    for (double y = 0; y < vbox.getHeight(); y++) {
-                        if (currentRelation.getLine().contains(point)) {
-                            intersectX = point.getX();
-                            intersectY = point.getY();
-                            break;
-                        }
-                        point = point.add(vbox.getWidth(), 0);
-                        if (currentRelation.getLine().contains(point)) {
-                            intersectX = point.getX();
-                            intersectY = point.getY();
-                            break;
-                        }
-                        point = point.add(-vbox.getWidth(), 1);
-                    }
-
-                    System.out.println("X: " + intersectX + " Y: " + intersectY);
+                    System.out.println("X: " + point.getX() + " Y: " + point.getY());
                 }
 
                 ((VBox)(t.getSource())).toFront();
