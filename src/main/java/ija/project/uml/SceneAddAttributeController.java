@@ -11,9 +11,11 @@ package ija.project.uml;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 public class SceneAddAttributeController {
 
@@ -36,21 +38,39 @@ public class SceneAddAttributeController {
         saveButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                if (!attributeVisibilityTextField.getText().isEmpty() &&
-                    !attributeNameTextField.getText().isEmpty() &&
-                    !attributeTypeTextField.getText().isEmpty()) {
-                    Attribute newAttribute = new Attribute(
-                        attributeNameTextField.getText(),
-                        attributeTypeTextField.getText(),
-                        attributeVisibilityTextField.getText()
-                    );
-                    editedClass.addAttribute(newAttribute);
+                if (attributeVisibilityTextField.getText().isEmpty() ||
+                    attributeNameTextField.getText().isEmpty() ||
+                    attributeTypeTextField.getText().isEmpty()) {
+                    System.out.println("Some text fields are empty");
+                    return;
                 }
+
+                String newName = attributeNameTextField.getText().trim();
+                String newType = attributeTypeTextField.getText().trim();
+                String newVisibility = attributeVisibilityTextField.getText().trim();
+
+                if (editedClass.findAttribute(newName) != null) {
+                    System.out.println("Attribute \"" + newName + "\" is already exists!");
+                    return;
+                }
+
+                editedClass.addAttribute(new Attribute(
+                        newName,
+                        newType,
+                        newVisibility
+                ));
+                closeWindow(event);
             }
         });
     }
 
     public void setUMLClass (UMLClass editedClass) {
         this.editedClass = editedClass;
+    }
+
+    public void closeWindow (ActionEvent e) {
+        final Node source = (Node) e.getSource();
+        final Stage stage = (Stage) source.getScene().getWindow();
+        stage.close();
     }
 }
