@@ -7,8 +7,12 @@
 
 <VBox prefHeight="300" prefWidth="300" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ija.project.uml.SceneAddMethodController">
    <children>
+      <Label text="Visibility:" />
+      <TextField fx:id="methodVisibilityTextField" />
       <Label text="Name:" />
-      <TextField fx:id="nameTextField" />
+      <TextField fx:id="methodNameTextField" />
+      <Label text="Return type:" />
+      <TextField fx:id="methodReturnTypeTextField" />
       <Button fx:id="saveButton" mnemonicParsing="false" text="Save" />
    </children>
 </VBox>

@@ -19,7 +19,7 @@ public class Attribute extends Element {
 
     private String visibility = "";
 
-    private Text attributeText = null;
+    private Text textView = null;
 
     /**
      * Creates new attribute
@@ -52,17 +52,17 @@ public class Attribute extends Element {
         this.visibility = newVisibility;
     }
 
-    public void setAttributeText (Text attributeText) {
-        this.attributeText = attributeText;
+    public void setTextView (Text textView) {
+        this.textView = textView;
     }
 
-    public Text getAttributeText () {
-        return this.attributeText;
+    public Text getTextView () {
+        return this.textView;
     }
 
     public void updateAttributeText () {
-        if (this.attributeText != null) {
-            this.attributeText.setText(this.toString());
+        if (this.textView != null) {
+            this.textView.setText(this.toString());
         }
     }
 

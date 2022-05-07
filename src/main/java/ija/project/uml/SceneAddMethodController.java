@@ -11,23 +11,24 @@ package ija.project.uml;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
-/**
- * Controller for the editUMLClass scene.
- */
 public class SceneAddMethodController {
 
     @FXML
     Button saveButton;
 
     @FXML
-    TextField nameTextField;
+    TextField methodVisibilityTextField;
 
     @FXML
-    Label nameLabel;
+    TextField methodNameTextField;
+
+    @FXML
+    TextField methodReturnTypeTextField;
 
     UMLClass editedClass;
 
@@ -36,15 +37,39 @@ public class SceneAddMethodController {
         saveButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                if (!nameTextField.getText().isEmpty()) {
-                    editedClass.setName(nameTextField.getText());
+                if (methodVisibilityTextField.getText().isEmpty() ||
+                    methodNameTextField.getText().isEmpty() ||
+                    methodReturnTypeTextField.getText().isEmpty()) {
+                    System.out.println("Some text fields are empty");
+                    return;
                 }
+
+                String newName = methodNameTextField.getText().trim();
+                String newReturnType = methodReturnTypeTextField.getText().trim();
+                String newVisibility = methodVisibilityTextField.getText().trim();
+
+                if (editedClass.findMethod(newName) != null) {
+                    System.out.println("Method \"" + newName + "\" is already exists!");
+                    return;
+                }
+
+                editedClass.addMethod(new Method(
+                        newName,
+                        newReturnType,
+                        newVisibility
+                ));
+                closeWindow(event);
             }
         });
     }
 
     public void setUMLClass (UMLClass editedClass) {
         this.editedClass = editedClass;
-        nameTextField.setText(editedClass.getName());
+    }
+
+    public void closeWindow (ActionEvent e) {
+        final Node source = (Node) e.getSource();
+        final Stage stage = (Stage) source.getScene().getWindow();
+        stage.close();
     }
 }

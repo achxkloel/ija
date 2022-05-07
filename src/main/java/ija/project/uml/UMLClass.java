@@ -35,6 +35,8 @@ public class UMLClass extends Element {
 
     private VBox attributeView = null;
 
+    private VBox methodView = null;
+
     private VBox classView = null;
 
     /**
@@ -55,7 +57,7 @@ public class UMLClass extends Element {
         this.attributeList.add(newAttribute);
         if (this.attributeView != null) {
             Text attributeText = new Text();
-            newAttribute.setAttributeText(attributeText);
+            newAttribute.setTextView(attributeText);
             attributeText.setText(newAttribute.toString());
             this.attributeView.getChildren().add(attributeText);
         }
@@ -63,7 +65,7 @@ public class UMLClass extends Element {
 
     public void removeAttribute (Attribute attributeToRemove) {
         if (this.attributeView != null) {
-            attributeView.getChildren().remove(attributeToRemove.getAttributeText());
+            attributeView.getChildren().remove(attributeToRemove.getTextView());
         }
         this.attributeList.remove(attributeToRemove);
     }
@@ -75,6 +77,12 @@ public class UMLClass extends Element {
      */
     public void addMethod (Method newMethod) {
         this.methodList.add(newMethod);
+        if (this.methodView != null) {
+            Text attributeText = new Text();
+            newMethod.setTextView(attributeText);
+            attributeText.setText(newMethod.toString());
+            this.methodView.getChildren().add(attributeText);
+        }
     }
 
     /**
@@ -118,6 +126,10 @@ public class UMLClass extends Element {
 
     public void setAttributeView (VBox attributeView) {
         this.attributeView = attributeView;
+    }
+
+    public void setMethodView (VBox methodView) {
+        this.methodView = methodView;
     }
 
     public void setClassView (VBox classView) {

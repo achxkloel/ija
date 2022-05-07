@@ -68,7 +68,7 @@ public class SceneMainController {
 
         for (Attribute currentAttribute : attributeList) {
             Text attribute = new Text();
-            currentAttribute.setAttributeText(attribute);
+            currentAttribute.setTextView(attribute);
             attribute.setText(currentAttribute.toString());
             vboxAttributes.getChildren().add(attribute);
         }
@@ -82,8 +82,10 @@ public class SceneMainController {
         return vboxAttributes;
     }
 
-    private VBox getMethodList(List<Method> methodList) {
+    private VBox getMethodList(UMLClass umlClass) {
+        List<Method> methodList = umlClass.getMethodList();
         final VBox vboxMethods = new VBox();
+        umlClass.setMethodView(vboxMethods);
 
         for (Method currentMethod : methodList) {
             Text methods = new Text();
@@ -147,7 +149,7 @@ public class SceneMainController {
         vbox.setStyle(cssLayoutVbox);
         vbox.getChildren().add(getLabel(umlClass));
         vbox.getChildren().add(getAttributeList(umlClass));
-        vbox.getChildren().add(getMethodList(umlClass.getMethodList()));
+        vbox.getChildren().add(getMethodList(umlClass));
 
         vbox.setOnMousePressed(vboxOnMousePressedEventHandler);
         vbox.setOnMouseDragged(vboxOnMouseDraggedEventHandler);
@@ -227,6 +229,29 @@ public class SceneMainController {
         Scene scene = new Scene(root);
         stage.setResizable(false);
         stage.setTitle("Add class attribute");
+        stage.setMinWidth(300);
+        stage.setMinHeight(300);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    private void addMethodWindow (UMLClass currClass) {
+        Parent root;
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/scenes/sceneAddMethod.fxml"));
+
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        SceneAddMethodController sceneAddMethodController = loader.getController();
+        sceneAddMethodController.setUMLClass(currClass);
+
+        Scene scene = new Scene(root);
+        stage.setResizable(false);
+        stage.setTitle("Add class method");
         stage.setMinWidth(300);
         stage.setMinHeight(300);
         stage.setScene(scene);
@@ -349,7 +374,7 @@ public class SceneMainController {
 
                     itemAddAttr.setOnAction(e -> addAttributeWindow(currClass));
 
-                    itemAddMethod.setOnAction(e -> System.out.println("Add method"));
+                    itemAddMethod.setOnAction(e -> addMethodWindow(currClass));
                 }
             }
         };
