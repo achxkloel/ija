@@ -17,8 +17,8 @@ import javafx.scene.shape.Line;
 public class UMLRelation extends Element {
 
     private final String type;
-    private final String source;
-    private final String target;
+    private String source;
+    private String target;
     private final String cardinalityFrom;
     private final String cardinalityTo;
     private VBox vboxFrom;
@@ -44,6 +44,14 @@ public class UMLRelation extends Element {
 
     public String getTarget() {
         return target;
+    }
+
+    public void setTarget (String newTarget) {
+        this.target = newTarget;
+    }
+
+    public void setSource (String newSource) {
+        this.source = newSource;
     }
 
     public String getCardinalityFrom() {

@@ -15,6 +15,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Controller for the editUMLClass scene.
  */
@@ -49,16 +52,32 @@ public class SceneEditUMLClassController {
                 return;
             }
 
+            for (UMLRelation relation : parentDiagram.getRelationList()) {
+                if (relation.getSource().equals(editedClass.getName())) {
+                    relation.setSource(newName);
+                }
+
+                if (relation.getTarget().equals(editedClass.getName())) {
+                    relation.setTarget(newName);
+                }
+            }
+
             editedClass.setName(newName);
             closeWindow(event);
         });
 
         deleteButton.setOnAction(event -> {
+            List<UMLRelation> relationsToRemove = new ArrayList<>();
+
             for (UMLRelation relation : parentDiagram.getRelationList()) {
                 if (relation.getSource().equals(editedClass.getName()) ||
                     relation.getTarget().equals(editedClass.getName())) {
-                    parentDiagram.removeRelation(relation);
+                    relationsToRemove.add(relation);
                 }
+            }
+
+            for (UMLRelation relation : relationsToRemove) {
+                parentDiagram.removeRelation(relation);
             }
 
             parentDiagram.removeClass(editedClass);

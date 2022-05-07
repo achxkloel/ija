@@ -30,6 +30,11 @@
                         <MenuItem mnemonicParsing="false" text="Redo" />
                     </items>
                 </Menu>
+                <Menu mnemonicParsing="false" text="Add">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="New class" onAction="#addClassWindow" />
+                    </items>
+                </Menu>
                 <Menu mnemonicParsing="false" text="Help">
                     <items>
                         <MenuItem mnemonicParsing="false" text="About" />

@@ -56,11 +56,10 @@ public class ClassDiagram extends Element {
     }
 
     public void removeRelation (UMLRelation relationToRemove) {
-        this.classList.remove(relationToRemove);
-        this.classList.remove(relationToRemove);
         if (diagramView != null) {
             diagramView.getChildren().remove(relationToRemove.getLine());
         }
+        this.relationList.remove(relationToRemove);
     }
 
     /**
@@ -95,5 +94,9 @@ public class ClassDiagram extends Element {
 
     public void setDiagramView (Pane diagramView) {
         this.diagramView = diagramView;
+    }
+
+    public Pane getDiagramView () {
+        return this.diagramView;
     }
 }

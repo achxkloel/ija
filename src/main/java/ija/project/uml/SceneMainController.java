@@ -108,27 +108,7 @@ public class SceneMainController {
         List<UMLClass> classList = this.classDiagram.getClassList();
 
         for (UMLClass currentClass : classList) {
-            final VBox vbox = new VBox();
-            currentClass.setClassView(vbox);
-
-            String cssLayoutVbox = "-fx-border-color: black;\n" +
-                    "-fx-border-width: 2;\n" +
-                    "-fx-border-style: solid;\n" +
-                    "-fx-background-color: white;\n";
-
-            vbox.setId(this.generateClassId(currentClass.getName()));
-            vbox.setStyle(cssLayoutVbox);
-            vbox.getChildren().add(getLabel(currentClass));
-            vbox.getChildren().add(getAttributeList(currentClass));
-            vbox.getChildren().add(getMethodList(currentClass.getMethodList()));
-
-            vbox.setOnMousePressed(vboxOnMousePressedEventHandler);
-            vbox.setOnMouseDragged(vboxOnMouseDraggedEventHandler);
-            vbox.setOnMouseClicked(vboxOnMouseClickedEventHandler);
-
-            vbox.toFront();
-
-            classVboxList.add(vbox);
+            classVboxList.add(this.createClassVBox(currentClass));
         }
 
         List<UMLRelation> relationList = this.classDiagram.getRelationList();
@@ -154,8 +134,56 @@ public class SceneMainController {
         mainPane.setOnMouseClicked(mainPaneOnMouseClicked);
     }
 
+    public VBox createClassVBox (UMLClass umlClass) {
+        final VBox vbox = new VBox();
+        umlClass.setClassView(vbox);
+
+        String cssLayoutVbox = "-fx-border-color: black;\n" +
+                "-fx-border-width: 2;\n" +
+                "-fx-border-style: solid;\n" +
+                "-fx-background-color: white;\n";
+
+        vbox.setId(this.generateClassId(umlClass.getName()));
+        vbox.setStyle(cssLayoutVbox);
+        vbox.getChildren().add(getLabel(umlClass));
+        vbox.getChildren().add(getAttributeList(umlClass));
+        vbox.getChildren().add(getMethodList(umlClass.getMethodList()));
+
+        vbox.setOnMousePressed(vboxOnMousePressedEventHandler);
+        vbox.setOnMouseDragged(vboxOnMouseDraggedEventHandler);
+        vbox.setOnMouseClicked(vboxOnMouseClickedEventHandler);
+
+        vbox.toFront();
+
+        return vbox;
+    }
+
     private String generateClassId(String className) {
         return className.replaceAll("\\s+", "_").toLowerCase();
+    }
+
+    public void addClassWindow () {
+        Parent root;
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/scenes/sceneAddUMLClass.fxml"));
+
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        SceneAddUMLClassController sceneAddUMLClassController = loader.getController();
+        sceneAddUMLClassController.setMainController(this);
+        sceneAddUMLClassController.setParentDiagram(classDiagram);
+
+        Scene scene = new Scene(root);
+        stage.setResizable(false);
+        stage.setTitle("Add new class");
+        stage.setMinWidth(300);
+        stage.setMinHeight(300);
+        stage.setScene(scene);
+        stage.show();
     }
 
     private void editClassWindow (UMLClass currClass) {
