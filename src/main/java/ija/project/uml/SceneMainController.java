@@ -20,7 +20,6 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
 import javafx.scene.text.Text;
@@ -45,7 +44,6 @@ public class SceneMainController {
 
     @FXML
     private Pane mainPane;
-    private Polygon polygon;
     private double orgSceneX, orgSceneY;
     private double orgTranslateX, orgTranslateY;
 
@@ -149,8 +147,6 @@ public class SceneMainController {
             mainPane.getChildren().add(vbox);
 
         mainPane.setOnMouseClicked(mainPaneOnMouseClicked);
-
-        polygon = new Polygon();
     }
 
     public VBox createClassVBox (UMLClass umlClass) {
@@ -430,43 +426,16 @@ public class SceneMainController {
 
                 for (UMLRelation currentRelation : relationList) {
                     if (Objects.equals(currentRelation.getVboxFrom().getId(), ((VBox) (t.getSource())).getId()) ||
-                            Objects.equals(currentRelation.getVboxTo().getId(), ((VBox) (t.getSource())).getId()))
+                            Objects.equals(currentRelation.getVboxTo().getId(), ((VBox) (t.getSource())).getId())) {
+                        if (currentRelation.getPolygon() != null)
+                            mainPane.getChildren().remove(currentRelation.getPolygon());
+
                         currentRelation.updateCoordinates();
+                    }
                     else continue;
 
-                    Point2D point = currentRelation.getIntersectionPoint();
-
-                    if (Objects.equals(currentRelation.getType(), "generalization")) {
-                        mainPane.getChildren().remove(polygon);
-
-                        polygon = new Polygon();
-                        polygon.setStroke(Color.BLACK);
-                        polygon.setFill(Color.TRANSPARENT);
-
-                        if (Objects.equals(currentRelation.getLineOrientation(), "top")) {
-                            polygon.getPoints().addAll(point.getX(), point.getY(),
-                                    point.getX() + 10, point.getY() - 10,
-                                    point.getX(), point.getY() - 20,
-                                    point.getX() - 10, point.getY() - 10);
-                        } else if (Objects.equals(currentRelation.getLineOrientation(), "bottom")) {
-                            polygon.getPoints().addAll(point.getX(), point.getY(),
-                                    point.getX() + 10, point.getY() + 10,
-                                    point.getX(), point.getY() + 20,
-                                    point.getX() - 10, point.getY() + 10);
-                        } else if (Objects.equals(currentRelation.getLineOrientation(), "left")) {
-                            polygon.getPoints().addAll(point.getX(), point.getY(),
-                                    point.getX() - 10, point.getY() - 10,
-                                    point.getX() - 20, point.getY(),
-                                    point.getX() - 10, point.getY() + 10);
-                        } else if (Objects.equals(currentRelation.getLineOrientation(), "right")) {
-                            polygon.getPoints().addAll(point.getX(), point.getY(),
-                                    point.getX() + 10, point.getY() - 10,
-                                    point.getX() + 20, point.getY(),
-                                    point.getX() + 10, point.getY() + 10);
-                        }
-
-                        mainPane.getChildren().add(polygon);
-                    }
+                    if (currentRelation.getPolygon() != null)
+                        mainPane.getChildren().add(currentRelation.getPolygon());
                 }
 
                 ((VBox)(t.getSource())).toFront();
