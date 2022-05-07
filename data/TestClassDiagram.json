@@ -22,7 +22,6 @@
           "visibility": "private",
           "name": "testMethod",
           "type": "string",
-          "return_type": "boolean",
           "params": [
             {
               "name": "testParam 1",
@@ -56,7 +55,6 @@
           "visibility": "private",
           "name": "testMethod",
           "type": "string",
-          "return_type": "boolean",
           "params": [
             {
               "name": "testParam 1",
@@ -90,7 +88,6 @@
           "visibility": "private",
           "name": "testMethod",
           "type": "string",
-          "return_type": "boolean",
           "params": [
             {
               "name": "testParam 1",

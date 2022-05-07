@@ -81,8 +81,7 @@ public class DataParser {
                         String MVisibility = item.getString("visibility");
                         String MName = item.getString("name");
                         String MType = item.getString("type");
-                        String MReturnType = item.getString("return_type");
-                        Method classMethod = new Method(MName, MType, MReturnType, MVisibility);
+                        Method classMethod = new Method(MName, MType, MVisibility);
                         JSONArray methodParams = item.getJSONArray("params");
 
                         // Add method parameters

@@ -17,10 +17,6 @@ import java.util.List;
 public class Method extends Attribute {
 
     /**
-     * Return type of method
-     */
-    private final String returnType;
-    /**
      * List of attributes of method
      */
     private final List<Attribute> attributeList = new ArrayList<>();
@@ -29,17 +25,8 @@ public class Method extends Attribute {
      * Creates new method
      * @param name name of method
      */
-    public Method (String name, String type, String returnType, String visibility) {
+    public Method (String name, String type, String visibility) {
         super(name, type, visibility);
-        this.returnType = returnType;
-    }
-
-    /**
-     * Get return type of Method
-     * @return return type of method
-     */
-    public String getReturnType () {
-        return returnType;
     }
 
     /**
@@ -62,9 +49,9 @@ public class Method extends Attribute {
 
         for (int i = 0; i < this.attributeList.size(); i++) {
             methodSb
-                .append(this.name)
+                .append(this.attributeList.get(i).name)
                 .append(" : ")
-                .append(this.type);
+                .append(this.attributeList.get(i).type);
 
             if (i + 1 != this.attributeList.size()) {
                 methodSb.append(", ");
@@ -73,7 +60,7 @@ public class Method extends Attribute {
 
         methodSb
             .append(") : ")
-            .append(this.returnType);
+            .append(this.type);
 
         return methodSb.toString();
     }
