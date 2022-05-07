@@ -100,13 +100,46 @@
           ]
         }
       ]
+    },
+    {
+      "name": "testClass 3",
+      "items": [
+        {
+          "item_type": "Attribute",
+          "visibility": "private",
+          "name": "testAttribute 1",
+          "type": "int"
+        },
+        {
+          "item_type": "Attribute",
+          "visibility": "private",
+          "name": "testAttribute 2",
+          "type": "string"
+        },
+        {
+          "item_type": "Method",
+          "visibility": "private",
+          "name": "testMethod",
+          "type": "string",
+          "params": [
+            {
+              "name": "testParam 1",
+              "type": "int"
+            },
+            {
+              "name": "testParam 2",
+              "type": "string"
+            }
+          ]
+        }
+      ]
     }
   ],
   "relations": [
     {
       "source": "testClass",
       "target": "testClass 1",
-      "type": "aggregation",
+      "type": "composition",
       "name": "Test relation",
       "cardinality_from": "1",
       "cardinality_to": "*"
@@ -114,14 +147,14 @@
     {
       "source": "testClass",
       "target": "testClass 2",
-      "type": "aggregation",
+      "type": "generalization",
       "name": "Test relation",
       "cardinality_from": "1",
       "cardinality_to": "*"
     },
     {
-      "source": "testClass 1",
-      "target": "testClass 2",
+      "source": "testClass",
+      "target": "testClass 3",
       "type": "aggregation",
       "name": "Test relation",
       "cardinality_from": "1",

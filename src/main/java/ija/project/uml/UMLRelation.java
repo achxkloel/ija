@@ -8,8 +8,13 @@
 
 package ija.project.uml;
 
+import javafx.geometry.Point2D;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Polygon;
+
+import java.util.Objects;
 
 /**
  * Relation between classes.
@@ -24,6 +29,8 @@ public class UMLRelation extends Element {
     private VBox vboxFrom;
     private VBox vboxTo;
     private Line line;
+    private String lineOrientation;
+    private Polygon polygon;
 
     public UMLRelation (String name, String type, String source, String target, String cardinalityFrom, String cardinalityTo) {
         super(name);
@@ -74,6 +81,10 @@ public class UMLRelation extends Element {
         return line;
     }
 
+    public Polygon getPolygon() {
+        return polygon;
+    }
+
     public void setVboxFrom(VBox vboxFrom) {
         this.vboxFrom = vboxFrom;
     }
@@ -91,5 +102,114 @@ public class UMLRelation extends Element {
         this.line.setStartY(vboxFrom.getLayoutY() + vboxFrom.getTranslateY() + vboxFrom.getHeight() / 2);
         this.line.setEndX(vboxTo.getLayoutX() + vboxTo.getTranslateX() + vboxTo.getWidth() / 2);
         this.line.setEndY(vboxTo.getLayoutY() + vboxTo.getTranslateY() + vboxTo.getHeight() / 2);
+
+        Point2D point = getIntersectionPoint();
+
+        if (Objects.equals(type, "aggregation") || Objects.equals(type, "composition")) {
+            polygon = new Polygon();
+            polygon.setStroke(Color.BLACK);
+            if (!Objects.equals(type, "composition"))
+                polygon.setFill(Color.TRANSPARENT);
+
+            if (Objects.equals(lineOrientation, "top")) {
+                polygon.getPoints().addAll(point.getX(), point.getY(),
+                        point.getX() + 10, point.getY() - 10,
+                        point.getX(), point.getY() - 20,
+                        point.getX() - 10, point.getY() - 10);
+                line.setEndX(point.getX());
+                line.setEndY(point.getY() - 20);
+            } else if (Objects.equals(lineOrientation, "bottom")) {
+                polygon.getPoints().addAll(point.getX(), point.getY(),
+                        point.getX() + 10, point.getY() + 10,
+                        point.getX(), point.getY() + 20,
+                        point.getX() - 10, point.getY() + 10);
+                line.setEndX(point.getX());
+                line.setEndY(point.getY() + 20);
+            } else if (Objects.equals(lineOrientation, "left")) {
+                polygon.getPoints().addAll(point.getX(), point.getY(),
+                        point.getX() - 10, point.getY() - 10,
+                        point.getX() - 20, point.getY(),
+                        point.getX() - 10, point.getY() + 10);
+                line.setEndX(point.getX() - 20);
+                line.setEndY(point.getY());
+            } else if (Objects.equals(lineOrientation, "right")) {
+                polygon.getPoints().addAll(point.getX(), point.getY(),
+                        point.getX() + 10, point.getY() - 10,
+                        point.getX() + 20, point.getY(),
+                        point.getX() + 10, point.getY() + 10);
+                line.setEndX(point.getX() + 20);
+                line.setEndY(point.getY());
+            }
+        } else if (Objects.equals(type, "generalization")) {
+            polygon = new Polygon();
+            polygon.setStroke(Color.BLACK);
+            polygon.setFill(Color.TRANSPARENT);
+
+            if (Objects.equals(lineOrientation, "top")) {
+                polygon.getPoints().addAll(point.getX(), point.getY(),
+                        point.getX() + 10, point.getY() - 10,
+                        point.getX() - 10, point.getY() - 10);
+                line.setEndX(point.getX());
+                line.setEndY(point.getY() - 10);
+            } else if (Objects.equals(lineOrientation, "bottom")) {
+                polygon.getPoints().addAll(point.getX(), point.getY(),
+                        point.getX() + 10, point.getY() + 10,
+                        point.getX() - 10, point.getY() + 10);
+                line.setEndX(point.getX());
+                line.setEndY(point.getY() + 10);
+            } else if (Objects.equals(lineOrientation, "left")) {
+                polygon.getPoints().addAll(point.getX(), point.getY(),
+                        point.getX() - 10, point.getY() - 10,
+                        point.getX() - 10, point.getY() + 10);
+                line.setEndX(point.getX() - 10);
+                line.setEndY(point.getY());
+            } else if (Objects.equals(lineOrientation, "right")) {
+                polygon.getPoints().addAll(point.getX(), point.getY(),
+                        point.getX() + 10, point.getY() - 10,
+                        point.getX() + 10, point.getY() + 10);
+                line.setEndX(point.getX() + 10);
+                line.setEndY(point.getY());
+            }
+        }
+    }
+
+    public Point2D getIntersectionPoint() {
+        Point2D point = new Point2D(
+                vboxTo.getLayoutX() + vboxTo.getTranslateX(),
+                vboxTo.getLayoutY() + vboxTo.getTranslateY()
+        );
+
+        for (double x = 0; x < vboxTo.getWidth(); x++) {
+            if (line.contains(point)) {
+                lineOrientation = "top";
+                return point;
+            }
+            point = point.add(0, vboxTo.getHeight());
+            if (line.contains(point)) {
+                lineOrientation = "bottom";
+                return point;
+            }
+            point = point.add(1, -vboxTo.getHeight());
+        }
+
+        point = new Point2D(
+                vboxTo.getLayoutX() + vboxTo.getTranslateX(),
+                vboxTo.getLayoutY() + vboxTo.getTranslateY()
+        );
+
+        for (double y = 0; y < vboxTo.getHeight(); y++) {
+            if (line.contains(point)) {
+                lineOrientation = "left";
+                return point;
+            }
+            point = point.add(vboxTo.getWidth(), 0);
+            if (line.contains(point)) {
+                lineOrientation = "right";
+                return point;
+            }
+            point = point.add(-vboxTo.getWidth(), 1);
+        }
+
+        return point;
     }
 }

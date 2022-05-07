@@ -9,7 +9,6 @@
 package ija.project.uml;
 
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,7 +23,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
-import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.json.JSONArray;
@@ -138,6 +136,7 @@ public class SceneMainController {
             currentRelation.updateCoordinates();
 
             mainPane.getChildren().add(currentRelation.getLine());
+            mainPane.getChildren().add(currentRelation.getPolygon());
         }
 
         for (VBox vbox : this.classVboxList)
@@ -313,7 +312,7 @@ public class SceneMainController {
     }
 
     @FXML
-    private void saveClassDiagram (ActionEvent event) throws IOException {
+    private void saveClassDiagram () throws IOException {
         JSONObject classDiagramObject = new JSONObject();
         classDiagramObject.put("type", "ClassDiagram");
         classDiagramObject.put("name", classDiagram.getName());
@@ -427,10 +426,19 @@ public class SceneMainController {
 
                 List<UMLRelation> relationList = classDiagram.getRelationList();
 
-                for (UMLRelation currentRelation : relationList)
-                    if (Objects.equals(currentRelation.getVboxFrom().getId(), ((VBox)(t.getSource())).getId()) ||
-                    Objects.equals(currentRelation.getVboxTo().getId(), ((VBox)(t.getSource())).getId()))
+                for (UMLRelation currentRelation : relationList) {
+                    if (Objects.equals(currentRelation.getVboxFrom().getId(), ((VBox) (t.getSource())).getId()) ||
+                            Objects.equals(currentRelation.getVboxTo().getId(), ((VBox) (t.getSource())).getId())) {
+                        if (currentRelation.getPolygon() != null)
+                            mainPane.getChildren().remove(currentRelation.getPolygon());
+
                         currentRelation.updateCoordinates();
+                    }
+                    else continue;
+
+                    if (currentRelation.getPolygon() != null)
+                        mainPane.getChildren().add(currentRelation.getPolygon());
+                }
 
                 ((VBox)(t.getSource())).toFront();
 
