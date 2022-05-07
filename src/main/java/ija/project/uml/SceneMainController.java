@@ -44,6 +44,8 @@ public class SceneMainController {
     private double orgSceneX, orgSceneY;
     private double orgTranslateX, orgTranslateY;
 
+    private Stage stage;
+
     private ClassDiagram classDiagram;
     private ContextMenu contextMenu;
     private final List<VBox> classVboxList = new ArrayList<>();
@@ -285,6 +287,25 @@ public class SceneMainController {
         stage.show();
     }
 
+    public void closeDiagram() {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/scenes/sceneWelcome.fxml"));
+        Parent root;
+
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource("/styles/styles.css").toExternalForm());
+
+        stage.setScene(scene);
+        stage.setMinWidth(500);
+        stage.setMinHeight(400);
+        stage.show();
+    }
+
     @FXML
     private void saveClassDiagram (ActionEvent event) {
         JSONObject classDiagramObject = new JSONObject();
@@ -353,6 +374,10 @@ public class SceneMainController {
 
     public void quitApplication() {
         Platform.exit();
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
     }
 
     EventHandler<MouseEvent> vboxOnMousePressedEventHandler =
