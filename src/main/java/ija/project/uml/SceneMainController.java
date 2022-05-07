@@ -13,6 +13,8 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Bounds;
+import javafx.geometry.Point2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -164,6 +166,8 @@ public class SceneMainController {
         vbox.setOnMouseClicked(vboxOnMouseClickedEventHandler);
 
         vbox.toFront();
+//        vbox.setLayoutX(1000.0 - vbox.getWidth());
+//        vbox.setLayoutY(658.0 - vbox.getHeight());
 
         return vbox;
     }
@@ -317,6 +321,8 @@ public class SceneMainController {
         JSONArray umlClassArray = new JSONArray();
 
         for (UMLClass umlClass : classDiagram.getClassList()) {
+            Point2D point2D = umlClass.getClassView().localToParent(umlClass.getClassView().getWidth()/2, umlClass.getClassView().getHeight()/2);
+            System.out.println(point2D);
             JSONObject umlClassObject = new JSONObject();
             umlClassObject.put("name", umlClass.getName());
             JSONArray umlClassItemsArray = new JSONArray();
@@ -375,8 +381,10 @@ public class SceneMainController {
         fileChooser.setSelectedExtensionFilter( new FileChooser.ExtensionFilter("JSON files", "*.json" ));
         File selectedFile = fileChooser.showSaveDialog(stage);
 
-        try (PrintWriter outputFile = new PrintWriter(selectedFile.getAbsolutePath(), StandardCharsets.UTF_8)) {
-            outputFile.println(classDiagramObject.toString(2));
+        if (selectedFile != null) {
+            try (PrintWriter outputFile = new PrintWriter(selectedFile.getAbsolutePath(), StandardCharsets.UTF_8)) {
+                outputFile.println(classDiagramObject.toString(2));
+            }
         }
     }
 
