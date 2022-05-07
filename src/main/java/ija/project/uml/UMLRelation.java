@@ -25,6 +25,7 @@ public class UMLRelation extends Element {
     private VBox vboxFrom;
     private VBox vboxTo;
     private Line line;
+    private String lineOrientation;
 
     public UMLRelation (String name, String type, String source, String target, String cardinalityFrom, String cardinalityTo) {
         super(name);
@@ -75,6 +76,10 @@ public class UMLRelation extends Element {
         return line;
     }
 
+    public String getLineOrientation() {
+        return lineOrientation;
+    }
+
     public void setVboxFrom(VBox vboxFrom) {
         this.vboxFrom = vboxFrom;
     }
@@ -101,9 +106,15 @@ public class UMLRelation extends Element {
         );
 
         for (double x = 0; x < vboxTo.getWidth(); x++) {
-            if (line.contains(point)) return point;
+            if (line.contains(point)) {
+                lineOrientation = "top";
+                return point;
+            }
             point = point.add(0, vboxTo.getHeight());
-            if (line.contains(point)) return point;
+            if (line.contains(point)) {
+                lineOrientation = "bottom";
+                return point;
+            }
             point = point.add(1, -vboxTo.getHeight());
         }
 
@@ -113,9 +124,15 @@ public class UMLRelation extends Element {
         );
 
         for (double y = 0; y < vboxTo.getHeight(); y++) {
-            if (line.contains(point)) return point;
+            if (line.contains(point)) {
+                lineOrientation = "left";
+                return point;
+            }
             point = point.add(vboxTo.getWidth(), 0);
-            if (line.contains(point)) return point;
+            if (line.contains(point)) {
+                lineOrientation = "right";
+                return point;
+            }
             point = point.add(-vboxTo.getWidth(), 1);
         }
 

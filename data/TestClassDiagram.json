@@ -114,7 +114,7 @@
     {
       "source": "testClass",
       "target": "testClass 2",
-      "type": "aggregation",
+      "type": "generalization",
       "name": "Test relation",
       "cardinality_from": "1",
       "cardinality_to": "*"
