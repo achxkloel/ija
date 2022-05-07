@@ -8,7 +8,6 @@
 
 package ija.project.uml;
 
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,7 +25,6 @@ import java.io.File;
 public class SceneWelcomeController {
 
     private Stage stage;
-    private Parent root;
 
     /**
      * A method, that opens the file chooser, after the button on the welcome scene has been pressed
@@ -65,7 +63,7 @@ public class SceneWelcomeController {
      */
     public void switchToSceneMain(ActionEvent event, ClassDiagram classDiagram) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/scenes/sceneMain.fxml"));
-        root = loader.load();
+        Parent root = loader.load();
 
         SceneMainController sceneMainController = loader.getController();
         sceneMainController.setClassDiagram(classDiagram);
