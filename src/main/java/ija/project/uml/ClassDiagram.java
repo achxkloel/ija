@@ -49,11 +49,10 @@ public class ClassDiagram extends Element {
     }
 
     public void removeClass (UMLClass classToRemove) {
-        this.classList.remove(classToRemove);
-        this.classList.remove(classToRemove);
         if (diagramView != null) {
             diagramView.getChildren().remove(classToRemove.getClassView());
         }
+        this.classList.remove(classToRemove);
     }
 
     public void removeRelation (UMLRelation relationToRemove) {
