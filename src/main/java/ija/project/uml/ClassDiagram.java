@@ -8,6 +8,8 @@
 
 package ija.project.uml;
 
+import javafx.scene.layout.Pane;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -26,6 +28,8 @@ public class ClassDiagram extends Element {
      */
     private final List<UMLRelation> relationList = new ArrayList<>();
 
+    private Pane diagramView = null;
+
     /**
      * Creates class diagram.
      *
@@ -42,6 +46,14 @@ public class ClassDiagram extends Element {
      */
     public void addClass (UMLClass newClass) {
         this.classList.add(newClass);
+    }
+
+    public void removeClass (UMLClass classToRemove) {
+        this.classList.remove(classToRemove);
+        this.classList.remove(classToRemove);
+        if (diagramView != null) {
+            diagramView.getChildren().remove(classToRemove.getClassView());
+        }
     }
 
     /**
@@ -72,5 +84,9 @@ public class ClassDiagram extends Element {
 
     public List<UMLRelation> getRelationList() {
         return relationList;
+    }
+
+    public void setDiagramView (Pane diagramView) {
+        this.diagramView = diagramView;
     }
 }

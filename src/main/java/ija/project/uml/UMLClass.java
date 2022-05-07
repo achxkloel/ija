@@ -35,6 +35,8 @@ public class UMLClass extends Element {
 
     private VBox attributeView = null;
 
+    private VBox classView = null;
+
     /**
      * Creates new class.
      *
@@ -109,6 +111,14 @@ public class UMLClass extends Element {
 
     public void setAttributeView (VBox attributeView) {
         this.attributeView = attributeView;
+    }
+
+    public void setClassView (VBox classView) {
+        this.classView = classView;
+    }
+
+    public VBox getClassView () {
+        return this.classView;
     }
 
     @Override

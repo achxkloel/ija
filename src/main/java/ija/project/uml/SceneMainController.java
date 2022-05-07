@@ -46,6 +46,7 @@ public class SceneMainController {
 
     public void setClassDiagram (ClassDiagram classDiagram) {
         this.classDiagram = classDiagram;
+        this.classDiagram.setDiagramView(this.mainPane);
     }
 
     private Label getLabel(UMLClass umlClass) {
@@ -108,6 +109,8 @@ public class SceneMainController {
 
         for (UMLClass currentClass : classList) {
             final VBox vbox = new VBox();
+            currentClass.setClassView(vbox);
+
             String cssLayoutVbox = "-fx-border-color: black;\n" +
                     "-fx-border-width: 2;\n" +
                     "-fx-border-style: solid;\n" +
@@ -167,7 +170,7 @@ public class SceneMainController {
         }
 
         SceneEditUMLClassController sceneEditUMLClassController = loader.getController();
-        sceneEditUMLClassController.setUMLClass(currClass);
+        sceneEditUMLClassController.setUMLClass(currClass, classDiagram);
 
         Scene scene = new Scene(root);
         stage.setResizable(false);

@@ -10,5 +10,6 @@
       <Label text="Name:" />
       <TextField fx:id="nameTextField" />
       <Button fx:id="saveButton" mnemonicParsing="false" text="Save" />
+      <Button fx:id="deleteButton" mnemonicParsing="false" text="Delete class" />
    </children>
 </VBox>

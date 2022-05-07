@@ -11,10 +11,12 @@ package ija.project.uml;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 /**
  * Controller for the editUMLClass scene.
@@ -25,7 +27,12 @@ public class SceneEditUMLClassController {
     Button saveButton;
 
     @FXML
+    Button deleteButton;
+
+    @FXML
     TextField nameTextField;
+
+    ClassDiagram parentDiagram;
 
     UMLClass editedClass;
 
@@ -34,15 +41,45 @@ public class SceneEditUMLClassController {
         saveButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                if (!nameTextField.getText().isEmpty()) {
-                    editedClass.setName(nameTextField.getText());
+                if (nameTextField.getText().isEmpty()) {
+                    System.out.println("Text field is empty!");
                 }
+
+                String newName = nameTextField.getText().trim();
+
+                if (newName.equals(editedClass.getName())) {
+                    System.out.println("Class name is not changed");
+                    return;
+                }
+
+                if (parentDiagram.findClass(newName) != null) {
+                    System.out.println("Class \"" + newName + "\" is already exists!");
+                    return;
+                }
+
+                editedClass.setName(newName);
+                closeWindow(event);
+            }
+        });
+
+        deleteButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                parentDiagram.removeClass(editedClass);
+                closeWindow(event);
             }
         });
     }
 
-    public void setUMLClass (UMLClass editedClass) {
+    public void setUMLClass (UMLClass editedClass, ClassDiagram parentDiagram) {
         this.editedClass = editedClass;
+        this.parentDiagram = parentDiagram;
         nameTextField.setText(editedClass.getName());
+    }
+
+    public void closeWindow (ActionEvent e) {
+        final Node source = (Node) e.getSource();
+        final Stage stage = (Stage) source.getScene().getWindow();
+        stage.close();
     }
 }
