@@ -61,6 +61,13 @@ public class UMLClass extends Element {
         }
     }
 
+    public void removeAttribute (Attribute attributeToRemove) {
+        if (this.attributeView != null) {
+            attributeView.getChildren().remove(attributeToRemove.getAttributeText());
+        }
+        this.attributeList.remove(attributeToRemove);
+    }
+
     /**
      * Add new method to class.
      *

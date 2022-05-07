@@ -56,6 +56,10 @@ public class Attribute extends Element {
         this.attributeText = attributeText;
     }
 
+    public Text getAttributeText () {
+        return this.attributeText;
+    }
+
     public void updateAttributeText () {
         if (this.attributeText != null) {
             this.attributeText.setText(this.toString());

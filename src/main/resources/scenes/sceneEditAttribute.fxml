@@ -14,5 +14,6 @@
       <Label text="Type:" />
       <TextField fx:id="attributeTypeTextField" />
       <Button fx:id="saveButton" mnemonicParsing="false" text="Save" />
+      <Button fx:id="deleteButton" mnemonicParsing="false" text="Delete attribute" />
    </children>
 </VBox>

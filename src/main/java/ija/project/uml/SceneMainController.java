@@ -204,7 +204,7 @@ public class SceneMainController {
         stage.show();
     }
 
-    private void editAttributeWindow (Attribute attr) {
+    private void editAttributeWindow (Attribute attr, UMLClass parentClass) {
         Parent root;
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/scenes/sceneEditAttribute.fxml"));
@@ -216,7 +216,7 @@ public class SceneMainController {
         }
 
         SceneEditAttributeController sceneEditAttributeController = loader.getController();
-        sceneEditAttributeController.setAttribute(attr);
+        sceneEditAttributeController.setAttribute(attr, parentClass);
 
         Scene scene = new Scene(root);
         stage.setResizable(false);
@@ -295,7 +295,7 @@ public class SceneMainController {
                     for (Attribute attr : currClass.getAttributeList()) {
                         MenuItem editAttr = new MenuItem(attr.getName());
 
-                        editAttr.setOnAction(e -> editAttributeWindow(attr));
+                        editAttr.setOnAction(e -> editAttributeWindow(attr, currClass));
 
                         editAttributesMenu.getItems().add(editAttr);
                     }

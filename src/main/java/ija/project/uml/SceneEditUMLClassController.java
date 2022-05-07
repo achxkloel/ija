@@ -43,16 +43,13 @@ public class SceneEditUMLClassController {
             public void handle(ActionEvent event) {
                 if (nameTextField.getText().isEmpty()) {
                     System.out.println("Text field is empty!");
+                    return;
                 }
 
                 String newName = nameTextField.getText().trim();
 
-                if (newName.equals(editedClass.getName())) {
-                    System.out.println("Class name is not changed");
-                    return;
-                }
-
-                if (parentDiagram.findClass(newName) != null) {
+                if (!newName.equals(editedClass.getName()) &&
+                    parentDiagram.findClass(newName) != null) {
                     System.out.println("Class \"" + newName + "\" is already exists!");
                     return;
                 }
