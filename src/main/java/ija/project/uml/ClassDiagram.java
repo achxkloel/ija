@@ -58,6 +58,7 @@ public class ClassDiagram extends Element {
     public void removeRelation (UMLRelation relationToRemove) {
         if (diagramView != null) {
             diagramView.getChildren().remove(relationToRemove.getLine());
+            diagramView.getChildren().remove(relationToRemove.getPolygon());
         }
         this.relationList.remove(relationToRemove);
     }
