@@ -37,25 +37,22 @@ public class SceneEditUMLClassController {
 
     @FXML
     public void initialize () {
-        saveButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                if (nameTextField.getText().isEmpty()) {
-                    System.out.println("Text field is empty!");
-                    return;
-                }
-
-                String newName = nameTextField.getText().trim();
-
-                if (!newName.equals(editedClass.getName()) &&
-                    parentDiagram.findClass(newName) != null) {
-                    System.out.println("Class \"" + newName + "\" is already exists!");
-                    return;
-                }
-
-                editedClass.setName(newName);
-                closeWindow(event);
+        saveButton.setOnAction(event -> {
+            if (nameTextField.getText().isEmpty()) {
+                System.out.println("Text field is empty!");
+                return;
             }
+
+            String newName = nameTextField.getText().trim();
+
+            if (!newName.equals(editedClass.getName()) &&
+                parentDiagram.findClass(newName) != null) {
+                System.out.println("Class \"" + newName + "\" is already exists!");
+                return;
+            }
+
+            editedClass.setName(newName);
+            closeWindow(event);
         });
 
         deleteButton.setOnAction(event -> {
