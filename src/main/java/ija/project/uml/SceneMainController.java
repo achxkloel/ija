@@ -8,7 +8,6 @@
 
 package ija.project.uml;
 
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -286,11 +285,7 @@ public class SceneMainController {
                     for (Attribute attr : currClass.getAttributeList()) {
                         MenuItem editAttr = new MenuItem(attr.getName());
 
-                        editAttr.setOnAction(new EventHandler<ActionEvent>() {
-                            public void handle(ActionEvent e) {
-                                editAttributeWindow(attr);
-                            }
-                        });
+                        editAttr.setOnAction(e -> editAttributeWindow(attr));
 
                         editAttributesMenu.getItems().add(editAttr);
                     }
@@ -307,23 +302,11 @@ public class SceneMainController {
                     );
                     contextMenu.show(mainPane, t.getScreenX(), t.getScreenY());
 
-                    itemClassEdit.setOnAction(new EventHandler<ActionEvent>() {
-                        public void handle(ActionEvent e) {
-                            editClassWindow(currClass);
-                        }
-                    });
+                    itemClassEdit.setOnAction(e -> editClassWindow(currClass));
 
-                    itemAddAttr.setOnAction(new EventHandler<ActionEvent>() {
-                        public void handle(ActionEvent e) {
-                            addAttributeWindow(currClass);
-                        }
-                    });
+                    itemAddAttr.setOnAction(e -> addAttributeWindow(currClass));
 
-                    itemAddMethod.setOnAction(new EventHandler<ActionEvent>() {
-                        public void handle(ActionEvent e) {
-                            System.out.println("Add method");
-                        }
-                    });
+                    itemAddMethod.setOnAction(e -> System.out.println("Add method"));
                 }
             }
         };
