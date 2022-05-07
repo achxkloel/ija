@@ -56,6 +56,14 @@ public class ClassDiagram extends Element {
         }
     }
 
+    public void removeRelation (UMLRelation relationToRemove) {
+        this.classList.remove(relationToRemove);
+        this.classList.remove(relationToRemove);
+        if (diagramView != null) {
+            diagramView.getChildren().remove(relationToRemove.getLine());
+        }
+    }
+
     /**
      * Add new relation to the diagram.
      *

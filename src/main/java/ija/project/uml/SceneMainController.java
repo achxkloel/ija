@@ -8,6 +8,7 @@
 
 package ija.project.uml;
 
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -42,7 +43,6 @@ public class SceneMainController {
     private ClassDiagram classDiagram;
     private ContextMenu contextMenu;
     private final List<VBox> classVboxList = new ArrayList<>();
-    Line line;
 
     public void setClassDiagram (ClassDiagram classDiagram) {
         this.classDiagram = classDiagram;
@@ -141,7 +141,7 @@ public class SceneMainController {
                     currentRelation.setVboxTo(vbox);
             }
 
-            line = new Line();
+            Line line = new Line();
             currentRelation.setLine(line);
             currentRelation.updateCoordinates();
 
@@ -225,6 +225,10 @@ public class SceneMainController {
         stage.setMinHeight(300);
         stage.setScene(scene);
         stage.show();
+    }
+
+    public void quitApplication() {
+        Platform.exit();
     }
 
     EventHandler<MouseEvent> vboxOnMousePressedEventHandler =
