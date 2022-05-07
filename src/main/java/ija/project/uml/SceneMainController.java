@@ -252,14 +252,10 @@ public class SceneMainController {
 
                 List<UMLRelation> relationList = classDiagram.getRelationList();
 
-                for (UMLRelation currentRelation : relationList) {
-                    VBox source = currentRelation.getVboxFrom();
-                    VBox target = currentRelation.getVboxTo();
-
-                    if (Objects.equals(source.getId(), ((VBox)(t.getSource())).getId()) ||
-                    Objects.equals(target.getId(), ((VBox)(t.getSource())).getId()))
+                for (UMLRelation currentRelation : relationList)
+                    if (Objects.equals(currentRelation.getVboxFrom().getId(), ((VBox)(t.getSource())).getId()) ||
+                    Objects.equals(currentRelation.getVboxTo().getId(), ((VBox)(t.getSource())).getId()))
                         currentRelation.updateCoordinates();
-                }
 
                 ((VBox)(t.getSource())).toFront();
 
