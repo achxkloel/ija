@@ -1,7 +1,7 @@
 {
   "type": "SequenceDiagram",
-  "name": "",
-  "participants": [
+  "name": "testSequenceDiagram",
+  "objects": [
     {
       "name": "",
       "action": [

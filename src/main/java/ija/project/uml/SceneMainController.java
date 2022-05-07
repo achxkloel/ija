@@ -12,8 +12,6 @@ import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Bounds;
-import javafx.geometry.Point2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -165,11 +163,8 @@ public class SceneMainController {
         vbox.setOnMouseClicked(vboxOnMouseClickedEventHandler);
 
         vbox.toFront();
-        Point2D classPoint = vbox.parentToLocal(umlClass.getPositionX(), umlClass.getPositionY());
-        System.out.println("Init position: " + umlClass.getPositionX() + " " + umlClass.getPositionY());
-        System.out.println("Position after: " + classPoint.getX() + " " + classPoint.getY());
-        vbox.setTranslateX(classPoint.getX());
-        vbox.setTranslateY(classPoint.getY());
+        vbox.setTranslateX(umlClass.getPositionX());
+        vbox.setTranslateY(umlClass.getPositionY());
 
         return vbox;
     }
@@ -327,9 +322,8 @@ public class SceneMainController {
             umlClassObject.put("name", umlClass.getName());
 
             VBox classVBox = umlClass.getClassView();
-            Bounds classPosition = classVBox.localToParent(classVBox.getBoundsInParent());
-            umlClassObject.put("positionX", classPosition.getMinX());
-            umlClassObject.put("positionY", classPosition.getMinY());
+            umlClassObject.put("positionX", classVBox.getTranslateX());
+            umlClassObject.put("positionY", classVBox.getTranslateY());
 
             JSONArray umlClassItemsArray = new JSONArray();
 
