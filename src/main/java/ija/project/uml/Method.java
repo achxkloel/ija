@@ -9,6 +9,7 @@
 package ija.project.uml;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -36,6 +37,10 @@ public class Method extends Attribute {
      */
     public void addAttribute (Attribute newAttribute) {
         attributeList.add(newAttribute);
+    }
+
+    public List<Attribute> getAttributeList () {
+        return Collections.unmodifiableList(this.attributeList);
     }
 
     @Override

@@ -9,6 +9,7 @@
 package ija.project.uml;
 
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,7 +22,10 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.IOException;
 
@@ -279,6 +283,72 @@ public class SceneMainController {
         stage.setMinHeight(300);
         stage.setScene(scene);
         stage.show();
+    }
+
+    @FXML
+    private void saveClassDiagram (ActionEvent event) {
+        JSONObject classDiagramObject = new JSONObject();
+        classDiagramObject.put("type", "ClassDiagram");
+        classDiagramObject.put("name", classDiagram.getName());
+
+        JSONArray umlClassArray = new JSONArray();
+
+        for (UMLClass umlClass : classDiagram.getClassList()) {
+            JSONObject umlClassObject = new JSONObject();
+            umlClassObject.put("name", umlClass.getName());
+            JSONArray umlClassItemsArray = new JSONArray();
+
+            for (Attribute attribute : umlClass.getAttributeList()) {
+                JSONObject umlClassItemObject = new JSONObject();
+                umlClassItemObject.put("item_type", "Attribute");
+                umlClassItemObject.put("visibility", attribute.getVisibility());
+                umlClassItemObject.put("name", attribute.getName());
+                umlClassItemObject.put("type", attribute.getType());
+                umlClassItemsArray.put(umlClassItemObject);
+            }
+
+            for (Method method : umlClass.getMethodList()) {
+                JSONObject umlClassItemObject = new JSONObject();
+                umlClassItemObject.put("item_type", "Attribute");
+                umlClassItemObject.put("visibility", method.getVisibility());
+                umlClassItemObject.put("name", method.getName());
+                umlClassItemObject.put("type", method.getType());
+
+                JSONArray methodParamsArray = new JSONArray();
+                for (Attribute methodParam : method.getAttributeList()) {
+                    JSONObject methodParamObject = new JSONObject();
+                    methodParamObject.put("name", methodParam.getName());
+                    methodParamObject.put("type", methodParam.getType());
+                    methodParamsArray.put(methodParamObject);
+                }
+
+                umlClassObject.put("params", methodParamsArray);
+                umlClassItemsArray.put(umlClassItemObject);
+            }
+
+            umlClassArray.put(umlClassObject);
+        }
+
+        JSONArray relationsArray = new JSONArray();
+
+        for (UMLRelation relation : classDiagram.getRelationList()) {
+            JSONObject relationObject = new JSONObject();
+            relationObject.put("source", relation.getSource());
+            relationObject.put("target", relation.getTarget());
+            relationObject.put("type", relation.getType());
+            relationObject.put("name", relation.getName());
+            relationObject.put("cardinality_from", relation.getCardinalityFrom());
+            relationObject.put("cardinality_to", relation.getCardinalityTo());
+            relationsArray.put(relationObject);
+        }
+
+        classDiagramObject.put("classes", umlClassArray);
+        classDiagramObject.put("relations", relationsArray);
+
+        System.out.println(classDiagramObject);
+
+//        DirectoryChooser directoryChooser = new DirectoryChooser();
+//        File selectedDirectory = directoryChooser.showDialog(stage);
     }
 
     public void quitApplication() {
