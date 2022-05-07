@@ -12,11 +12,6 @@
 
 <VBox prefHeight="600.0" prefWidth="900.0" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ija.project.uml.SceneWelcomeController">
     <MenuBar VBox.vgrow="NEVER">
-        <Menu mnemonicParsing="false" text="File">
-            <MenuItem mnemonicParsing="false" onAction="#openExistingDiagram" text="Load Class Diagram" />
-            <MenuItem mnemonicParsing="false" onAction="#openExistingDiagram" text="Load Sequence Diagram" />
-            <MenuItem mnemonicParsing="false" onAction="#quitApplication" text="Quit" />
-        </Menu>
         <Menu mnemonicParsing="false" text="Help">
             <MenuItem mnemonicParsing="false" text="About" />
         </Menu>
