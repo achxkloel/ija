@@ -10,6 +10,7 @@ package ija.project.uml;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -32,7 +33,8 @@ public class SceneWelcomeController {
      * @param event is used later for stage
      * @throws Exception
      */
-    public void openFileWindow(ActionEvent event) throws Exception {
+    @FXML
+    private void openExistingDiagram(ActionEvent event) throws Exception {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Class Diagram File");
         fileChooser.getExtensionFilters().add( new FileChooser.ExtensionFilter("JSON files", "*.json"));
@@ -49,6 +51,11 @@ public class SceneWelcomeController {
         }
 
         switchToSceneMain(event, classDiagram);
+    }
+
+    @FXML
+    private void openNewDiagram(ActionEvent event) throws Exception {
+        switchToSceneMain(event, new ClassDiagram("classDiagram"));
     }
 
     /**
