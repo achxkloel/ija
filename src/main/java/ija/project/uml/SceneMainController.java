@@ -9,11 +9,9 @@
 package ija.project.uml;
 
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -42,7 +40,6 @@ public class SceneMainController {
     private double orgSceneX, orgSceneY;
     private double orgTranslateX, orgTranslateY;
 
-    private Parent root;
     private Stage stage;
 
     private ClassDiagram classDiagram;
@@ -288,6 +285,8 @@ public class SceneMainController {
 
     public void closeDiagram() {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/scenes/sceneWelcome.fxml"));
+        Parent root;
+
         try {
             root = loader.load();
         } catch (IOException e) {
