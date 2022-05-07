@@ -8,14 +8,16 @@
 
 package ija.project.uml;
 
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Line;
@@ -40,6 +42,7 @@ public class SceneMainController {
     private double orgTranslateX, orgTranslateY;
 
     private ClassDiagram classDiagram;
+    private ContextMenu contextMenu;
     private final List<VBox> classVboxList = new ArrayList<>();
     Line line;
 
@@ -47,9 +50,9 @@ public class SceneMainController {
         this.classDiagram = classDiagram;
     }
 
-    private Label getLabel(String text) {
+    private Label getLabel(UMLClass umlClass) {
         Label label = new Label();
-        label.setText(text);
+        umlClass.setNameView(label);
 
         String cssLabel = "-fx-text-fill: black;\n" +
                 "-fx-padding: 5px";
@@ -59,11 +62,14 @@ public class SceneMainController {
         return label;
     }
 
-    private VBox getAttributeList(List<Attribute> attributeList) {
+    private VBox getAttributeList(UMLClass umlClass) {
+        List<Attribute> attributeList = umlClass.getAttributeList();
         final VBox vboxAttributes = new VBox();
+        umlClass.setAttributeView(vboxAttributes);
 
         for (Attribute currentAttribute : attributeList) {
             Text attribute = new Text();
+            currentAttribute.setAttributeText(attribute);
             attribute.setText(currentAttribute.toString());
             vboxAttributes.getChildren().add(attribute);
         }
@@ -111,8 +117,8 @@ public class SceneMainController {
 
             vbox.setId(this.generateClassId(currentClass.getName()));
             vbox.setStyle(cssLayoutVbox);
-            vbox.getChildren().add(getLabel(currentClass.getName()));
-            vbox.getChildren().add(getAttributeList(currentClass.getAttributeList()));
+            vbox.getChildren().add(getLabel(currentClass));
+            vbox.getChildren().add(getAttributeList(currentClass));
             vbox.getChildren().add(getMethodList(currentClass.getMethodList()));
 
             vbox.setOnMousePressed(vboxOnMousePressedEventHandler);
@@ -149,6 +155,72 @@ public class SceneMainController {
 
     private String generateClassId(String className) {
         return className.replaceAll("\\s+", "_").toLowerCase();
+    }
+
+    private void editClassWindow (UMLClass currClass) {
+        Parent root;
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/scenes/sceneEditUMLClass.fxml"));
+
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        SceneEditUMLClassController sceneEditUMLClassController = loader.getController();
+        sceneEditUMLClassController.setUMLClass(currClass);
+
+        Scene scene = new Scene(root);
+        stage.setTitle("Edit UMLClass");
+        stage.setMinWidth(300);
+        stage.setMinHeight(300);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    private void addAttributeWindow (UMLClass currClass) {
+        Parent root;
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/scenes/sceneAddAttribute.fxml"));
+
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        SceneAddAttributeController sceneAddAttributeController = loader.getController();
+        sceneAddAttributeController.setUMLClass(currClass);
+
+        Scene scene = new Scene(root);
+        stage.setTitle("Add class attribute");
+        stage.setMinWidth(300);
+        stage.setMinHeight(300);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    private void editAttributeWindow (Attribute attr) {
+        Parent root;
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/scenes/sceneEditAttribute.fxml"));
+
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        SceneEditAttributeController sceneEditAttributeController = loader.getController();
+        sceneEditAttributeController.setAttribute(attr);
+
+        Scene scene = new Scene(root);
+        stage.setTitle("Edit attribute");
+        stage.setMinWidth(300);
+        stage.setMinHeight(300);
+        stage.setScene(scene);
+        stage.show();
     }
 
     EventHandler<MouseEvent> vboxOnMousePressedEventHandler =
@@ -205,32 +277,61 @@ public class SceneMainController {
                 public void handle(MouseEvent t) {
                     if(t.getButton().equals(MouseButton.PRIMARY)){
                         if(t.getClickCount() == 2){
-                            VBox currentVBox = ((VBox)(t.getSource()));
-                            Label currVBoxLabel = (Label)(currentVBox.getChildren().get(0));
-                            UMLClass currClass = classDiagram.findClass(currVBoxLabel.getText());
-//                            System.out.println(currClass.getName());
-
-                            Parent root;
-                            Stage stage = new Stage();
-                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/scenes/sceneEditUMLClass.fxml"));
-
-                            try {
-                                root = loader.load();
-                            } catch (IOException e) {
-                                throw new RuntimeException(e);
-                            }
-
-                            SceneEditUMLClassController sceneEditUMLClassController = loader.getController();
-                            sceneEditUMLClassController.setUMLClass(currClass);
-                            sceneEditUMLClassController.setVBox(currentVBox);
-
-                            Scene scene = new Scene(root);
-                            stage.setTitle("Edit UMLClass");
-                            stage.setMinWidth(300);
-                            stage.setMinHeight(300);
-                            stage.setScene(scene);
-                            stage.show();
+                            System.out.println("double click");
                         }
+                    } else if (t.getButton().equals(MouseButton.SECONDARY)) {
+                        VBox currentVBox = ((VBox)(t.getSource()));
+                        Label currVBoxLabel = (Label)(currentVBox.getChildren().get(0));
+                        UMLClass currClass = classDiagram.findClass(currVBoxLabel.getText());
+
+                        contextMenu = new ContextMenu();
+                        MenuItem itemClassEdit = new MenuItem("Edit class");
+                        SeparatorMenuItem separateAttributes = new SeparatorMenuItem();
+                        MenuItem itemAddAttr = new MenuItem("Add attribute");
+                        Menu editAttributesMenu = new Menu("Edit Attributes");
+
+                        // Set event handlers to attributes
+                        for (Attribute attr : currClass.getAttributeList()) {
+                            MenuItem editAttr = new MenuItem(attr.getName());
+
+                            editAttr.setOnAction(new EventHandler<ActionEvent>() {
+                                public void handle(ActionEvent e) {
+                                    editAttributeWindow(attr);
+                                }
+                            });
+
+                            editAttributesMenu.getItems().add(editAttr);
+                        }
+
+                        SeparatorMenuItem separateMethods = new SeparatorMenuItem();
+                        MenuItem itemAddMethod = new MenuItem("Add method");
+                        contextMenu.getItems().addAll(
+                            itemClassEdit,
+                            separateAttributes,
+                            itemAddAttr,
+                            editAttributesMenu,
+                            separateMethods,
+                            itemAddMethod
+                        );
+                        contextMenu.show(mainPane, t.getScreenX(), t.getScreenY());
+
+                        itemClassEdit.setOnAction(new EventHandler<ActionEvent>() {
+                            public void handle(ActionEvent e) {
+                                editClassWindow(currClass);
+                            }
+                        });
+
+                        itemAddAttr.setOnAction(new EventHandler<ActionEvent>() {
+                            public void handle(ActionEvent e) {
+                                addAttributeWindow(currClass);
+                            }
+                        });
+
+                        itemAddMethod.setOnAction(new EventHandler<ActionEvent>() {
+                            public void handle(ActionEvent e) {
+                                System.out.println("Add method");
+                            }
+                        });
                     }
                 }
             };

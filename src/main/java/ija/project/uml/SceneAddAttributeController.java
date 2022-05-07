@@ -14,18 +14,20 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.VBox;
 
-/**
- * Controller for the editUMLClass scene.
- */
-public class SceneEditUMLClassController {
+public class SceneAddAttributeController {
 
     @FXML
     Button saveButton;
 
     @FXML
-    TextField nameTextField;
+    TextField attributeVisibilityTextField;
+
+    @FXML
+    TextField attributeNameTextField;
+
+    @FXML
+    TextField attributeTypeTextField;
 
     UMLClass editedClass;
 
@@ -34,8 +36,15 @@ public class SceneEditUMLClassController {
         saveButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                if (!nameTextField.getText().isEmpty()) {
-                    editedClass.setName(nameTextField.getText());
+                if (!attributeVisibilityTextField.getText().isEmpty() &&
+                    !attributeNameTextField.getText().isEmpty() &&
+                    !attributeTypeTextField.getText().isEmpty()) {
+                    Attribute newAttribute = new Attribute(
+                        attributeNameTextField.getText(),
+                        attributeTypeTextField.getText(),
+                        attributeVisibilityTextField.getText()
+                    );
+                    editedClass.addAttribute(newAttribute);
                 }
             }
         });
@@ -43,6 +52,5 @@ public class SceneEditUMLClassController {
 
     public void setUMLClass (UMLClass editedClass) {
         this.editedClass = editedClass;
-        nameTextField.setText(editedClass.getName());
     }
 }

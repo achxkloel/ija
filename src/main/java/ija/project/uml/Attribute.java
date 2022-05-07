@@ -8,14 +8,18 @@
 
 package ija.project.uml;
 
+import javafx.scene.text.Text;
+
 /**
  * Attribute of the class
  */
 public class Attribute extends Element {
 
-    protected final String type;
+    protected String type;
 
     private String visibility = "";
+
+    private Text attributeText = null;
 
     /**
      * Creates new attribute
@@ -34,6 +38,28 @@ public class Attribute extends Element {
 
     public String getType () {
         return type;
+    }
+
+    public void setType (String newType) {
+        this.type = newType;
+    }
+
+    public String getVisibility () {
+        return this.visibility;
+    }
+
+    public void setVisibility (String newVisibility) {
+        this.visibility = newVisibility;
+    }
+
+    public void setAttributeText (Text attributeText) {
+        this.attributeText = attributeText;
+    }
+
+    public void updateAttributeText () {
+        if (this.attributeText != null) {
+            this.attributeText.setText(this.toString());
+        }
     }
 
     protected String getVisibilityChar () {

@@ -8,6 +8,10 @@
 
 package ija.project.uml;
 
+import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -27,6 +31,10 @@ public class UMLClass extends Element {
      */
     private final List<Method> methodList = new ArrayList<>();
 
+    private Label nameView = null;
+
+    private VBox attributeView = null;
+
     /**
      * Creates new class.
      *
@@ -43,6 +51,12 @@ public class UMLClass extends Element {
      */
     public void addAttribute (Attribute newAttribute) {
         this.attributeList.add(newAttribute);
+        if (this.attributeView != null) {
+            Text attributeText = new Text();
+            newAttribute.setAttributeText(attributeText);
+            attributeText.setText(newAttribute.toString());
+            this.attributeView.getChildren().add(attributeText);
+        }
     }
 
     /**
@@ -86,5 +100,22 @@ public class UMLClass extends Element {
 
     public List<Method> getMethodList () {
         return Collections.unmodifiableList(this.methodList);
+    }
+
+    public void setNameView (Label nameView) {
+        this.nameView = nameView;
+        this.nameView.setText(this.name);
+    }
+
+    public void setAttributeView (VBox attributeView) {
+        this.attributeView = attributeView;
+    }
+
+    @Override
+    public void setName (String newName) {
+        super.setName(newName);
+        if (nameView != null) {
+            this.nameView.setText(newName);
+        }
     }
 }
