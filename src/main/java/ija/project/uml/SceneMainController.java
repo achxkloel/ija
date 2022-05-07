@@ -162,7 +162,8 @@ public class SceneMainController {
         return className.replaceAll("\\s+", "_").toLowerCase();
     }
 
-    public void addClassWindow () {
+    @FXML
+    private void addClassWindow () {
         Parent root;
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/scenes/sceneAddUMLClass.fxml"));
