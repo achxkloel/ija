@@ -12,7 +12,6 @@ import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Point2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -21,9 +20,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Line;
-import javafx.scene.shape.Polygon;
 import javafx.scene.text.Text;
-import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.json.JSONArray;
@@ -136,11 +133,8 @@ public class SceneMainController {
             currentRelation.setLine(line);
             currentRelation.updateCoordinates();
 
-            Point2D point = currentRelation.getIntersectionPoint();
-
-            System.out.println("X: " + point.getX() + "Y: " + point.getY());
-
             mainPane.getChildren().add(currentRelation.getLine());
+            mainPane.getChildren().add(currentRelation.getPolygon());
         }
 
         for (VBox vbox : this.classVboxList)
