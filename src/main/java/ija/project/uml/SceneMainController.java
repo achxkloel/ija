@@ -23,12 +23,14 @@ import javafx.scene.layout.VBox;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.IOException;
+import java.io.*;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -307,7 +309,7 @@ public class SceneMainController {
     }
 
     @FXML
-    private void saveClassDiagram (ActionEvent event) {
+    private void saveClassDiagram (ActionEvent event) throws IOException {
         JSONObject classDiagramObject = new JSONObject();
         classDiagramObject.put("type", "ClassDiagram");
         classDiagramObject.put("name", classDiagram.getName());
@@ -330,7 +332,7 @@ public class SceneMainController {
 
             for (Method method : umlClass.getMethodList()) {
                 JSONObject umlClassItemObject = new JSONObject();
-                umlClassItemObject.put("item_type", "Attribute");
+                umlClassItemObject.put("item_type", "Method");
                 umlClassItemObject.put("visibility", method.getVisibility());
                 umlClassItemObject.put("name", method.getName());
                 umlClassItemObject.put("type", method.getType());
@@ -343,10 +345,11 @@ public class SceneMainController {
                     methodParamsArray.put(methodParamObject);
                 }
 
-                umlClassObject.put("params", methodParamsArray);
+                umlClassItemObject.put("params", methodParamsArray);
                 umlClassItemsArray.put(umlClassItemObject);
             }
 
+            umlClassObject.put("items", umlClassItemsArray);
             umlClassArray.put(umlClassObject);
         }
 
@@ -366,10 +369,15 @@ public class SceneMainController {
         classDiagramObject.put("classes", umlClassArray);
         classDiagramObject.put("relations", relationsArray);
 
-        System.out.println(classDiagramObject);
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Choose folder to save diagram");
+        fileChooser.setInitialFileName(classDiagram.getName() + ".json");
+        fileChooser.setSelectedExtensionFilter( new FileChooser.ExtensionFilter("JSON files", "*.json" ));
+        File selectedFile = fileChooser.showSaveDialog(stage);
 
-//        DirectoryChooser directoryChooser = new DirectoryChooser();
-//        File selectedDirectory = directoryChooser.showDialog(stage);
+        try (PrintWriter outputFile = new PrintWriter(selectedFile.getAbsolutePath(), StandardCharsets.UTF_8)) {
+            outputFile.println(classDiagramObject.toString(2));
+        }
     }
 
     public void quitApplication() {
