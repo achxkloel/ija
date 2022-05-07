@@ -39,6 +39,10 @@ public class UMLClass extends Element {
 
     private VBox classView = null;
 
+    private double positionX = 0.0;
+
+    private double positionY = 0.0;
+
     /**
      * Creates new class.
      *
@@ -138,6 +142,22 @@ public class UMLClass extends Element {
 
     public VBox getClassView () {
         return this.classView;
+    }
+
+    public void setPositionX(double positionX) {
+        this.positionX = positionX;
+    }
+
+    public void setPositionY(double positionY) {
+        this.positionY = positionY;
+    }
+
+    public double getPositionX() {
+        return positionX;
+    }
+
+    public double getPositionY() {
+        return positionY;
     }
 
     @Override

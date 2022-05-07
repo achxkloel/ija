@@ -65,6 +65,12 @@ public class DataParser {
                 String CName = CData.getString("name");
                 UMLClass umlClass = new UMLClass(CName);
 
+                // Store class position
+                double CPositionX = CData.getDouble("positionX");
+                double CPositionY = CData.getDouble("positionY");
+                umlClass.setPositionX(CPositionX);
+                umlClass.setPositionY(CPositionY);
+
                 // Add attributes and methods
                 JSONArray itemList = CData.getJSONArray("items");
 

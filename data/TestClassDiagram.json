@@ -4,6 +4,8 @@
   "classes": [
     {
       "name": "testClass",
+      "positionX": 0.0,
+      "positionY": 0.0,
       "items": [
         {
           "item_type": "Attribute",
@@ -37,6 +39,8 @@
     },
     {
       "name": "testClass 1",
+      "positionX": 0.0,
+      "positionY": 0.0,
       "items": [
         {
           "item_type": "Attribute",
@@ -70,6 +74,8 @@
     },
     {
       "name": "testClass 2",
+      "positionX": 0.0,
+      "positionY": 0.0,
       "items": [
         {
           "item_type": "Attribute",
@@ -103,6 +109,8 @@
     },
     {
       "name": "testClass 3",
+      "positionX": 0.0,
+      "positionY": 0.0,
       "items": [
         {
           "item_type": "Attribute",

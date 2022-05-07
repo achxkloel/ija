@@ -165,8 +165,11 @@ public class SceneMainController {
         vbox.setOnMouseClicked(vboxOnMouseClickedEventHandler);
 
         vbox.toFront();
-//        vbox.setLayoutX(1000.0 - vbox.getWidth());
-//        vbox.setLayoutY(658.0 - vbox.getHeight());
+        Point2D classPoint = vbox.parentToLocal(umlClass.getPositionX(), umlClass.getPositionY());
+        System.out.println("Init position: " + umlClass.getPositionX() + " " + umlClass.getPositionY());
+        System.out.println("Position after: " + classPoint.getX() + " " + classPoint.getY());
+        vbox.setTranslateX(classPoint.getX());
+        vbox.setTranslateY(classPoint.getY());
 
         return vbox;
     }
@@ -320,10 +323,14 @@ public class SceneMainController {
         JSONArray umlClassArray = new JSONArray();
 
         for (UMLClass umlClass : classDiagram.getClassList()) {
-            Point2D point2D = umlClass.getClassView().localToParent(umlClass.getClassView().getWidth()/2, umlClass.getClassView().getHeight()/2);
-            System.out.println(point2D);
             JSONObject umlClassObject = new JSONObject();
             umlClassObject.put("name", umlClass.getName());
+
+            VBox classVBox = umlClass.getClassView();
+            Bounds classPosition = classVBox.localToParent(classVBox.getBoundsInParent());
+            umlClassObject.put("positionX", classPosition.getMinX());
+            umlClassObject.put("positionY", classPosition.getMinY());
+
             JSONArray umlClassItemsArray = new JSONArray();
 
             for (Attribute attribute : umlClass.getAttributeList()) {
