@@ -9,6 +9,7 @@
 package ija.project.uml;
 
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Line;
 
 /**
  * Relation between classes.
@@ -22,6 +23,7 @@ public class UMLRelation extends Element {
     private final String cardinalityTo;
     private VBox vboxFrom;
     private VBox vboxTo;
+    private Line line;
 
     public UMLRelation (String name, String type, String source, String target, String cardinalityFrom, String cardinalityTo) {
         super(name);
@@ -60,11 +62,26 @@ public class UMLRelation extends Element {
         return vboxTo;
     }
 
+    public Line getLine() {
+        return line;
+    }
+
     public void setVboxFrom(VBox vboxFrom) {
         this.vboxFrom = vboxFrom;
     }
 
     public void setVboxTo(VBox vboxTo) {
         this.vboxTo = vboxTo;
+    }
+
+    public void setLine(Line line) {
+        this.line = line;
+    }
+
+    public void updateCoordinates() {
+        this.line.setStartX(vboxFrom.getLayoutX() + vboxFrom.getTranslateX() + vboxFrom.getWidth() / 2);
+        this.line.setStartY(vboxFrom.getLayoutY() + vboxFrom.getTranslateY() + vboxFrom.getHeight() / 2);
+        this.line.setEndX(vboxTo.getLayoutX() + vboxTo.getTranslateX() + vboxTo.getWidth() / 2);
+        this.line.setEndY(vboxTo.getLayoutY() + vboxTo.getTranslateY() + vboxTo.getHeight() / 2);
     }
 }

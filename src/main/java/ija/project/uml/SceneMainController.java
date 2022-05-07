@@ -141,12 +141,10 @@ public class SceneMainController {
             }
 
             line = new Line();
-            line.setStartX(currentRelation.getVboxFrom().getLayoutX());
-            line.setStartY(currentRelation.getVboxFrom().getLayoutY());
-            line.setEndX(currentRelation.getVboxTo().getLayoutX());
-            line.setEndY(currentRelation.getVboxTo().getLayoutY());
+            currentRelation.setLine(line);
+            currentRelation.updateCoordinates();
 
-            mainPane.getChildren().add(line);
+            mainPane.getChildren().add(currentRelation.getLine());
         }
 
         for (VBox vbox : this.classVboxList)
@@ -258,10 +256,9 @@ public class SceneMainController {
                     VBox source = currentRelation.getVboxFrom();
                     VBox target = currentRelation.getVboxTo();
 
-                    line.setStartX(source.getLayoutX() + source.getWidth()/2 + source.getTranslateX());
-                    line.setStartY(source.getLayoutY() + source.getHeight()/2 + source.getTranslateY());
-                    line.setEndX(target.getLayoutX() + target.getWidth()/2 + target.getTranslateX());
-                    line.setEndY(target.getLayoutY() + target.getHeight()/2 + target.getTranslateY());
+                    if (Objects.equals(source.getId(), ((VBox)(t.getSource())).getId()) ||
+                    Objects.equals(target.getId(), ((VBox)(t.getSource())).getId()))
+                        currentRelation.updateCoordinates();
                 }
 
                 ((VBox)(t.getSource())).toFront();
@@ -272,68 +269,68 @@ public class SceneMainController {
         };
 
     EventHandler<MouseEvent> vboxOnMouseClickedEventHandler =
-            new EventHandler<>() {
-                @Override
-                public void handle(MouseEvent t) {
-                    if(t.getButton().equals(MouseButton.PRIMARY)){
-                        if(t.getClickCount() == 2){
-                            System.out.println("double click");
-                        }
-                    } else if (t.getButton().equals(MouseButton.SECONDARY)) {
-                        VBox currentVBox = ((VBox)(t.getSource()));
-                        Label currVBoxLabel = (Label)(currentVBox.getChildren().get(0));
-                        UMLClass currClass = classDiagram.findClass(currVBoxLabel.getText());
-
-                        contextMenu = new ContextMenu();
-                        MenuItem itemClassEdit = new MenuItem("Edit class");
-                        SeparatorMenuItem separateAttributes = new SeparatorMenuItem();
-                        MenuItem itemAddAttr = new MenuItem("Add attribute");
-                        Menu editAttributesMenu = new Menu("Edit Attributes");
-
-                        // Set event handlers to attributes
-                        for (Attribute attr : currClass.getAttributeList()) {
-                            MenuItem editAttr = new MenuItem(attr.getName());
-
-                            editAttr.setOnAction(new EventHandler<ActionEvent>() {
-                                public void handle(ActionEvent e) {
-                                    editAttributeWindow(attr);
-                                }
-                            });
-
-                            editAttributesMenu.getItems().add(editAttr);
-                        }
-
-                        SeparatorMenuItem separateMethods = new SeparatorMenuItem();
-                        MenuItem itemAddMethod = new MenuItem("Add method");
-                        contextMenu.getItems().addAll(
-                            itemClassEdit,
-                            separateAttributes,
-                            itemAddAttr,
-                            editAttributesMenu,
-                            separateMethods,
-                            itemAddMethod
-                        );
-                        contextMenu.show(mainPane, t.getScreenX(), t.getScreenY());
-
-                        itemClassEdit.setOnAction(new EventHandler<ActionEvent>() {
-                            public void handle(ActionEvent e) {
-                                editClassWindow(currClass);
-                            }
-                        });
-
-                        itemAddAttr.setOnAction(new EventHandler<ActionEvent>() {
-                            public void handle(ActionEvent e) {
-                                addAttributeWindow(currClass);
-                            }
-                        });
-
-                        itemAddMethod.setOnAction(new EventHandler<ActionEvent>() {
-                            public void handle(ActionEvent e) {
-                                System.out.println("Add method");
-                            }
-                        });
+        new EventHandler<>() {
+            @Override
+            public void handle(MouseEvent t) {
+                if(t.getButton().equals(MouseButton.PRIMARY)){
+                    if(t.getClickCount() == 2){
+                        System.out.println("double click");
                     }
+                } else if (t.getButton().equals(MouseButton.SECONDARY)) {
+                    VBox currentVBox = ((VBox)(t.getSource()));
+                    Label currVBoxLabel = (Label)(currentVBox.getChildren().get(0));
+                    UMLClass currClass = classDiagram.findClass(currVBoxLabel.getText());
+
+                    contextMenu = new ContextMenu();
+                    MenuItem itemClassEdit = new MenuItem("Edit class");
+                    SeparatorMenuItem separateAttributes = new SeparatorMenuItem();
+                    MenuItem itemAddAttr = new MenuItem("Add attribute");
+                    Menu editAttributesMenu = new Menu("Edit Attributes");
+
+                    // Set event handlers to attributes
+                    for (Attribute attr : currClass.getAttributeList()) {
+                        MenuItem editAttr = new MenuItem(attr.getName());
+
+                        editAttr.setOnAction(new EventHandler<ActionEvent>() {
+                            public void handle(ActionEvent e) {
+                                editAttributeWindow(attr);
+                            }
+                        });
+
+                        editAttributesMenu.getItems().add(editAttr);
+                    }
+
+                    SeparatorMenuItem separateMethods = new SeparatorMenuItem();
+                    MenuItem itemAddMethod = new MenuItem("Add method");
+                    contextMenu.getItems().addAll(
+                        itemClassEdit,
+                        separateAttributes,
+                        itemAddAttr,
+                        editAttributesMenu,
+                        separateMethods,
+                        itemAddMethod
+                    );
+                    contextMenu.show(mainPane, t.getScreenX(), t.getScreenY());
+
+                    itemClassEdit.setOnAction(new EventHandler<ActionEvent>() {
+                        public void handle(ActionEvent e) {
+                            editClassWindow(currClass);
+                        }
+                    });
+
+                    itemAddAttr.setOnAction(new EventHandler<ActionEvent>() {
+                        public void handle(ActionEvent e) {
+                            addAttributeWindow(currClass);
+                        }
+                    });
+
+                    itemAddMethod.setOnAction(new EventHandler<ActionEvent>() {
+                        public void handle(ActionEvent e) {
+                            System.out.println("Add method");
+                        }
+                    });
                 }
-            };
+            }
+        };
 
 }
