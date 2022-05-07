@@ -121,6 +121,14 @@
       "name": "Test relation",
       "cardinality_from": "1",
       "cardinality_to": "*"
+    },
+    {
+      "source": "testClass 1",
+      "target": "testClass 2",
+      "type": "aggregation",
+      "name": "Test relation",
+      "cardinality_from": "1",
+      "cardinality_to": "*"
     }
   ]
 }
