@@ -79,12 +79,6 @@ public class SceneWelcomeController {
         stage.setMinWidth(1000);
         stage.setMinHeight(720);
         stage.show();
-    }
-
-    /**
-     * A method, that shuts down the application
-     */
-    public void quitApplication() {
-        Platform.exit();
+        sceneMainController.setStage(stage);
     }
 }

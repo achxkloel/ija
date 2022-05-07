@@ -15,6 +15,7 @@
                     <items>
                         <MenuItem mnemonicParsing="false" text="Open Class Diagram" />
                         <MenuItem mnemonicParsing="false" text="Open Sequence Diagram" />
+                  <MenuItem mnemonicParsing="false" onAction="#closeDiagram" text="Close Diagram" />
                         <MenuItem mnemonicParsing="false" onAction="#quitApplication" text="Quit" />
                     </items>
                 </Menu>
@@ -32,7 +33,7 @@
                 </Menu>
                 <Menu mnemonicParsing="false" text="Add">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="New class" onAction="#addClassWindow" />
+                        <MenuItem mnemonicParsing="false" onAction="#addClassWindow" text="New class" />
                     </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Help">

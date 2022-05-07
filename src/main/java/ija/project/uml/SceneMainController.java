@@ -9,9 +9,11 @@
 package ija.project.uml;
 
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -39,6 +41,9 @@ public class SceneMainController {
     private Pane mainPane;
     private double orgSceneX, orgSceneY;
     private double orgTranslateX, orgTranslateY;
+
+    private Parent root;
+    private Stage stage;
 
     private ClassDiagram classDiagram;
     private ContextMenu contextMenu;
@@ -281,8 +286,29 @@ public class SceneMainController {
         stage.show();
     }
 
+    public void closeDiagram() {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/scenes/sceneWelcome.fxml"));
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource("/styles/styles.css").toExternalForm());
+
+        stage.setScene(scene);
+        stage.setMinWidth(500);
+        stage.setMinHeight(400);
+        stage.show();
+    }
+
     public void quitApplication() {
         Platform.exit();
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
     }
 
     EventHandler<MouseEvent> vboxOnMousePressedEventHandler =
