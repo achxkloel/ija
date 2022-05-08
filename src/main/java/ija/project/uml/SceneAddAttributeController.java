@@ -13,6 +13,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -23,7 +24,7 @@ public class SceneAddAttributeController {
     Button saveButton;
 
     @FXML
-    TextField attributeVisibilityTextField;
+    ComboBox<String> attributeVisibilityTextField;
 
     @FXML
     TextField attributeNameTextField;
@@ -38,8 +39,7 @@ public class SceneAddAttributeController {
         saveButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                if (attributeVisibilityTextField.getText().isEmpty() ||
-                    attributeNameTextField.getText().isEmpty() ||
+                if (attributeNameTextField.getText().isEmpty() ||
                     attributeTypeTextField.getText().isEmpty()) {
                     System.out.println("Some text fields are empty");
                     return;
@@ -47,7 +47,7 @@ public class SceneAddAttributeController {
 
                 String newName = attributeNameTextField.getText().trim();
                 String newType = attributeTypeTextField.getText().trim();
-                String newVisibility = attributeVisibilityTextField.getText().trim();
+                String newVisibility = attributeVisibilityTextField.getValue();
 
                 if (editedClass.findAttribute(newName) != null) {
                     System.out.println("Attribute \"" + newName + "\" is already exists!");

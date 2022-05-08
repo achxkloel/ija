@@ -4,11 +4,26 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
 
 <VBox prefHeight="300" prefWidth="300" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ija.project.uml.SceneAddAttributeController">
    <children>
       <Label text="Visibility:" />
-      <TextField fx:id="attributeVisibilityTextField" />
+      <ComboBox prefWidth="300" fx:id="attributeVisibilityTextField">
+         <items>
+            <FXCollections fx:factory="observableArrayList">
+               <String fx:value="public"/>
+               <String fx:value="protected"/>
+               <String fx:value="private"/>
+               <String fx:value="package private"/>
+            </FXCollections>
+         </items>
+         <value>
+            <String fx:value="public"/>
+         </value>
+      </ComboBox>
       <Label text="Name:" />
       <TextField fx:id="attributeNameTextField" />
       <Label text="Type:" />

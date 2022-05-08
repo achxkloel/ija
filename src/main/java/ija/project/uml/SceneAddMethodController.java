@@ -13,6 +13,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -25,7 +26,7 @@ public class SceneAddMethodController {
     Button saveButton;
 
     @FXML
-    TextField methodVisibilityTextField;
+    ComboBox<String> methodVisibilityTextField;
 
     @FXML
     TextField methodNameTextField;
@@ -43,8 +44,7 @@ public class SceneAddMethodController {
         saveButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                if (methodVisibilityTextField.getText().isEmpty() ||
-                    methodNameTextField.getText().isEmpty() ||
+                if (methodNameTextField.getText().isEmpty() ||
                     methodReturnTypeTextField.getText().isEmpty() ||
                     methodParamsTextArea.getText().isEmpty()) {
                     System.out.println("Some text fields are empty");
@@ -53,7 +53,7 @@ public class SceneAddMethodController {
 
                 String newName = methodNameTextField.getText().trim();
                 String newReturnType = methodReturnTypeTextField.getText().trim();
-                String newVisibility = methodVisibilityTextField.getText().trim();
+                String newVisibility = methodVisibilityTextField.getValue();
                 String newParams = methodParamsTextArea.getText().trim();
 
                 if (editedClass.findMethod(newName) != null) {
