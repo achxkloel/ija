@@ -49,60 +49,54 @@ public class SceneEditMethodController {
 
     @FXML
     public void initialize () {
-        saveButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                String newName = methodNameTextField.getText().trim();
-                String newType = methodReturnTypeTextField.getText().trim();
-                String newVisibility = methodVisibilityComboBox.getValue();
-                String newParams = methodParamsTextArea.getText().trim();
+        saveButton.setOnAction(event -> {
+            String newName = methodNameTextField.getText().trim();
+            String newType = methodReturnTypeTextField.getText().trim();
+            String newVisibility = methodVisibilityComboBox.getValue();
+            String newParams = methodParamsTextArea.getText().trim();
 
-                if (newName.isEmpty() || newType.isEmpty()) {
-                    System.out.println("Some text fields are empty");
-                    return;
-                }
+            if (newName.isEmpty() || newType.isEmpty()) {
+                System.out.println("Some text fields are empty");
+                return;
+            }
 
-                if (!newName.equals(editedMethod.getName()) &&
-                    parentClass.findAttribute(newName) != null) {
-                    System.out.println("Method \"" + newName + "\" is already exists!");
-                    return;
-                }
+            if (!newName.equals(editedMethod.getName()) &&
+                parentClass.findAttribute(newName) != null) {
+                System.out.println("Method \"" + newName + "\" is already exists!");
+                return;
+            }
 
-                // Add method params
-                editedMethod.clearAttributes();
-                if (!newParams.isEmpty()) {
-                    try (Scanner scanner = new Scanner(newParams)) {
-                        while (scanner.hasNextLine()) {
-                            String param = scanner.nextLine();
-                            String[] paramArr = param.split(":");
+            // Add method params
+            editedMethod.clearAttributes();
+            if (!newParams.isEmpty()) {
+                try (Scanner scanner = new Scanner(newParams)) {
+                    while (scanner.hasNextLine()) {
+                        String param = scanner.nextLine();
+                        String[] paramArr = param.split(":");
 
-                            if (paramArr.length != 2) {
-                                System.out.println("Wrong method parameters!");
-                                return;
-                            }
-
-                            editedMethod.addAttribute(new Attribute(
-                                    paramArr[0].trim(),
-                                    paramArr[1].trim()
-                            ));
+                        if (paramArr.length != 2) {
+                            System.out.println("Wrong method parameters!");
+                            return;
                         }
+
+                        editedMethod.addAttribute(new Attribute(
+                                paramArr[0].trim(),
+                                paramArr[1].trim()
+                        ));
                     }
                 }
-
-                editedMethod.setName(newName);
-                editedMethod.setType(newType);
-                editedMethod.setVisibility(newVisibility);
-                editedMethod.updateTextView();
-                closeWindow(event);
             }
+
+            editedMethod.setName(newName);
+            editedMethod.setType(newType);
+            editedMethod.setVisibility(newVisibility);
+            editedMethod.updateTextView();
+            closeWindow(event);
         });
 
-        deleteButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                parentClass.removeMethod(editedMethod);
-                closeWindow(event);
-            }
+        deleteButton.setOnAction(event -> {
+            parentClass.removeMethod(editedMethod);
+            closeWindow(event);
         });
     }
 
