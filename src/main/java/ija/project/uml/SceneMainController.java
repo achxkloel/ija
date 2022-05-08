@@ -95,6 +95,7 @@ public class SceneMainController {
 
         for (Method currentMethod : methodList) {
             Text methods = new Text();
+            currentMethod.setTextView(methods);
             methods.setText(currentMethod.toString());
             vboxMethods.getChildren().add(methods);
         }
@@ -290,6 +291,29 @@ public class SceneMainController {
         stage.show();
     }
 
+    private void editMethodWindow (Method method, UMLClass parentClass) {
+        Parent root;
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/scenes/sceneEditMethod.fxml"));
+
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        SceneEditMethodController sceneEditMethodController = loader.getController();
+        sceneEditMethodController.setMethod(method, parentClass);
+
+        Scene scene = new Scene(root);
+        stage.setResizable(false);
+        stage.setTitle("Edit method");
+        stage.setMinWidth(300);
+        stage.setMinHeight(300);
+        stage.setScene(scene);
+        stage.show();
+    }
+
     public void closeDiagram() {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/scenes/sceneWelcome.fxml"));
         Parent root;
@@ -460,7 +484,6 @@ public class SceneMainController {
 
                     contextMenu = new ContextMenu();
                     MenuItem itemClassEdit = new MenuItem("Edit class");
-                    SeparatorMenuItem separateAttributes = new SeparatorMenuItem();
                     MenuItem itemAddAttr = new MenuItem("Add attribute");
                     Menu editAttributesMenu = new Menu("Edit Attributes");
 
@@ -473,15 +496,29 @@ public class SceneMainController {
                         editAttributesMenu.getItems().add(editAttr);
                     }
 
-                    SeparatorMenuItem separateMethods = new SeparatorMenuItem();
                     MenuItem itemAddMethod = new MenuItem("Add method");
+                    Menu editMethodMenu = new Menu("Edit Methods");
+
+                    // Set event handlers to methods
+                    for (Method method : currClass.getMethodList()) {
+                        MenuItem editMethod = new MenuItem(method.getName());
+
+                        editMethod.setOnAction(e -> editMethodWindow(method, currClass));
+
+                        editMethodMenu.getItems().add(editMethod);
+                    }
+
+                    SeparatorMenuItem attributeSeparator = new SeparatorMenuItem();
+                    SeparatorMenuItem methodSeparator = new SeparatorMenuItem();
+
                     contextMenu.getItems().addAll(
                         itemClassEdit,
-                        separateAttributes,
+                        attributeSeparator,
                         itemAddAttr,
                         editAttributesMenu,
-                        separateMethods,
-                        itemAddMethod
+                        methodSeparator,
+                        itemAddMethod,
+                        editMethodMenu
                     );
                     contextMenu.show(mainPane, t.getScreenX(), t.getScreenY());
 

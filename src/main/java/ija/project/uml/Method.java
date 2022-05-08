@@ -43,6 +43,10 @@ public class Method extends Attribute {
         return Collections.unmodifiableList(this.attributeList);
     }
 
+    public void clearAttributes () {
+        this.attributeList.clear();
+    }
+
     @Override
     public String toString () {
         StringBuilder methodSb = new StringBuilder();

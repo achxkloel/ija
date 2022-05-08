@@ -60,7 +60,7 @@ public class Attribute extends Element {
         return this.textView;
     }
 
-    public void updateAttributeText () {
+    public void updateTextView () {
         if (this.textView != null) {
             this.textView.setText(this.toString());
         }

@@ -19,10 +19,13 @@ import javafx.stage.Stage;
 
 import java.util.Scanner;
 
-public class SceneAddMethodController {
+public class SceneEditMethodController {
 
     @FXML
     Button saveButton;
+
+    @FXML
+    Button deleteButton;
 
     @FXML
     TextField methodVisibilityTextField;
@@ -36,7 +39,9 @@ public class SceneAddMethodController {
     @FXML
     TextArea methodParamsTextArea;
 
-    UMLClass editedClass;
+    UMLClass parentClass;
+
+    Method editedMethod;
 
     @FXML
     public void initialize () {
@@ -52,22 +57,18 @@ public class SceneAddMethodController {
                 }
 
                 String newName = methodNameTextField.getText().trim();
-                String newReturnType = methodReturnTypeTextField.getText().trim();
+                String newType = methodReturnTypeTextField.getText().trim();
                 String newVisibility = methodVisibilityTextField.getText().trim();
                 String newParams = methodParamsTextArea.getText().trim();
 
-                if (editedClass.findMethod(newName) != null) {
+                if (!newName.equals(editedMethod.getName()) &&
+                    parentClass.findAttribute(newName) != null) {
                     System.out.println("Method \"" + newName + "\" is already exists!");
                     return;
                 }
 
-                Method newMethod = new Method(
-                    newName,
-                    newReturnType,
-                    newVisibility
-                );
-
                 // Add method params
+                editedMethod.clearAttributes();
                 if (!newParams.isEmpty()) {
                     try (Scanner scanner = new Scanner(newParams)) {
                         while (scanner.hasNextLine()) {
@@ -79,7 +80,7 @@ public class SceneAddMethodController {
                                 return;
                             }
 
-                            newMethod.addAttribute(new Attribute(
+                            editedMethod.addAttribute(new Attribute(
                                     paramArr[0].trim(),
                                     paramArr[1].trim()
                             ));
@@ -87,14 +88,33 @@ public class SceneAddMethodController {
                     }
                 }
 
-                editedClass.addMethod(newMethod);
+                editedMethod.setName(newName);
+                editedMethod.setType(newType);
+                editedMethod.setVisibility(newVisibility);
+                editedMethod.updateTextView();
+                closeWindow(event);
+            }
+        });
+
+        deleteButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                parentClass.removeMethod(editedMethod);
                 closeWindow(event);
             }
         });
     }
 
-    public void setUMLClass (UMLClass editedClass) {
-        this.editedClass = editedClass;
+    public void setMethod (Method editedMethod, UMLClass parentClass) {
+        this.editedMethod = editedMethod;
+        this.parentClass = parentClass;
+        methodVisibilityTextField.setText(editedMethod.getVisibility());
+        methodNameTextField.setText(editedMethod.getName());
+        methodReturnTypeTextField.setText(editedMethod.getType());
+
+        for (Attribute param : editedMethod.getAttributeList()) {
+            methodParamsTextArea.appendText(param.getName() + ":" + param.getType() + "\n");
+        }
     }
 
     public void closeWindow (ActionEvent e) {

@@ -2,11 +2,11 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.TextArea?>
 
-<VBox prefHeight="300" prefWidth="300" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ija.project.uml.SceneAddMethodController">
+<VBox prefHeight="300" prefWidth="300" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ija.project.uml.SceneEditMethodController">
    <children>
       <Label text="Visibility:" />
       <TextField fx:id="methodVisibilityTextField" />
@@ -17,5 +17,6 @@
       <Label text="Parameters (name : type): " />
       <TextArea fx:id="methodParamsTextArea" prefHeight="100" />
       <Button fx:id="saveButton" mnemonicParsing="false" text="Save" />
+      <Button fx:id="deleteButton" mnemonicParsing="false" text="Delete method" />
    </children>
 </VBox>

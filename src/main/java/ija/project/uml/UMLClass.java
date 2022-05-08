@@ -89,6 +89,13 @@ public class UMLClass extends Element {
         }
     }
 
+    public void removeMethod (Method methodToRemove) {
+        if (this.methodView != null) {
+            methodView.getChildren().remove(methodToRemove.getTextView());
+        }
+        this.methodList.remove(methodToRemove);
+    }
+
     /**
      * Find attribute in class.
      *

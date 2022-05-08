@@ -62,7 +62,7 @@ public class SceneEditAttributeController {
                 editedAttribute.setName(newName);
                 editedAttribute.setType(newType);
                 editedAttribute.setVisibility(newVisibility);
-                editedAttribute.updateAttributeText();
+                editedAttribute.updateTextView();
                 closeWindow(event);
             }
         });
