@@ -65,7 +65,7 @@ public class SceneEditUMLRelationController {
 
             // Change vbox from and vbox to
             VBox tmpClassVBox = editedRelation.getVboxFrom();
-            editedRelation.setVboxFrom(editedRelation.getVboxFrom());
+            editedRelation.setVboxFrom(editedRelation.getVboxTo());
             editedRelation.setVboxTo(tmpClassVBox);
 
             editedRelation.updateCoordinates();
