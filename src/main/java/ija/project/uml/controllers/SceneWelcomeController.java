@@ -40,15 +40,11 @@ public class SceneWelcomeController {
         fileChooser.getExtensionFilters().add( new FileChooser.ExtensionFilter("JSON files", "*.json"));
         File selectedFile = fileChooser.showOpenDialog(stage);
 
-        if (selectedFile == null) {
-            return;
-        }
+        if (selectedFile == null) return;
 
         ClassDiagram classDiagram = DataParser.parseClassDiagram(selectedFile);
 
-        if (classDiagram == null) {
-            return;
-        }
+        if (classDiagram == null) return;
 
         switchToSceneMain(event, classDiagram);
     }

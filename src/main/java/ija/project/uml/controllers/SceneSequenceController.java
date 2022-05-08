@@ -8,15 +8,11 @@
 
 package ija.project.uml.controllers;
 
+import ija.project.uml.SequenceDiagram;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-
-import java.io.*;
 
 
 /**
@@ -27,6 +23,7 @@ public class SceneSequenceController {
     @FXML
     private Pane mainPane;
     private Stage stage;
+    private SequenceDiagram sequenceDiagram;
 
     public void quitApplication() {
         Platform.exit();
@@ -34,5 +31,9 @@ public class SceneSequenceController {
 
     public void setStage(Stage stage) {
         this.stage = stage;
+    }
+
+    public void setSequenceDiagram(SequenceDiagram sequenceDiagram) {
+        this.sequenceDiagram = sequenceDiagram;
     }
 }

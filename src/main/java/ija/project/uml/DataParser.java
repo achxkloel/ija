@@ -152,7 +152,7 @@ public class DataParser {
             // Create sequence diagram
             String SDType = jsonObject.getString("type");
 
-            if (!SDType.equals("Sequence diagram")) {
+            if (!SDType.equals("SequenceDiagram")) {
                 throw new JSONException("wrong diagram type");
             }
 
@@ -170,7 +170,7 @@ public class DataParser {
             JSONArray messageList = jsonObject.getJSONArray("messages");
 
             for (int i = 0; i < messageList.length(); i++) {
-                JSONObject SDMessage = objectList.getJSONObject(i);
+                JSONObject SDMessage = messageList.getJSONObject(i);
                 String MName = SDMessage.getString("name");
                 String MType = SDMessage.getString("message_type");
                 String MSource = SDMessage.getString("source");

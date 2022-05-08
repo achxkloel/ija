@@ -455,6 +455,17 @@ public class SceneMainController {
     }
 
     public void switchToSceneSequence() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open Sequence Diagram File");
+        fileChooser.getExtensionFilters().add( new FileChooser.ExtensionFilter("JSON files", "*.json"));
+        File selectedFile = fileChooser.showOpenDialog(stage);
+
+        if (selectedFile == null) return;
+
+        SequenceDiagram sequenceDiagram = DataParser.parseSequenceDiagram(selectedFile);
+
+        if (sequenceDiagram == null) return;
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/scenes/sceneSequence.fxml"));
         Parent root;
 
@@ -464,10 +475,15 @@ public class SceneMainController {
             throw new RuntimeException(e);
         }
 
+        SceneSequenceController sceneSequenceController = loader.getController();
+        sceneSequenceController.setSequenceDiagram(sequenceDiagram);
+
         Scene scene = new Scene(root);
         scene.getStylesheets().add(getClass().getResource("/styles/styles.css").toExternalForm());
 
-        stage.setScene(scene);stage.setMinWidth(1000);
+        stage.setScene(scene);
+        stage.setTitle(sequenceDiagram.getName());
+        stage.setMinWidth(1000);
         stage.setMinHeight(720);
         stage.show();
     }
