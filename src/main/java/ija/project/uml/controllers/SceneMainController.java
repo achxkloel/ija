@@ -9,7 +9,6 @@
 package ija.project.uml.controllers;
 
 import ija.project.uml.*;
-import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,7 +23,6 @@ import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
 import java.io.*;
 
@@ -40,14 +38,26 @@ public class SceneMainController {
 
     @FXML
     private Pane mainPane;
+
     @FXML
     private Pane sequencePane;
+
+    @FXML
+    private TabPane tabPane;
+
+    @FXML
+    private Tab classTab;
+
+    @FXML
+    private Tab sequenceTab;
+
     private double orgSceneX, orgSceneY;
     private double orgTranslateX, orgTranslateY;
 
     private Stage stage;
 
     private ClassDiagram classDiagram;
+    private SequenceDiagram sequenceDiagram;
     private ContextMenu contextMenu;
     private final List<VBox> classVboxList = new ArrayList<>();
 
@@ -384,7 +394,8 @@ public class SceneMainController {
         DataParser.saveClassDiagram(classDiagram, stage);
     }
 
-    public void switchToSceneSequence() {
+    @FXML
+    private void openSequenceDiagram() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Sequence Diagram File");
         fileChooser.getExtensionFilters().add( new FileChooser.ExtensionFilter("JSON files", "*.json"));
@@ -392,32 +403,14 @@ public class SceneMainController {
 
         if (selectedFile == null) return;
 
-        SequenceDiagram sequenceDiagram = DataParser.parseSequenceDiagram(selectedFile);
+        sequenceDiagram = DataParser.parseSequenceDiagram(selectedFile);
 
         if (sequenceDiagram == null) return;
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/scenes/sceneSequence.fxml"));
-        Parent root;
+        sequenceTab.setDisable(false);
+        tabPane.getSelectionModel().select(sequenceTab);
 
-        try {
-            root = loader.load();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        SceneSequenceController sceneSequenceController = loader.getController();
-        sceneSequenceController.setSequenceDiagram(sequenceDiagram);
-        sceneSequenceController.displayDiagram();
-
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getResource("/styles/styles.css").toExternalForm());
-
-        stage.setScene(scene);
-        stage.setTitle(sequenceDiagram.getName());
-        stage.setMinWidth(1000);
-        stage.setMinHeight(720);
-        stage.show();
-        sceneSequenceController.setStage(stage);
+        // TODO show sequence diagram
     }
 
     public void setStage(Stage stage) {

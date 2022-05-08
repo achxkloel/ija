@@ -10,11 +10,11 @@
 
 <?import javafx.scene.control.SeparatorMenuItem?>
 <AnchorPane prefHeight="547.0" prefWidth="699.0" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ija.project.uml.controllers.SceneMainController">
-  <TabPane layoutY="25.0" side="BOTTOM" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
-    <Tab closable="false" text="Class diagram">
+  <TabPane fx:id="tabPane" layoutY="25.0" side="BOTTOM" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
+    <Tab fx:id="classTab" closable="false" text="Class diagram">
       <Pane fx:id="mainPane" />
     </Tab>
-    <Tab closable="false" disable="true" text="Sequence diagram">
+    <Tab fx:id="sequenceTab" closable="false" disable="true" text="Sequence diagram">
       <Pane fx:id="sequencePane" />
     </Tab>
   </TabPane>
@@ -23,7 +23,7 @@
             <MenuItem mnemonicParsing="false" onAction="#saveClassDiagram" text="Save Class Diagram" />
             <MenuItem mnemonicParsing="false" onAction="#clearDiagram" text="Clear Class Diagram" />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Open Sequence Diagram" />
+            <MenuItem mnemonicParsing="false" onAction="#openSequenceDiagram" text="Open Sequence Diagram" />
             <MenuItem mnemonicParsing="false" text="Close Sequence Diagram" />
         </Menu>
         <Menu mnemonicParsing="false" text="Edit">
