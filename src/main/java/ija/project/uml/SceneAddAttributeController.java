@@ -24,7 +24,7 @@ public class SceneAddAttributeController {
     Button saveButton;
 
     @FXML
-    ComboBox<String> attributeVisibilityTextField;
+    ComboBox<String> attributeVisibilityComboBox;
 
     @FXML
     TextField attributeNameTextField;
@@ -47,7 +47,7 @@ public class SceneAddAttributeController {
 
                 String newName = attributeNameTextField.getText().trim();
                 String newType = attributeTypeTextField.getText().trim();
-                String newVisibility = attributeVisibilityTextField.getValue();
+                String newVisibility = attributeVisibilityComboBox.getValue();
 
                 if (editedClass.findAttribute(newName) != null) {
                     System.out.println("Attribute \"" + newName + "\" is already exists!");

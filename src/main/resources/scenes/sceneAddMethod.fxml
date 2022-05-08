@@ -12,7 +12,7 @@
 <VBox prefHeight="300" prefWidth="300" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ija.project.uml.SceneAddMethodController">
    <children>
       <Label text="Visibility:" />
-      <ComboBox prefWidth="300" fx:id="methodVisibilityTextField">
+      <ComboBox prefWidth="300" fx:id="methodVisibilityComboBox">
          <items>
             <FXCollections fx:factory="observableArrayList">
                <String fx:value="public"/>

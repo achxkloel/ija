@@ -13,6 +13,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -28,7 +29,7 @@ public class SceneEditMethodController {
     Button deleteButton;
 
     @FXML
-    TextField methodVisibilityTextField;
+    ComboBox<String> methodVisibilityComboBox;
 
     @FXML
     TextField methodNameTextField;
@@ -48,8 +49,7 @@ public class SceneEditMethodController {
         saveButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                if (methodVisibilityTextField.getText().isEmpty() ||
-                    methodNameTextField.getText().isEmpty() ||
+                if (methodNameTextField.getText().isEmpty() ||
                     methodReturnTypeTextField.getText().isEmpty() ||
                     methodParamsTextArea.getText().isEmpty()) {
                     System.out.println("Some text fields are empty");
@@ -58,7 +58,7 @@ public class SceneEditMethodController {
 
                 String newName = methodNameTextField.getText().trim();
                 String newType = methodReturnTypeTextField.getText().trim();
-                String newVisibility = methodVisibilityTextField.getText().trim();
+                String newVisibility = methodVisibilityComboBox.getValue();
                 String newParams = methodParamsTextArea.getText().trim();
 
                 if (!newName.equals(editedMethod.getName()) &&
@@ -108,7 +108,7 @@ public class SceneEditMethodController {
     public void setMethod (Method editedMethod, UMLClass parentClass) {
         this.editedMethod = editedMethod;
         this.parentClass = parentClass;
-        methodVisibilityTextField.setText(editedMethod.getVisibility());
+        methodVisibilityComboBox.setValue(editedMethod.getVisibility());
         methodNameTextField.setText(editedMethod.getName());
         methodReturnTypeTextField.setText(editedMethod.getType());
 

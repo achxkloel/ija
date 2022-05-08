@@ -26,7 +26,7 @@ public class SceneAddMethodController {
     Button saveButton;
 
     @FXML
-    ComboBox<String> methodVisibilityTextField;
+    ComboBox<String> methodVisibilityComboBox;
 
     @FXML
     TextField methodNameTextField;
@@ -53,7 +53,7 @@ public class SceneAddMethodController {
 
                 String newName = methodNameTextField.getText().trim();
                 String newReturnType = methodReturnTypeTextField.getText().trim();
-                String newVisibility = methodVisibilityTextField.getValue();
+                String newVisibility = methodVisibilityComboBox.getValue();
                 String newParams = methodParamsTextArea.getText().trim();
 
                 if (editedClass.findMethod(newName) != null) {
