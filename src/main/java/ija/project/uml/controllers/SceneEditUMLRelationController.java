@@ -39,6 +39,8 @@ public class SceneEditUMLRelationController {
 
     UMLRelation editedRelation;
 
+    SceneMainController sceneMainController;
+
     @FXML
     public void initialize () {
         saveButton.setOnAction(event -> {
@@ -52,7 +54,9 @@ public class SceneEditUMLRelationController {
 
             editedRelation.setName(newName);
             editedRelation.setType(newType);
+            sceneMainController.clearPolygon(editedRelation);
             editedRelation.updateCoordinates();
+            sceneMainController.addPolygon(editedRelation);
 
             closeWindow(event);
         });
@@ -68,7 +72,9 @@ public class SceneEditUMLRelationController {
             editedRelation.setVboxFrom(editedRelation.getVboxTo());
             editedRelation.setVboxTo(tmpClassVBox);
 
+            sceneMainController.clearPolygon(editedRelation);
             editedRelation.updateCoordinates();
+            sceneMainController.addPolygon(editedRelation);
             closeWindow(event);
         });
 
@@ -78,9 +84,10 @@ public class SceneEditUMLRelationController {
         });
     }
 
-    public void setRelation (UMLRelation editedRelation, ClassDiagram parentDiagram) {
+    public void setRelation (UMLRelation editedRelation, ClassDiagram parentDiagram, SceneMainController controller) {
         this.editedRelation = editedRelation;
         this.parentDiagram = parentDiagram;
+        this.sceneMainController = controller;
 
         nameTextField.setText(editedRelation.getName());
         typeComboBox.setValue(editedRelation.getType());
