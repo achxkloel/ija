@@ -117,9 +117,8 @@ public class SceneMainController {
     public void displayVbox() {
         List<UMLClass> classList = this.classDiagram.getClassList();
 
-        for (UMLClass currentClass : classList) {
-            classVboxList.add(this.createClassVBox(currentClass));
-        }
+        for (UMLClass currentClass : classList)
+            this.createClassVBox(currentClass);
 
         for (VBox vbox : this.classVboxList)
             mainPane.getChildren().add(vbox);
