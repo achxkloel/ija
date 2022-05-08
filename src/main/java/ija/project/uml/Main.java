@@ -18,10 +18,22 @@ import javafx.stage.Stage;
  * Main class, that launches the GUI window
  */
 public class Main extends Application {
+    /**
+     * This functions launches the app
+     * @param args command line params
+     */
     public static void main(String[] args) {
         launch(args);
     }
 
+    /**
+     * Loads the welcome scene from the FXML representation and displays it
+     * @param stage the primary stage for this application, onto which
+     * the application scene can be set.
+     * Applications may create other stages, if needed, but they will not be
+     * primary stages.
+     * @throws Exception
+     */
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/scenes/sceneWelcome.fxml"));

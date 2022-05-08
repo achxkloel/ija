@@ -17,7 +17,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Class of the diagram.
+ * Class of the class diagram.
  */
 public class UMLClass extends Element {
 
@@ -67,6 +67,10 @@ public class UMLClass extends Element {
         }
     }
 
+    /**
+     * Removes the selected attribute from the attribute list
+     * @param attributeToRemove which attribute should be removed
+     */
     public void removeAttribute (Attribute attributeToRemove) {
         if (this.attributeView != null) {
             attributeView.getChildren().remove(attributeToRemove.getTextView());
@@ -89,6 +93,10 @@ public class UMLClass extends Element {
         }
     }
 
+    /**
+     * Removes the selected method from the method list
+     * @param methodToRemove which method should be removed
+     */
     public void removeMethod (Method methodToRemove) {
         if (this.methodView != null) {
             methodView.getChildren().remove(methodToRemove.getTextView());
@@ -122,51 +130,99 @@ public class UMLClass extends Element {
                 orElse(null);
     }
 
+    /**
+     * Getter for the attribute list.
+     * @return The attribute list
+     */
     public List<Attribute> getAttributeList () {
         return Collections.unmodifiableList(this.attributeList);
     }
 
+    /**
+     * Getter for the method list,
+     * @return The method list
+     */
     public List<Method> getMethodList () {
         return Collections.unmodifiableList(this.methodList);
     }
 
+    /**
+     * Setter for the nameView - creates the label representation of the selected name
+     * @param nameView selected name
+     */
     public void setNameView (Label nameView) {
         this.nameView = nameView;
         this.nameView.setText(this.name);
     }
 
+    /**
+     * Setter for the attribute view - attribute view is the VBox representation
+     * @param attributeView attribute view (VBox)
+     */
     public void setAttributeView (VBox attributeView) {
         this.attributeView = attributeView;
     }
 
+    /**
+     * Setter for the method view - method view is the VBox representation
+     * @param methodView method view (VBox)
+     */
     public void setMethodView (VBox methodView) {
         this.methodView = methodView;
     }
 
+    /**
+     * Setter for the class view
+     * @param classView new class view
+     */
     public void setClassView (VBox classView) {
         this.classView = classView;
     }
 
+    /**
+     * Getter for the class view
+     * @return the class view
+     */
     public VBox getClassView () {
         return this.classView;
     }
 
+    /**
+     * Setter for the X position
+     * @param positionX new X position
+     */
     public void setPositionX(double positionX) {
         this.positionX = positionX;
     }
 
+    /**
+     * Setter for the Y position
+     * @param positionY new Y position
+     */
     public void setPositionY(double positionY) {
         this.positionY = positionY;
     }
 
+    /**
+     * Getter for the X position
+     * @return X position
+     */
     public double getPositionX() {
         return positionX;
     }
 
+    /**
+     * Getter for the Y position
+     * @return Y position
+     */
     public double getPositionY() {
         return positionY;
     }
 
+    /**
+     * Setter for the name
+     * @param newName new name.
+     */
     @Override
     public void setName (String newName) {
         super.setName(newName);
