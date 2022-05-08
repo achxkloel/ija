@@ -352,6 +352,29 @@ public class SceneMainController {
         stage.show();
     }
 
+    private void editRelationWindow (UMLRelation relation) {
+        Parent root;
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/scenes/sceneEditUMLRelation.fxml"));
+
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        SceneEditUMLRelationController sceneEditUMLRelationController = loader.getController();
+        sceneEditUMLRelationController.setRelation(relation, classDiagram);
+
+        Scene scene = new Scene(root);
+        stage.setResizable(false);
+        stage.setTitle("Edit relation");
+        stage.setMinWidth(300);
+        stage.setMinHeight(300);
+        stage.setScene(scene);
+        stage.show();
+    }
+
     public void closeDiagram() {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/scenes/sceneWelcome.fxml"));
         Parent root;
@@ -604,7 +627,7 @@ public class SceneMainController {
 
                         MenuItem editRelation = new MenuItem(menuItemText.toString());
 
-                        editRelation.setOnAction(e -> System.out.println("Edit " + relation.getName()));
+                        editRelation.setOnAction(e -> editRelationWindow(relation));
 
                         editRelationMenu.getItems().add(editRelation);
                     }

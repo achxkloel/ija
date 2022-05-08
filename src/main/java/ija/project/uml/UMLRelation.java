@@ -23,7 +23,7 @@ import java.util.Objects;
  */
 public class UMLRelation extends Element {
 
-    private final String type;
+    private String type;
     private String source;
     private String target;
     private final String cardinalityFrom;
@@ -43,6 +43,10 @@ public class UMLRelation extends Element {
         this.target = target;
         this.cardinalityFrom = cardinalityFrom;
         this.cardinalityTo = cardinalityTo;
+    }
+
+    public void setType(String newType) {
+        this.type = newType;
     }
 
     public String getType() {
