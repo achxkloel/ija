@@ -1,27 +1,24 @@
 {
-  "type": "ClassDiagram",
-  "name": "testClassDiagram",
   "classes": [
     {
+      "positionY": 272,
       "name": "testClass",
-      "positionX": 0.0,
-      "positionY": 0.0,
       "items": [
         {
-          "item_type": "Attribute",
           "visibility": "private",
+          "item_type": "Attribute",
           "name": "testAttribute 1",
           "type": "int"
         },
         {
-          "item_type": "Attribute",
           "visibility": "private",
+          "item_type": "Attribute",
           "name": "testAttribute 2",
           "type": "string"
         },
         {
-          "item_type": "Method",
           "visibility": "private",
+          "item_type": "Method",
           "name": "testMethod",
           "type": "string",
           "params": [
@@ -35,28 +32,28 @@
             }
           ]
         }
-      ]
+      ],
+      "positionX": 554
     },
     {
+      "positionY": 57,
       "name": "testClass 1",
-      "positionX": 0.0,
-      "positionY": 0.0,
       "items": [
         {
-          "item_type": "Attribute",
           "visibility": "private",
+          "item_type": "Attribute",
           "name": "testAttribute 1",
           "type": "int"
         },
         {
-          "item_type": "Attribute",
           "visibility": "private",
+          "item_type": "Attribute",
           "name": "testAttribute 2",
           "type": "string"
         },
         {
-          "item_type": "Method",
           "visibility": "private",
+          "item_type": "Method",
           "name": "testMethod",
           "type": "string",
           "params": [
@@ -70,28 +67,28 @@
             }
           ]
         }
-      ]
+      ],
+      "positionX": 549
     },
     {
+      "positionY": 272,
       "name": "testClass 2",
-      "positionX": 0.0,
-      "positionY": 0.0,
       "items": [
         {
-          "item_type": "Attribute",
           "visibility": "private",
+          "item_type": "Attribute",
           "name": "testAttribute 1",
           "type": "int"
         },
         {
-          "item_type": "Attribute",
           "visibility": "private",
+          "item_type": "Attribute",
           "name": "testAttribute 2",
           "type": "string"
         },
         {
-          "item_type": "Method",
           "visibility": "private",
+          "item_type": "Method",
           "name": "testMethod",
           "type": "string",
           "params": [
@@ -105,28 +102,28 @@
             }
           ]
         }
-      ]
+      ],
+      "positionX": 50
     },
     {
+      "positionY": 482,
       "name": "testClass 3",
-      "positionX": 0.0,
-      "positionY": 0.0,
       "items": [
         {
-          "item_type": "Attribute",
           "visibility": "private",
+          "item_type": "Attribute",
           "name": "testAttribute 1",
           "type": "int"
         },
         {
-          "item_type": "Attribute",
           "visibility": "private",
+          "item_type": "Attribute",
           "name": "testAttribute 2",
           "type": "string"
         },
         {
-          "item_type": "Method",
           "visibility": "private",
+          "item_type": "Method",
           "name": "testMethod",
           "type": "string",
           "params": [
@@ -140,33 +137,36 @@
             }
           ]
         }
-      ]
+      ],
+      "positionX": 557
     }
   ],
+  "name": "testClassDiagram",
+  "type": "ClassDiagram",
   "relations": [
     {
+      "cardinality_to": "*",
+      "name": "Test relation",
       "source": "testClass",
-      "target": "testClass 1",
       "type": "composition",
-      "name": "Test relation",
       "cardinality_from": "1",
-      "cardinality_to": "*"
+      "target": "testClass 1"
     },
     {
+      "cardinality_to": "*",
+      "name": "Test relation",
       "source": "testClass",
-      "target": "testClass 2",
       "type": "generalization",
-      "name": "Test relation",
       "cardinality_from": "1",
-      "cardinality_to": "*"
+      "target": "testClass 2"
     },
     {
-      "source": "testClass",
-      "target": "testClass 3",
-      "type": "aggregation",
+      "cardinality_to": "*",
       "name": "Test relation",
+      "source": "testClass",
+      "type": "aggregation",
       "cardinality_from": "1",
-      "cardinality_to": "*"
+      "target": "testClass 3"
     }
   ]
 }
