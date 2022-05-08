@@ -26,12 +26,15 @@ import java.io.File;
  */
 public class SceneWelcomeController {
 
+    /**
+     * Main stage.
+     */
     private Stage stage;
 
     /**
-     * A method, that opens the file chooser, after the button on the welcome scene has been pressed
-     * @param event is used later for stage
-     * @throws Exception
+     * A method, that opens the file chooser, after the button on the welcome scene has been pressed.
+     *
+     * @param event is used later for stage.
      */
     @FXML
     private void openExistingDiagram(ActionEvent event) throws Exception {
@@ -49,15 +52,20 @@ public class SceneWelcomeController {
         switchToSceneMain(event, classDiagram);
     }
 
+    /**
+     * Opens new diagram.
+     *
+     * @param event current event.
+     */
     @FXML
     private void openNewDiagram(ActionEvent event) throws Exception {
         switchToSceneMain(event, new ClassDiagram("Class Diagram"));
     }
 
     /**
-     * A method, that switches to the main scene
-     * @param event is used for stage
-     * @throws Exception
+     * A method, that switches to the main scene.
+     *
+     * @param event is used for stage.
      */
     public void switchToSceneMain(ActionEvent event, ClassDiagram classDiagram) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/scenes/sceneMain.fxml"));
