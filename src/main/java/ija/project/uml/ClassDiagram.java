@@ -85,6 +85,22 @@ public class ClassDiagram extends Element {
                 orElse(null);
     }
 
+    /**
+     * Find relation by it source and target.
+     *
+     * @param source name of source.
+     * @param target name of target.
+     * @return instance of relation or null.
+     */
+    public UMLRelation findRelation (String source, String target) {
+        return this.relationList.stream().
+                filter(R ->
+                    R.getSource().equals(source) && R.getTarget().equals(target) ||
+                    R.getSource().equals(target) && R.getTarget().equals(source)).
+                findFirst().
+                orElse(null);
+    }
+
     public List<UMLClass> getClassList () {
         return Collections.unmodifiableList(this.classList);
     }

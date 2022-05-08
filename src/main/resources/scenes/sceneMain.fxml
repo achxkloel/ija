@@ -25,6 +25,7 @@
         </Menu>
         <Menu mnemonicParsing="false" text="Add">
             <MenuItem mnemonicParsing="false" onAction="#addClassWindow" text="New class" />
+            <MenuItem mnemonicParsing="false" onAction="#addRelationWindow" text="New relation" />
         </Menu>
         <Menu mnemonicParsing="false" text="Help">
             <MenuItem mnemonicParsing="false" text="About" />

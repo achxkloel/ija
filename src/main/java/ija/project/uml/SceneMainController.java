@@ -181,6 +181,34 @@ public class SceneMainController {
         stage.show();
     }
 
+    @FXML
+    private void addRelationWindow () {
+        if (classDiagram.getClassList().size() < 2) {
+            return;
+        }
+
+        Parent root;
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/scenes/sceneAddUMLRelation.fxml"));
+
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        SceneAddUMLRelationController sceneAddUMLRelationController = loader.getController();
+        sceneAddUMLRelationController.setParentDiagram(classDiagram, mainPane);
+
+        Scene scene = new Scene(root);
+        stage.setResizable(false);
+        stage.setTitle("Add new relation");
+        stage.setMinWidth(300);
+        stage.setMinHeight(300);
+        stage.setScene(scene);
+        stage.show();
+    }
+
     private void editClassWindow (UMLClass currClass) {
         Parent root;
         Stage stage = new Stage();
