@@ -43,17 +43,16 @@ public class DataParser {
 
         try {
             jsonObject = DataParser.parse(dataFile);
-//            System.out.println(jsonObject);
 
             // Create class diagram
-//            String CDType = jsonObject.getString("type");
-//
-//            if (Objects.equals(CDType, "ClassDiagram")) {
-//                throw new JSONException("wrong diagram type");
-//            }
+            String CDType = jsonObject.getString("type");
+
+            if (!CDType.equals("ClassDiagram")) {
+                throw new JSONException("wrong diagram type");
+            }
             
-//            String CDName = jsonObject.getString("name");
-            classDiagram = new ClassDiagram("testName");
+            String CDName = jsonObject.getString("name");
+            classDiagram = new ClassDiagram(CDName);
 
             // Create classes and add to the diagram
             JSONArray classList = jsonObject.getJSONArray("classes");

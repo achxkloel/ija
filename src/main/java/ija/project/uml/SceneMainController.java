@@ -452,13 +452,8 @@ public class SceneMainController {
         new EventHandler<>() {
             @Override
             public void handle(MouseEvent t) {
-                if(t.getButton().equals(MouseButton.PRIMARY)){
-                    if (contextMenu != null) contextMenu.hide();
-                    if(t.getClickCount() == 2){
-                        System.out.println("double click");
-                    }
-                } else if (t.getButton().equals(MouseButton.SECONDARY)) {
-                    if (contextMenu != null) contextMenu.hide();
+                if (contextMenu != null) contextMenu.hide();
+                if (t.getButton().equals(MouseButton.SECONDARY)) {
                     VBox currentVBox = ((VBox)(t.getSource()));
                     Label currVBoxLabel = (Label)(currentVBox.getChildren().get(0));
                     UMLClass currClass = classDiagram.findClass(currVBoxLabel.getText());

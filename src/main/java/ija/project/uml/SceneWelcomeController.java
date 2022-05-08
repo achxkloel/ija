@@ -53,7 +53,7 @@ public class SceneWelcomeController {
 
     @FXML
     private void openNewDiagram(ActionEvent event) throws Exception {
-        switchToSceneMain(event, new ClassDiagram("classDiagram"));
+        switchToSceneMain(event, new ClassDiagram("Class Diagram"));
     }
 
     /**
