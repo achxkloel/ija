@@ -362,7 +362,7 @@ public class SceneMainController {
         }
 
         SceneEditUMLRelationController sceneEditUMLRelationController = loader.getController();
-        sceneEditUMLRelationController.setRelation(relation, classDiagram);
+        sceneEditUMLRelationController.setRelation(relation, classDiagram, this);
 
         Scene scene = new Scene(root);
         stage.setResizable(false);
@@ -438,8 +438,7 @@ public class SceneMainController {
 
             mainPane.getChildren().add(currentRelation.getLine());
 
-            if (currentRelation.getArrow() != null)
-                mainPane.getChildren().add(currentRelation.getArrow());
+            addPolygon(currentRelation);
         }
 
         moveVBoxesToFront();
@@ -448,6 +447,15 @@ public class SceneMainController {
     public void moveVBoxesToFront() {
         for (VBox vbox : this.classVboxList)
             vbox.toFront();
+    }
+
+    public void clearPolygon(UMLRelation relation) {
+        mainPane.getChildren().remove(relation.getArrow());
+    }
+
+    public void addPolygon(UMLRelation relation) {
+        if (relation.getArrow() != null)
+            mainPane.getChildren().add(relation.getArrow());
     }
 
     EventHandler<MouseEvent> vboxOnMousePressedEventHandler =
@@ -485,14 +493,13 @@ public class SceneMainController {
                     if (Objects.equals(currentRelation.getVboxFrom().getId(), ((VBox) (t.getSource())).getId()) ||
                             Objects.equals(currentRelation.getVboxTo().getId(), ((VBox) (t.getSource())).getId())) {
                         if (currentRelation.getArrow() != null)
-                            mainPane.getChildren().remove(currentRelation.getArrow());
+                            clearPolygon(currentRelation);
 
                         currentRelation.updateCoordinates();
                     }
                     else continue;
 
-                    if (currentRelation.getArrow() != null)
-                        mainPane.getChildren().add(currentRelation.getArrow());
+                    addPolygon(currentRelation);
                 }
 
                 ((VBox)(t.getSource())).toFront();
