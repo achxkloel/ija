@@ -156,7 +156,7 @@
       "cardinality_to": "*",
       "name": "Test relation",
       "source": "testClass",
-      "type": "generalization",
+      "type": "association",
       "cardinality_from": "1",
       "target": "testClass 2"
     },

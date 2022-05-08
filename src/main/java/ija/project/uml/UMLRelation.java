@@ -9,10 +9,12 @@
 package ija.project.uml;
 
 import javafx.geometry.Point2D;
+import javafx.scene.Node;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Polyline;
 
 import java.util.Objects;
 
@@ -30,7 +32,9 @@ public class UMLRelation extends Element {
     private VBox vboxTo;
     private Line line;
     private String lineOrientation;
-    private Polygon polygon;
+    private Polygon polygon = null;
+
+    private Polyline polyline = null;
 
     public UMLRelation (String name, String type, String source, String target, String cardinalityFrom, String cardinalityTo) {
         super(name);
@@ -83,6 +87,14 @@ public class UMLRelation extends Element {
 
     public Polygon getPolygon() {
         return polygon;
+    }
+
+    public Node getArrow() {
+        if (this.type.equals("association")) {
+            return this.polyline;
+        } else {
+            return this.polygon;
+        }
     }
 
     public void setVboxFrom(VBox vboxFrom) {
@@ -166,6 +178,35 @@ public class UMLRelation extends Element {
             } else if (Objects.equals(lineOrientation, "right")) {
                 polygon.getPoints().addAll(point.getX(), point.getY(),
                         point.getX() + 10, point.getY() - 10,
+                        point.getX() + 10, point.getY() + 10);
+                line.setEndX(point.getX() + 10);
+                line.setEndY(point.getY());
+            }
+        } else if (Objects.equals(type, "__association__")) { // change to "association" to enable this type
+            polyline = new Polyline();
+            polyline.setStroke(Color.BLACK);
+
+            if (Objects.equals(lineOrientation, "top")) {
+                polyline.getPoints().addAll(point.getX() + 10, point.getY() - 10,
+                        point.getX(), point.getY(),
+                        point.getX() - 10, point.getY() - 10);
+                line.setEndX(point.getX());
+                line.setEndY(point.getY());
+            } else if (Objects.equals(lineOrientation, "bottom")) {
+                polyline.getPoints().addAll(point.getX() + 10, point.getY() + 10,
+                        point.getX(), point.getY(),
+                        point.getX() - 10, point.getY() + 10);
+                line.setEndX(point.getX());
+                line.setEndY(point.getY() + 10);
+            } else if (Objects.equals(lineOrientation, "left")) {
+                polyline.getPoints().addAll(point.getX() - 10, point.getY() - 10,
+                        point.getX(), point.getY(),
+                        point.getX() - 10, point.getY() + 10);
+                line.setEndX(point.getX() - 10);
+                line.setEndY(point.getY());
+            } else if (Objects.equals(lineOrientation, "right")) {
+                polyline.getPoints().addAll(point.getX() + 10, point.getY() - 10,
+                        point.getX(), point.getY(),
                         point.getX() + 10, point.getY() + 10);
                 line.setEndX(point.getX() + 10);
                 line.setEndY(point.getY());

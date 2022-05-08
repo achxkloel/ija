@@ -439,7 +439,9 @@ public class SceneMainController {
             currentRelation.updateCoordinates();
 
             mainPane.getChildren().add(currentRelation.getLine());
-            mainPane.getChildren().add(currentRelation.getPolygon());
+
+            if (currentRelation.getArrow() != null)
+                mainPane.getChildren().add(currentRelation.getArrow());
         }
 
         for (VBox vbox : this.classVboxList)
@@ -480,15 +482,15 @@ public class SceneMainController {
                 for (UMLRelation currentRelation : relationList) {
                     if (Objects.equals(currentRelation.getVboxFrom().getId(), ((VBox) (t.getSource())).getId()) ||
                             Objects.equals(currentRelation.getVboxTo().getId(), ((VBox) (t.getSource())).getId())) {
-                        if (currentRelation.getPolygon() != null)
-                            mainPane.getChildren().remove(currentRelation.getPolygon());
+                        if (currentRelation.getArrow() != null)
+                            mainPane.getChildren().remove(currentRelation.getArrow());
 
                         currentRelation.updateCoordinates();
                     }
                     else continue;
 
-                    if (currentRelation.getPolygon() != null)
-                        mainPane.getChildren().add(currentRelation.getPolygon());
+                    if (currentRelation.getArrow() != null)
+                        mainPane.getChildren().add(currentRelation.getArrow());
                 }
 
                 ((VBox)(t.getSource())).toFront();
