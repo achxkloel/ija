@@ -204,6 +204,30 @@ public class SceneMainController {
         stage.show();
     }
 
+    @FXML
+    private void editDiagramWindow () {
+        Parent root;
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/scenes/sceneEditDiagram.fxml"));
+
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        SceneEditDiagramController sceneEditDiagramController = loader.getController();
+        sceneEditDiagramController.setDiagram(classDiagram, this.stage);
+
+        Scene scene = new Scene(root);
+        stage.setResizable(false);
+        stage.setTitle("Rename diagram");
+        stage.setMinWidth(300);
+        stage.setMinHeight(300);
+        stage.setScene(scene);
+        stage.show();
+    }
+
     private void addAttributeWindow (UMLClass currClass) {
         Parent root;
         Stage stage = new Stage();

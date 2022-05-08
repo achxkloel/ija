@@ -73,6 +73,7 @@ public class SceneWelcomeController {
         scene.getStylesheets().add(getClass().getResource("/styles/styles.css").toExternalForm());
 
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage.setTitle(classDiagram.getName());
         stage.setScene(scene);
         stage.setMinWidth(1000);
         stage.setMinHeight(720);
