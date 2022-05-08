@@ -82,21 +82,4 @@ public class SceneWelcomeController {
         stage.show();
         sceneMainController.setStage(stage);
     }
-
-    public void switchToSceneSequence(ActionEvent event) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/scenes/sceneSequence.fxml"));
-        Parent root = loader.load();
-
-        SceneSequenceController sceneSequenceController = loader.getController();
-
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getResource("/styles/styles.css").toExternalForm());
-
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        stage.setScene(scene);
-        stage.setMinWidth(1000);
-        stage.setMinHeight(720);
-        stage.show();
-        sceneSequenceController.setStage(stage);
-    }
 }

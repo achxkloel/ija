@@ -1,13 +1,13 @@
 {
   "type": "SequenceDiagram",
   "name": "testSequenceDiagram",
-  "objects": ["", ""],
+  "objects": ["testClass", "testClass 1"],
   "messages": [
     {
-      "name": "",
-      "message_type": "",
-      "source": "",
-      "target": ""
+      "name": "testMethod",
+      "message_type": "synchronous",
+      "source": "testClass",
+      "target": "testClass 1"
     }
   ]
 }

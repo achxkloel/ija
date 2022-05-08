@@ -16,7 +16,7 @@
         </Menu>
       <Menu mnemonicParsing="false" text="Select">
           <MenuItem mnemonicParsing="false" text="Class Diagram" />
-          <MenuItem mnemonicParsing="false" text="Sequence Diagram" />
+          <MenuItem mnemonicParsing="false" onAction="#switchToSceneSequence" text="Sequence Diagram" />
       </Menu>
         <Menu mnemonicParsing="false" text="Edit">
             <MenuItem mnemonicParsing="false" onAction="#editDiagramWindow" text="Rename diagram" />

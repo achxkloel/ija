@@ -10,7 +10,6 @@
     <Pane fx:id="mainPane" layoutY="25.0" prefHeight="176.0" prefWidth="778.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0" />
     <MenuBar AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <Menu mnemonicParsing="false" text="File">
-            <MenuItem mnemonicParsing="false" onAction="#closeDiagram" text="Close Diagram" />
             <MenuItem mnemonicParsing="false" onAction="#quitApplication" text="Quit" />
         </Menu>
         <Menu mnemonicParsing="false" text="Select">

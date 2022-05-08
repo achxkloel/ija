@@ -31,14 +31,6 @@
                    <Insets left="10.0" right="10.0" />
                 </HBox.margin>
               </Button>
-              <Button mnemonicParsing="false" onAction="#switchToSceneSequence" text="Load Sequence Diagram" >
-                  <font>
-                      <Font size="15.0" />
-                  </font>
-                  <HBox.margin>
-                      <Insets left="10.0" right="10.0" />
-                  </HBox.margin>
-              </Button>
               <Button mnemonicParsing="false" onAction="#openNewDiagram" text="Create new diagram">
                 <font>
                   <Font size="15.0" />

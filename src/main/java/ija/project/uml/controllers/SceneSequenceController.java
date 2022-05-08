@@ -28,25 +28,6 @@ public class SceneSequenceController {
     private Pane mainPane;
     private Stage stage;
 
-    public void closeDiagram() {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/scenes/sceneWelcome.fxml"));
-        Parent root;
-
-        try {
-            root = loader.load();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getResource("/styles/styles.css").toExternalForm());
-
-        stage.setScene(scene);
-        stage.setMinWidth(700);
-        stage.setMinHeight(500);
-        stage.show();
-    }
-
     public void quitApplication() {
         Platform.exit();
     }
