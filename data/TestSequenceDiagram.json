@@ -1,24 +1,13 @@
 {
   "type": "SequenceDiagram",
   "name": "testSequenceDiagram",
-  "objects": [
-    {
-      "name": "",
-      "action": [
-        {
-          "name": "",
-          "target": ""
-        }
-      ]
-    }
-  ],
+  "objects": ["", ""],
   "messages": [
     {
       "name": "",
       "message_type": "",
       "source": "",
-      "target": "",
-      "description": ""
+      "target": ""
     }
   ]
 }

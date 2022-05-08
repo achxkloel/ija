@@ -15,12 +15,16 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
+
+import java.util.List;
 
 /**
  * Controller for the editUMLClass scene.
@@ -45,6 +49,8 @@ public class SceneAddUMLRelationController {
     ClassDiagram parentDiagram;
 
     Pane mainPane;
+
+    SceneMainController sceneMainController;
 
     @FXML
     public void initialize () {
@@ -92,13 +98,16 @@ public class SceneAddUMLRelationController {
             if (newRelation.getArrow() != null)
                 mainPane.getChildren().add(newRelation.getArrow());
 
+            sceneMainController.moveVBoxesToFront();
+
             closeWindow(event);
         });
     }
 
-    public void setParentDiagram (ClassDiagram parentDiagram, Pane mainPane) {
+    public void setParentDiagram (ClassDiagram parentDiagram, Pane mainPane, SceneMainController controller) {
         this.parentDiagram = parentDiagram;
         this.mainPane = mainPane;
+        this.sceneMainController = controller;
 
         ObservableList<String> sourceList = sourceComboBox.getItems();
         ObservableList<String> targetList = targetComboBox.getItems();
