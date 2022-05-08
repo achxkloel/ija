@@ -13,6 +13,7 @@ import javafx.scene.layout.Pane;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Class diagram.
@@ -99,6 +100,19 @@ public class ClassDiagram extends Element {
                     R.getSource().equals(target) && R.getTarget().equals(source)).
                 findFirst().
                 orElse(null);
+    }
+
+    /**
+     * Find relations for class name.
+     *
+     * @param className name of the class.
+     * @return list of found relations.
+     */
+    public List<UMLRelation> findRelationsForClass (String className) {
+        return this.relationList.stream()
+                .filter(R ->
+                    R.getSource().equals(className) || R.getTarget().equals(className))
+                .collect(Collectors.toUnmodifiableList());
     }
 
     public List<UMLClass> getClassList () {

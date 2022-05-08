@@ -565,8 +565,28 @@ public class SceneMainController {
                         editMethodMenu.getItems().add(editMethod);
                     }
 
+                    Menu editRelationMenu = new Menu("Edit relations");
+
+                    // Set event handlers to relations
+                    for (UMLRelation relation : classDiagram.findRelationsForClass(currClass.getName())) {
+                        StringBuilder menuItemText = new StringBuilder("with ");
+
+                        if (relation.getTarget().equals(currClass.getName())) {
+                            menuItemText.append(relation.getSource());
+                        } else {
+                            menuItemText.append(relation.getTarget());
+                        }
+
+                        MenuItem editRelation = new MenuItem(menuItemText.toString());
+
+                        editRelation.setOnAction(e -> System.out.println("Edit " + relation.getName()));
+
+                        editRelationMenu.getItems().add(editRelation);
+                    }
+
                     SeparatorMenuItem attributeSeparator = new SeparatorMenuItem();
                     SeparatorMenuItem methodSeparator = new SeparatorMenuItem();
+                    SeparatorMenuItem relationSeparator = new SeparatorMenuItem();
 
                     contextMenu.getItems().addAll(
                         itemClassEdit,
@@ -575,7 +595,9 @@ public class SceneMainController {
                         editAttributesMenu,
                         methodSeparator,
                         itemAddMethod,
-                        editMethodMenu
+                        editMethodMenu,
+                        relationSeparator,
+                        editRelationMenu
                     );
                     contextMenu.show(mainPane, t.getScreenX(), t.getScreenY());
 
