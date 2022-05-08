@@ -64,11 +64,20 @@ public class SceneMainController {
     private double positionY = 50;
 
 
+    /**
+     * Setter for the class diagram
+     * @param classDiagram new class diagram
+     */
     public void setClassDiagram (ClassDiagram classDiagram) {
         this.classDiagram = classDiagram;
         this.classDiagram.setDiagramView(this.mainPane);
     }
 
+    /**
+     * Generates a label for the class, that is passed to it
+     * @param umlClass a class
+     * @return label for the class in the parameter
+     */
     private Label getLabel(UMLClass umlClass) {
         Label label = new Label();
         umlClass.setNameView(label);
@@ -81,6 +90,11 @@ public class SceneMainController {
         return label;
     }
 
+    /**
+     * Creates a VBox with a list of attributes
+     * @param umlClass class, for which we want to get the attribute list
+     * @return VBox containing the attributes
+     */
     private VBox getAttributeList(UMLClass umlClass) {
         List<Attribute> attributeList = umlClass.getAttributeList();
         final VBox vboxAttributes = new VBox();
@@ -102,6 +116,11 @@ public class SceneMainController {
         return vboxAttributes;
     }
 
+    /**
+     * Creates a VBox with a list of methods
+     * @param umlClass class, for which we want to get the method list
+     * @return VBox containing the methods
+     */
     private VBox getMethodList(UMLClass umlClass) {
         List<Method> methodList = umlClass.getMethodList();
         final VBox vboxMethods = new VBox();
@@ -125,7 +144,8 @@ public class SceneMainController {
     }
 
     /**
-     * method to display the diagram
+     * A method, that calls other methods, which results in displaying the class diagram
+     * on the screen.
      */
     public void displayVbox() {
         List<UMLClass> classList = this.classDiagram.getClassList();
@@ -139,6 +159,11 @@ public class SceneMainController {
         mainPane.setOnMouseClicked(mainPaneOnMouseClicked);
     }
 
+    /**
+     * Creates a VBox for a class, that is passed to it
+     * @param umlClass a class, for which we want to get the VBox
+     * @return VBox representation of the class
+     */
     public VBox createClassVBox (UMLClass umlClass) {
         final VBox vbox = new VBox();
         umlClass.setClassView(vbox);
@@ -167,10 +192,18 @@ public class SceneMainController {
         return vbox;
     }
 
+    /**
+     * Generates an id for a class - no uppercase letters and no white space characters
+     * @param className the name of a class, from which we want to create the id
+     * @return the processed id
+     */
     private String generateClassId(String className) {
         return className.replaceAll("\\s+", "_").toLowerCase();
     }
 
+    /**
+     * Opens a window for adding a class.
+     */
     @FXML
     private void addClassWindow () {
         Parent root;
@@ -196,6 +229,9 @@ public class SceneMainController {
         stage.show();
     }
 
+    /**
+     * Opens a window for adding a relation.
+     */
     @FXML
     private void addRelationWindow () {
         if (classDiagram.getClassList().size() < 2) {
@@ -224,6 +260,9 @@ public class SceneMainController {
         stage.show();
     }
 
+    /**
+     * Opens a window for editing a class.
+     */
     private void editClassWindow (UMLClass currClass) {
         Parent root;
         Stage stage = new Stage();
@@ -247,6 +286,9 @@ public class SceneMainController {
         stage.show();
     }
 
+    /**
+     * Opens a window for adding a diagram name.
+     */
     @FXML
     private void editDiagramWindow () {
         Parent root;
@@ -271,6 +313,9 @@ public class SceneMainController {
         stage.show();
     }
 
+    /**
+     * Opens a window for adding an attribute to a class.
+     */
     private void addAttributeWindow (UMLClass currClass) {
         Parent root;
         Stage stage = new Stage();
@@ -294,6 +339,9 @@ public class SceneMainController {
         stage.show();
     }
 
+    /**
+     * Opens a window for adding a method to a class.
+     */
     private void addMethodWindow (UMLClass currClass) {
         Parent root;
         Stage stage = new Stage();
@@ -317,6 +365,9 @@ public class SceneMainController {
         stage.show();
     }
 
+    /**
+     * Opens a window for editing an attribute.
+     */
     private void editAttributeWindow (Attribute attr, UMLClass parentClass) {
         Parent root;
         Stage stage = new Stage();
@@ -340,6 +391,9 @@ public class SceneMainController {
         stage.show();
     }
 
+    /**
+     * Opens a window for editing a method.
+     */
     private void editMethodWindow (Method method, UMLClass parentClass) {
         Parent root;
         Stage stage = new Stage();
@@ -363,6 +417,9 @@ public class SceneMainController {
         stage.show();
     }
 
+    /**
+     * Opens a window for editing a relation.
+     */
     private void editRelationWindow (UMLRelation relation) {
         Parent root;
         Stage stage = new Stage();
@@ -386,17 +443,27 @@ public class SceneMainController {
         stage.show();
     }
 
+    /**
+     * Clears the diagram.
+     */
     @FXML
     private void clearDiagram() {
         mainPane.getChildren().clear();
         classDiagram.clear();
     }
 
+    /**
+     * Calls a function in the DataParser, which exports the class diagram to a JSON file.
+     * @throws IOException
+     */
     @FXML
     private void saveClassDiagram () throws IOException {
         DataParser.saveClassDiagram(classDiagram, stage);
     }
 
+    /**
+     * Launches a file chooser and lets you select a JSON file, which represents a sequence diagram.
+     */
     @FXML
     private void openSequenceDiagram() {
         FileChooser fileChooser = new FileChooser();
@@ -420,15 +487,11 @@ public class SceneMainController {
             sequencePane.getChildren().add(vbox);
     }
 
+    /**
+     * Creates a VBox representation of a sequence
+     * @param name name of the sequence
+     */
     private void createSequenceVBox(String name) {
-        VBox vbox = getSequenceVBox(name);
-        vbox.setTranslateX(positionX);
-        vbox.setTranslateY(positionY);
-        positionX += 150;
-        sequenceVboxList.add(vbox);
-    }
-
-    public VBox getSequenceVBox(String name) {
         final VBox vbox = new VBox();
 
         String cssLayoutVbox = "-fx-border-color: black;\n" +
@@ -440,10 +503,17 @@ public class SceneMainController {
         vbox.getChildren().add(getLabelFromString(name));
 
         vbox.toFront();
-
-        return vbox;
+        vbox.setTranslateX(positionX);
+        vbox.setTranslateY(positionY);
+        positionX += 150;
+        sequenceVboxList.add(vbox);
     }
 
+    /**
+     * Creates a Label from a string
+     * @param string string, from which we want to create a label
+     * @return label representation of the string
+     */
     private Label getLabelFromString(String string) {
         Label label = new Label();
         label.setText(string);
@@ -456,6 +526,11 @@ public class SceneMainController {
         return label;
     }
 
+    /**
+     * Setter for the stage. Also, this function draws all relations including polygons representing
+     * their types.
+     * @param stage Stage to be set
+     */
     public void setStage(Stage stage) {
         this.stage = stage;
         List<UMLRelation> relationList = this.classDiagram.getRelationList();
@@ -480,20 +555,35 @@ public class SceneMainController {
         moveVBoxesToFront();
     }
 
+    /**
+     * Moves all VBoxes from classVBoxList to front, so the relations are not covering them
+     */
     public void moveVBoxesToFront() {
         for (VBox vbox : this.classVboxList)
             vbox.toFront();
     }
 
+    /**
+     * Removes a polygon representing a type from the mainPane
+     * @param relation relation, which contains the polygon to be removed
+     */
     public void clearPolygon(UMLRelation relation) {
         mainPane.getChildren().remove(relation.getArrow());
     }
 
+    /**
+     * Adds a polygon representing a type to the mainPane
+     * @param relation relation, which contains the polygon to be added
+     */
     public void addPolygon(UMLRelation relation) {
         if (relation.getArrow() != null)
             mainPane.getChildren().add(relation.getArrow());
     }
 
+    /**
+     * Handler for what should happen, when a VBox is pressed.
+     * Saves some values, that are later needed for calculating the translate axis.
+     */
     EventHandler<MouseEvent> vboxOnMousePressedEventHandler = t -> {
         orgSceneX = t.getSceneX();
         orgSceneY = t.getSceneY();
@@ -501,6 +591,10 @@ public class SceneMainController {
         orgTranslateY = ((VBox)(t.getSource())).getTranslateY();
     };
 
+    /**
+     * Handles a situation, when a VBox is dragged around.
+     * Makes sure, that everything moves accordingly.
+     */
     EventHandler<MouseEvent> vboxOnMouseDraggedEventHandler = t -> {
         double newTranslateX = orgTranslateX + t.getSceneX() - orgSceneX;
         double newTranslateY = orgTranslateY + t.getSceneY() - orgSceneY;
@@ -537,6 +631,10 @@ public class SceneMainController {
         ((VBox)(t.getSource())).setTranslateY(newTranslateY);
     };
 
+    /**
+     * Checks for a click with a secondary mouse button.
+     * Opens a context menu for editing
+     */
     EventHandler<MouseEvent> vboxOnMouseClickedEventHandler = t -> {
         if (contextMenu != null) contextMenu.hide();
         if (t.getButton().equals(MouseButton.SECONDARY)) {
@@ -614,6 +712,9 @@ public class SceneMainController {
         }
     };
 
+    /**
+     * Handles clicks on main pane.
+     */
     EventHandler<MouseEvent> mainPaneOnMouseClicked = t -> {
         if (t.getButton().equals(MouseButton.PRIMARY))
             if (contextMenu != null) contextMenu.hide();
