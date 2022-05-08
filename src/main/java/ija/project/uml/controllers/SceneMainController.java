@@ -24,6 +24,7 @@ import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.io.*;
 
@@ -421,6 +422,7 @@ public class SceneMainController {
 
         SceneSequenceController sceneSequenceController = loader.getController();
         sceneSequenceController.setSequenceDiagram(sequenceDiagram);
+        sceneSequenceController.displayDiagram();
 
         Scene scene = new Scene(root);
         scene.getStylesheets().add(getClass().getResource("/styles/styles.css").toExternalForm());
@@ -430,6 +432,7 @@ public class SceneMainController {
         stage.setMinWidth(1000);
         stage.setMinHeight(720);
         stage.show();
+        sceneSequenceController.setStage(stage);
     }
 
     public void setStage(Stage stage) {
