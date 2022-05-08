@@ -8,12 +8,17 @@
 
 package ija.project.uml;
 
+import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.Objects;
 
@@ -152,7 +157,7 @@ public class DataParser {
             // Create sequence diagram
             String SDType = jsonObject.getString("type");
 
-            if (!SDType.equals("Sequence diagram")) {
+            if (!SDType.equals("SequenceDiagram")) {
                 throw new JSONException("wrong diagram type");
             }
 
@@ -170,7 +175,7 @@ public class DataParser {
             JSONArray messageList = jsonObject.getJSONArray("messages");
 
             for (int i = 0; i < messageList.length(); i++) {
-                JSONObject SDMessage = objectList.getJSONObject(i);
+                JSONObject SDMessage = messageList.getJSONObject(i);
                 String MName = SDMessage.getString("name");
                 String MType = SDMessage.getString("message_type");
                 String MSource = SDMessage.getString("source");
@@ -186,5 +191,83 @@ public class DataParser {
         }
 
         return sequenceDiagram;
+    }
+
+    public static void saveClassDiagram(ClassDiagram classDiagram, Stage stage) throws IOException {
+        JSONObject classDiagramObject = new JSONObject();
+        classDiagramObject.put("type", "ClassDiagram");
+        classDiagramObject.put("name", classDiagram.getName());
+
+        JSONArray umlClassArray = new JSONArray();
+
+        for (UMLClass umlClass : classDiagram.getClassList()) {
+            JSONObject umlClassObject = new JSONObject();
+            umlClassObject.put("name", umlClass.getName());
+
+            VBox classVBox = umlClass.getClassView();
+            umlClassObject.put("positionX", classVBox.getTranslateX());
+            umlClassObject.put("positionY", classVBox.getTranslateY());
+
+            JSONArray umlClassItemsArray = new JSONArray();
+
+            for (Attribute attribute : umlClass.getAttributeList()) {
+                JSONObject umlClassItemObject = new JSONObject();
+                umlClassItemObject.put("item_type", "Attribute");
+                umlClassItemObject.put("visibility", attribute.getVisibility());
+                umlClassItemObject.put("name", attribute.getName());
+                umlClassItemObject.put("type", attribute.getType());
+                umlClassItemsArray.put(umlClassItemObject);
+            }
+
+            for (Method method : umlClass.getMethodList()) {
+                JSONObject umlClassItemObject = new JSONObject();
+                umlClassItemObject.put("item_type", "Method");
+                umlClassItemObject.put("visibility", method.getVisibility());
+                umlClassItemObject.put("name", method.getName());
+                umlClassItemObject.put("type", method.getType());
+
+                JSONArray methodParamsArray = new JSONArray();
+                for (Attribute methodParam : method.getAttributeList()) {
+                    JSONObject methodParamObject = new JSONObject();
+                    methodParamObject.put("name", methodParam.getName());
+                    methodParamObject.put("type", methodParam.getType());
+                    methodParamsArray.put(methodParamObject);
+                }
+
+                umlClassItemObject.put("params", methodParamsArray);
+                umlClassItemsArray.put(umlClassItemObject);
+            }
+
+            umlClassObject.put("items", umlClassItemsArray);
+            umlClassArray.put(umlClassObject);
+        }
+
+        JSONArray relationsArray = new JSONArray();
+
+        for (UMLRelation relation : classDiagram.getRelationList()) {
+            JSONObject relationObject = new JSONObject();
+            relationObject.put("source", relation.getSource());
+            relationObject.put("target", relation.getTarget());
+            relationObject.put("type", relation.getType());
+            relationObject.put("name", relation.getName());
+            relationObject.put("cardinality_from", relation.getCardinalityFrom());
+            relationObject.put("cardinality_to", relation.getCardinalityTo());
+            relationsArray.put(relationObject);
+        }
+
+        classDiagramObject.put("classes", umlClassArray);
+        classDiagramObject.put("relations", relationsArray);
+
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Choose folder to save diagram");
+        fileChooser.setInitialFileName(classDiagram.getName() + ".json");
+        fileChooser.setSelectedExtensionFilter( new FileChooser.ExtensionFilter("JSON files", "*.json" ));
+        File selectedFile = fileChooser.showSaveDialog(stage);
+
+        if (selectedFile != null) {
+            try (PrintWriter outputFile = new PrintWriter(selectedFile.getAbsolutePath(), StandardCharsets.UTF_8)) {
+                outputFile.println(classDiagramObject.toString(2));
+            }
+        }
     }
 }
