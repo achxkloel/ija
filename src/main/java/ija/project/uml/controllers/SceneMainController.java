@@ -60,6 +60,11 @@ public class SceneMainController {
     private SequenceDiagram sequenceDiagram;
     private ContextMenu contextMenu;
     private final List<VBox> classVboxList = new ArrayList<>();
+    private final List<VBox> sequenceVboxList = new ArrayList<>();
+
+    private double positionX = 50;
+    private double positionY = 50;
+
 
     public void setClassDiagram (ClassDiagram classDiagram) {
         this.classDiagram = classDiagram;
@@ -410,7 +415,47 @@ public class SceneMainController {
         sequenceTab.setDisable(false);
         tabPane.getSelectionModel().select(sequenceTab);
 
-        // TODO show sequence diagram
+        for (String object : sequenceDiagram.getSequenceObjects())
+            createSequenceVBox(object);
+
+        for (VBox vbox : sequenceVboxList)
+            sequencePane.getChildren().add(vbox);
+    }
+
+    private void createSequenceVBox(String name) {
+        VBox vbox = getSequenceVBox(name);
+        vbox.setTranslateX(positionX);
+        vbox.setTranslateY(positionY);
+        positionX += 150;
+        sequenceVboxList.add(vbox);
+    }
+
+    public VBox getSequenceVBox(String name) {
+        final VBox vbox = new VBox();
+
+        String cssLayoutVbox = "-fx-border-color: black;\n" +
+                "-fx-border-width: 2;\n" +
+                "-fx-border-style: solid;\n" +
+                "-fx-background-color: white;\n";
+
+        vbox.setStyle(cssLayoutVbox);
+        vbox.getChildren().add(getLabelFromString(name));
+
+        vbox.toFront();
+
+        return vbox;
+    }
+
+    private Label getLabelFromString(String string) {
+        Label label = new Label();
+        label.setText(string);
+
+        String cssLabel = "-fx-text-fill: black;\n" +
+                "-fx-padding: 5px";
+
+        label.setStyle(cssLabel);
+
+        return label;
     }
 
     public void setStage(Stage stage) {
