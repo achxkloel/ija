@@ -44,17 +44,15 @@ public class SceneAddMethodController {
         saveButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                if (methodNameTextField.getText().isEmpty() ||
-                    methodReturnTypeTextField.getText().isEmpty() ||
-                    methodParamsTextArea.getText().isEmpty()) {
-                    System.out.println("Some text fields are empty");
-                    return;
-                }
-
                 String newName = methodNameTextField.getText().trim();
                 String newReturnType = methodReturnTypeTextField.getText().trim();
                 String newVisibility = methodVisibilityComboBox.getValue();
                 String newParams = methodParamsTextArea.getText().trim();
+
+                if (newName.isEmpty() || newReturnType.isEmpty()) {
+                    System.out.println("Some text fields are empty");
+                    return;
+                }
 
                 if (editedClass.findMethod(newName) != null) {
                     System.out.println("Method \"" + newName + "\" is already exists!");

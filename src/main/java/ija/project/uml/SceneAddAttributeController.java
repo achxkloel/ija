@@ -39,15 +39,14 @@ public class SceneAddAttributeController {
         saveButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                if (attributeNameTextField.getText().isEmpty() ||
-                    attributeTypeTextField.getText().isEmpty()) {
-                    System.out.println("Some text fields are empty");
-                    return;
-                }
-
                 String newName = attributeNameTextField.getText().trim();
                 String newType = attributeTypeTextField.getText().trim();
                 String newVisibility = attributeVisibilityComboBox.getValue();
+
+                if (newName.isEmpty() || newType.isEmpty()) {
+                    System.out.println("Some text fields are empty");
+                    return;
+                }
 
                 if (editedClass.findAttribute(newName) != null) {
                     System.out.println("Attribute \"" + newName + "\" is already exists!");

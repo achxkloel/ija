@@ -36,12 +36,12 @@ public class SceneEditDiagramController {
     @FXML
     public void initialize () {
         saveButton.setOnAction(event -> {
-            if (nameTextField.getText().isEmpty()) {
+            String newName = nameTextField.getText().trim();
+
+            if (newName.isEmpty()) {
                 System.out.println("Text field is empty!");
                 return;
             }
-
-            String newName = nameTextField.getText().trim();
 
             classDiagram.setName(newName);
             parentStage.setTitle(newName);

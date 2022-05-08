@@ -49,17 +49,15 @@ public class SceneEditMethodController {
         saveButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                if (methodNameTextField.getText().isEmpty() ||
-                    methodReturnTypeTextField.getText().isEmpty() ||
-                    methodParamsTextArea.getText().isEmpty()) {
-                    System.out.println("Some text fields are empty");
-                    return;
-                }
-
                 String newName = methodNameTextField.getText().trim();
                 String newType = methodReturnTypeTextField.getText().trim();
                 String newVisibility = methodVisibilityComboBox.getValue();
                 String newParams = methodParamsTextArea.getText().trim();
+
+                if (newName.isEmpty() || newType.isEmpty()) {
+                    System.out.println("Some text fields are empty");
+                    return;
+                }
 
                 if (!newName.equals(editedMethod.getName()) &&
                     parentClass.findAttribute(newName) != null) {

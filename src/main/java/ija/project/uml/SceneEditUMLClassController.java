@@ -39,12 +39,12 @@ public class SceneEditUMLClassController {
     @FXML
     public void initialize () {
         saveButton.setOnAction(event -> {
-            if (nameTextField.getText().isEmpty()) {
+            String newName = nameTextField.getText().trim();
+
+            if (newName.isEmpty()) {
                 System.out.println("Text field is empty!");
                 return;
             }
-
-            String newName = nameTextField.getText().trim();
 
             if (!newName.equals(editedClass.getName()) &&
                 parentDiagram.findClass(newName) != null) {

@@ -34,12 +34,12 @@ public class SceneAddUMLClassController {
     @FXML
     public void initialize () {
         addButton.setOnAction(event -> {
-            if (nameTextField.getText().isEmpty()) {
+            String className = nameTextField.getText().trim();
+
+            if (className.isEmpty()) {
                 System.out.println("Text field is empty!");
                 return;
             }
-
-            String className = nameTextField.getText().trim();
 
             if (parentDiagram.findClass(className) != null) {
                 System.out.println("Class \"" + className + "\" is already exists!");
