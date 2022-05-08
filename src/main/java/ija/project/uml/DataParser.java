@@ -170,11 +170,11 @@ public class DataParser {
             JSONArray messageList = jsonObject.getJSONArray("messages");
 
             for (int i = 0; i < messageList.length(); i++) {
-                JSONObject SMessage = objectList.getJSONObject(i);
-                String MName = SMessage.getString("name");
-                String MType = SMessage.getString("message_type");
-                String MSource = SMessage.getString("source");
-                String MTarget = SMessage.getString("target");
+                JSONObject SDMessage = objectList.getJSONObject(i);
+                String MName = SDMessage.getString("name");
+                String MType = SDMessage.getString("message_type");
+                String MSource = SDMessage.getString("source");
+                String MTarget = SDMessage.getString("target");
                 sequenceDiagram.addMessage(new Message(MName, MType, MSource, MTarget));
             }
         } catch (IOException ioException) {
