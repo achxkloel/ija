@@ -120,24 +120,6 @@ public class SceneMainController {
             classVboxList.add(this.createClassVBox(currentClass));
         }
 
-        List<UMLRelation> relationList = this.classDiagram.getRelationList();
-
-        for (UMLRelation currentRelation : relationList) {
-            for (VBox vbox : this.classVboxList) {
-                if (Objects.equals(vbox.getId(), generateClassId(currentRelation.getSource())))
-                    currentRelation.setVboxFrom(vbox);
-                if (Objects.equals(vbox.getId(), generateClassId(currentRelation.getTarget())))
-                    currentRelation.setVboxTo(vbox);
-            }
-
-            Line line = new Line();
-            currentRelation.setLine(line);
-            currentRelation.updateCoordinates();
-
-            mainPane.getChildren().add(currentRelation.getLine());
-            mainPane.getChildren().add(currentRelation.getPolygon());
-        }
-
         for (VBox vbox : this.classVboxList)
             mainPane.getChildren().add(vbox);
 
@@ -418,6 +400,26 @@ public class SceneMainController {
 
     public void setStage(Stage stage) {
         this.stage = stage;
+        List<UMLRelation> relationList = this.classDiagram.getRelationList();
+
+        for (UMLRelation currentRelation : relationList) {
+            for (VBox vbox : this.classVboxList) {
+                if (Objects.equals(vbox.getId(), generateClassId(currentRelation.getSource())))
+                    currentRelation.setVboxFrom(vbox);
+                if (Objects.equals(vbox.getId(), generateClassId(currentRelation.getTarget())))
+                    currentRelation.setVboxTo(vbox);
+            }
+
+            Line line = new Line();
+            currentRelation.setLine(line);
+            currentRelation.updateCoordinates();
+
+            mainPane.getChildren().add(currentRelation.getLine());
+            mainPane.getChildren().add(currentRelation.getPolygon());
+        }
+
+        for (VBox vbox : this.classVboxList)
+            vbox.toFront();
     }
 
     EventHandler<MouseEvent> vboxOnMousePressedEventHandler =
