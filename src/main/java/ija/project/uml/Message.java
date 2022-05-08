@@ -14,31 +14,25 @@ package ija.project.uml;
 public class Message extends Element {
 
     private final String type;
-    private final Participant source;
-    private final Participant target;
-    private final String description;
+    private final String source;
+    private final String target;
 
-    public Message (String name, String type, Participant source, Participant target, String description) {
+    public Message (String name, String type, String source, String target) {
         super(name);
         this.type = type;
         this.source = source;
         this.target = target;
-        this.description = description;
     }
 
     public String getType () {
         return type;
     }
 
-    public Participant getSource () {
+    public String getSource () {
         return source;
     }
 
-    public Participant getTarget () {
+    public String getTarget () {
         return target;
-    }
-
-    public String getDescription () {
-        return description;
     }
 }
