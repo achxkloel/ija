@@ -29,6 +29,9 @@ public class ClassDiagram extends Element {
      */
     private final List<UMLRelation> relationList = new ArrayList<>();
 
+    /**
+     * Diagram view.
+     */
     private Pane diagramView = null;
 
     /**
@@ -49,6 +52,11 @@ public class ClassDiagram extends Element {
         this.classList.add(newClass);
     }
 
+    /**
+     * Remove class from the diagram.
+     *
+     * @param classToRemove class to remove.
+     */
     public void removeClass (UMLClass classToRemove) {
         if (diagramView != null) {
             diagramView.getChildren().remove(classToRemove.getClassView());
@@ -56,6 +64,11 @@ public class ClassDiagram extends Element {
         this.classList.remove(classToRemove);
     }
 
+    /**
+     * Remove relation from the diagram.
+     *
+     * @param relationToRemove relation to remove.
+     */
     public void removeRelation (UMLRelation relationToRemove) {
         if (diagramView != null) {
             diagramView.getChildren().remove(relationToRemove.getLine());
@@ -115,23 +128,46 @@ public class ClassDiagram extends Element {
                 .collect(Collectors.toUnmodifiableList());
     }
 
+    /**
+     * Get unmodifiable class list.
+     *
+     * @return unmodifiable class list.
+     */
     public List<UMLClass> getClassList () {
         return Collections.unmodifiableList(this.classList);
     }
 
+    /**
+     * Get unmodifiable relation list.
+     *
+     * @return unmodifiable relation list.
+     */
     public List<UMLRelation> getRelationList() {
         return relationList;
     }
 
+    /**
+     * Clear class diagram.
+     */
     public void clear() {
         this.classList.clear();
         this.relationList.clear();
     }
 
+    /**
+     * Set the class diagram view.
+     *
+     * @param diagramView diagram view.
+     */
     public void setDiagramView (Pane diagramView) {
         this.diagramView = diagramView;
     }
 
+    /**
+     * Get the class diagram view.
+     *
+     * @return diagram view.
+     */
     public Pane getDiagramView () {
         return this.diagramView;
     }

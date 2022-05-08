@@ -193,6 +193,12 @@ public class DataParser {
         return sequenceDiagram;
     }
 
+    /**
+     * Convert and save class diagram to JSON file.
+     *
+     * @param classDiagram class diagram.
+     * @param stage stage to open file chooser.
+     */
     public static void saveClassDiagram(ClassDiagram classDiagram, Stage stage) throws IOException {
         JSONObject classDiagramObject = new JSONObject();
         classDiagramObject.put("type", "ClassDiagram");
