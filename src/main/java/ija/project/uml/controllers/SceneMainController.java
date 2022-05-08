@@ -40,6 +40,8 @@ public class SceneMainController {
 
     @FXML
     private Pane mainPane;
+    @FXML
+    private Pane sequencePane;
     private double orgSceneX, orgSceneY;
     private double orgTranslateX, orgTranslateY;
 
@@ -371,32 +373,15 @@ public class SceneMainController {
         stage.show();
     }
 
-    public void closeDiagram() {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/scenes/sceneWelcome.fxml"));
-        Parent root;
-
-        try {
-            root = loader.load();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getResource("/styles/styles.css").toExternalForm());
-
-        stage.setScene(scene);
-        stage.setMinWidth(700);
-        stage.setMinHeight(500);
-        stage.show();
+    @FXML
+    private void clearDiagram() {
+        mainPane.getChildren().clear();
+        classDiagram.clear();
     }
 
     @FXML
     private void saveClassDiagram () throws IOException {
         DataParser.saveClassDiagram(classDiagram, stage);
-    }
-
-    public void quitApplication() {
-        Platform.exit();
     }
 
     public void switchToSceneSequence() {

@@ -123,6 +123,11 @@ public class ClassDiagram extends Element {
         return relationList;
     }
 
+    public void clear() {
+        this.classList.clear();
+        this.relationList.clear();
+    }
+
     public void setDiagramView (Pane diagramView) {
         this.diagramView = diagramView;
     }
