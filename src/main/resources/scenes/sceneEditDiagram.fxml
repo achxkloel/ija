@@ -5,7 +5,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="300" prefWidth="300" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ija.project.uml.SceneEditDiagramController">
+<VBox prefHeight="300" prefWidth="300" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ija.project.uml.controllers.SceneEditDiagramController">
    <children>
       <Label text="Name:" />
       <TextField fx:id="nameTextField" />

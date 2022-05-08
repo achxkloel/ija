@@ -6,8 +6,11 @@
  * Description: Controller for the welcome scene, which contains the file select button
  */
 
-package ija.project.uml;
+package ija.project.uml.controllers;
 
+import ija.project.uml.Attribute;
+import ija.project.uml.Method;
+import ija.project.uml.UMLClass;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;

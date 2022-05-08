@@ -6,7 +6,7 @@
  * Description: Controller for the main scene, which displays diagrams
  */
 
-package ija.project.uml;
+package ija.project.uml.controllers;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;

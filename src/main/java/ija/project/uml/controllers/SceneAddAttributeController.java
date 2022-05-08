@@ -6,24 +6,24 @@
  * Description: Controller for the welcome scene, which contains the file select button
  */
 
-package ija.project.uml;
+package ija.project.uml.controllers;
 
+import ija.project.uml.Attribute;
+import ija.project.uml.UMLClass;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class SceneEditAttributeController {
+public class SceneAddAttributeController {
 
     @FXML
     Button saveButton;
-
-    @FXML
-    Button deleteButton;
 
     @FXML
     ComboBox<String> attributeVisibilityComboBox;
@@ -34,9 +34,7 @@ public class SceneEditAttributeController {
     @FXML
     TextField attributeTypeTextField;
 
-    UMLClass parentClass;
-
-    Attribute editedAttribute;
+    UMLClass editedClass;
 
     @FXML
     public void initialize () {
@@ -52,35 +50,23 @@ public class SceneEditAttributeController {
                     return;
                 }
 
-                if (!newName.equals(editedAttribute.getName()) &&
-                    parentClass.findAttribute(newName) != null) {
+                if (editedClass.findAttribute(newName) != null) {
                     System.out.println("Attribute \"" + newName + "\" is already exists!");
                     return;
                 }
 
-                editedAttribute.setName(newName);
-                editedAttribute.setType(newType);
-                editedAttribute.setVisibility(newVisibility);
-                editedAttribute.updateTextView();
-                closeWindow(event);
-            }
-        });
-
-        deleteButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                parentClass.removeAttribute(editedAttribute);
+                editedClass.addAttribute(new Attribute(
+                        newName,
+                        newType,
+                        newVisibility
+                ));
                 closeWindow(event);
             }
         });
     }
 
-    public void setAttribute (Attribute editedAttribute, UMLClass parentClass) {
-        this.editedAttribute = editedAttribute;
-        this.parentClass = parentClass;
-        attributeVisibilityComboBox.setValue(editedAttribute.getVisibility());
-        attributeNameTextField.setText(editedAttribute.getName());
-        attributeTypeTextField.setText(editedAttribute.getType());
+    public void setUMLClass (UMLClass editedClass) {
+        this.editedClass = editedClass;
     }
 
     public void closeWindow (ActionEvent e) {
