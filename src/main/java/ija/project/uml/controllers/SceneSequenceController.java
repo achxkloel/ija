@@ -14,7 +14,6 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-
 /**
  * Controller for the sequence diagram scene, which displays diagrams.
  */
