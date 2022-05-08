@@ -150,6 +150,8 @@ public class SceneMainController {
         vbox.setTranslateX(umlClass.getPositionX());
         vbox.setTranslateY(umlClass.getPositionY());
 
+        classVboxList.add(vbox);
+
         return vbox;
     }
 
@@ -199,7 +201,7 @@ public class SceneMainController {
         }
 
         SceneAddUMLRelationController sceneAddUMLRelationController = loader.getController();
-        sceneAddUMLRelationController.setParentDiagram(classDiagram, mainPane);
+        sceneAddUMLRelationController.setParentDiagram(classDiagram, mainPane, this);
 
         Scene scene = new Scene(root);
         stage.setResizable(false);
@@ -473,6 +475,10 @@ public class SceneMainController {
                 mainPane.getChildren().add(currentRelation.getArrow());
         }
 
+        moveVBoxesToFront();
+    }
+
+    public void moveVBoxesToFront() {
         for (VBox vbox : this.classVboxList)
             vbox.toFront();
     }
