@@ -35,7 +35,7 @@ public class DataParser {
      * Parse class diagram
      *
      * @param dataFile input file
-     * @return ClassDiagram created class diagram or null.
+     * @return created class diagram or null.
      */
     public static ClassDiagram parseClassDiagram (File dataFile) {
         JSONObject jsonObject;
@@ -134,5 +134,57 @@ public class DataParser {
         }
 
         return classDiagram;
+    }
+
+    /**
+     * Parse sequence diagram.
+     *
+     * @param dataFile input file
+     * @return created sequence diagram or null.
+     */
+    public static SequenceDiagram parseSequenceDiagram (File dataFile) {
+        JSONObject jsonObject;
+        SequenceDiagram sequenceDiagram;
+
+        try {
+            jsonObject = DataParser.parse(dataFile);
+
+            // Create sequence diagram
+            String SDType = jsonObject.getString("type");
+
+            if (!SDType.equals("Sequence diagram")) {
+                throw new JSONException("wrong diagram type");
+            }
+
+            String SDName = jsonObject.getString("name");
+            sequenceDiagram = new SequenceDiagram(SDName);
+
+            // Add objects to the diagram
+            JSONArray objectList = jsonObject.getJSONArray("objects");
+
+            for (int i = 0; i < objectList.length(); i++) {
+                sequenceDiagram.addSequenceObject(objectList.getString(i));
+            }
+
+            // Add messages to the diagram
+            JSONArray messageList = jsonObject.getJSONArray("messages");
+
+            for (int i = 0; i < messageList.length(); i++) {
+                JSONObject SDMessage = objectList.getJSONObject(i);
+                String MName = SDMessage.getString("name");
+                String MType = SDMessage.getString("message_type");
+                String MSource = SDMessage.getString("source");
+                String MTarget = SDMessage.getString("target");
+                sequenceDiagram.addMessage(new Message(MName, MType, MSource, MTarget));
+            }
+        } catch (IOException ioException) {
+            System.out.println("Error reading input file.");
+            return null;
+        } catch (JSONException jsonException) {
+            System.out.println(jsonException.getMessage());
+            return null;
+        }
+
+        return sequenceDiagram;
     }
 }
