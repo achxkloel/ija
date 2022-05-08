@@ -96,7 +96,7 @@ public class SceneAddAttributeController {
      *
      * @param e current event.
      */
-    public void closeWindow (ActionEvent e) {
+    private void closeWindow (ActionEvent e) {
         final Node source = (Node) e.getSource();
         final Stage stage = (Stage) source.getScene().getWindow();
         stage.close();

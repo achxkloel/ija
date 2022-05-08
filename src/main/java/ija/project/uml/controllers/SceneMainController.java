@@ -23,9 +23,7 @@ import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
 import java.io.*;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -496,145 +494,128 @@ public class SceneMainController {
             mainPane.getChildren().add(relation.getArrow());
     }
 
-    EventHandler<MouseEvent> vboxOnMousePressedEventHandler =
-        new EventHandler<>() {
-            @Override
-            public void handle(MouseEvent t) {
-                orgSceneX = t.getSceneX();
-                orgSceneY = t.getSceneY();
-                orgTranslateX = ((VBox)(t.getSource())).getTranslateX();
-                orgTranslateY = ((VBox)(t.getSource())).getTranslateY();
+    EventHandler<MouseEvent> vboxOnMousePressedEventHandler = t -> {
+        orgSceneX = t.getSceneX();
+        orgSceneY = t.getSceneY();
+        orgTranslateX = ((VBox)(t.getSource())).getTranslateX();
+        orgTranslateY = ((VBox)(t.getSource())).getTranslateY();
+    };
+
+    EventHandler<MouseEvent> vboxOnMouseDraggedEventHandler = t -> {
+        double newTranslateX = orgTranslateX + t.getSceneX() - orgSceneX;
+        double newTranslateY = orgTranslateY + t.getSceneY() - orgSceneY;
+
+        double originalX = ((VBox)(t.getSource())).getLayoutX() + ((VBox)(t.getSource())).getWidth() / 2;
+        double originalY = ((VBox)(t.getSource())).getLayoutY() + ((VBox)(t.getSource())).getHeight() / 2;
+
+        double paneX = mainPane.getWidth();
+        double paneY = mainPane.getHeight();
+
+        if (originalX + newTranslateX < 0) newTranslateX = -originalX;
+        if (originalX + newTranslateX > paneX) newTranslateX = paneX - originalX;
+        if (originalY + newTranslateY < 0) newTranslateY = -originalY;
+        if (originalY + newTranslateY > paneY) newTranslateY = paneY - originalY;
+
+        List<UMLRelation> relationList = classDiagram.getRelationList();
+
+        for (UMLRelation currentRelation : relationList) {
+            if (Objects.equals(currentRelation.getVboxFrom().getId(), ((VBox) (t.getSource())).getId()) ||
+                    Objects.equals(currentRelation.getVboxTo().getId(), ((VBox) (t.getSource())).getId())) {
+                if (currentRelation.getArrow() != null)
+                    clearPolygon(currentRelation);
+
+                currentRelation.updateCoordinates();
             }
-        };
+            else continue;
 
-    EventHandler<MouseEvent> vboxOnMouseDraggedEventHandler =
-        new EventHandler<>() {
-            @Override
-            public void handle(MouseEvent t) {
-                double newTranslateX = orgTranslateX + t.getSceneX() - orgSceneX;
-                double newTranslateY = orgTranslateY + t.getSceneY() - orgSceneY;
+            addPolygon(currentRelation);
+        }
 
-                double originalX = ((VBox)(t.getSource())).getLayoutX() + ((VBox)(t.getSource())).getWidth() / 2;
-                double originalY = ((VBox)(t.getSource())).getLayoutY() + ((VBox)(t.getSource())).getHeight() / 2;
+        ((VBox)(t.getSource())).toFront();
 
-                double paneX = mainPane.getWidth();
-                double paneY = mainPane.getHeight();
+        ((VBox)(t.getSource())).setTranslateX(newTranslateX);
+        ((VBox)(t.getSource())).setTranslateY(newTranslateY);
+    };
 
-                if (originalX + newTranslateX < 0) newTranslateX = -originalX;
-                if (originalX + newTranslateX > paneX) newTranslateX = paneX - originalX;
-                if (originalY + newTranslateY < 0) newTranslateY = -originalY;
-                if (originalY + newTranslateY > paneY) newTranslateY = paneY - originalY;
+    EventHandler<MouseEvent> vboxOnMouseClickedEventHandler = t -> {
+        if (contextMenu != null) contextMenu.hide();
+        if (t.getButton().equals(MouseButton.SECONDARY)) {
+            VBox currentVBox = ((VBox)(t.getSource()));
+            Label currVBoxLabel = (Label)(currentVBox.getChildren().get(0));
+            UMLClass currClass = classDiagram.findClass(currVBoxLabel.getText());
 
-                List<UMLRelation> relationList = classDiagram.getRelationList();
+            contextMenu = new ContextMenu();
+            MenuItem itemClassEdit = new MenuItem("Edit class");
+            MenuItem itemAddAttr = new MenuItem("Add attribute");
+            Menu editAttributesMenu = new Menu("Edit Attributes");
 
-                for (UMLRelation currentRelation : relationList) {
-                    if (Objects.equals(currentRelation.getVboxFrom().getId(), ((VBox) (t.getSource())).getId()) ||
-                            Objects.equals(currentRelation.getVboxTo().getId(), ((VBox) (t.getSource())).getId())) {
-                        if (currentRelation.getArrow() != null)
-                            clearPolygon(currentRelation);
+            // Set event handlers to attributes
+            for (Attribute attr : currClass.getAttributeList()) {
+                MenuItem editAttr = new MenuItem(attr.getName());
 
-                        currentRelation.updateCoordinates();
-                    }
-                    else continue;
+                editAttr.setOnAction(e -> editAttributeWindow(attr, currClass));
 
-                    addPolygon(currentRelation);
+                editAttributesMenu.getItems().add(editAttr);
+            }
+
+            MenuItem itemAddMethod = new MenuItem("Add method");
+            Menu editMethodMenu = new Menu("Edit Methods");
+
+            // Set event handlers to methods
+            for (Method method : currClass.getMethodList()) {
+                MenuItem editMethod = new MenuItem(method.getName());
+
+                editMethod.setOnAction(e -> editMethodWindow(method, currClass));
+
+                editMethodMenu.getItems().add(editMethod);
+            }
+
+            Menu editRelationMenu = new Menu("Edit relations");
+
+            // Set event handlers to relations
+            for (UMLRelation relation : classDiagram.findRelationsForClass(currClass.getName())) {
+                StringBuilder menuItemText = new StringBuilder("with ");
+
+                if (relation.getTarget().equals(currClass.getName())) {
+                    menuItemText.append(relation.getSource());
+                } else {
+                    menuItemText.append(relation.getTarget());
                 }
 
-                ((VBox)(t.getSource())).toFront();
+                MenuItem editRelation = new MenuItem(menuItemText.toString());
 
-                ((VBox)(t.getSource())).setTranslateX(newTranslateX);
-                ((VBox)(t.getSource())).setTranslateY(newTranslateY);
+                editRelation.setOnAction(e -> editRelationWindow(relation));
+
+                editRelationMenu.getItems().add(editRelation);
             }
-        };
 
-    EventHandler<MouseEvent> vboxOnMouseClickedEventHandler =
-        new EventHandler<>() {
-            @Override
-            public void handle(MouseEvent t) {
-                if (contextMenu != null) contextMenu.hide();
-                if (t.getButton().equals(MouseButton.SECONDARY)) {
-                    VBox currentVBox = ((VBox)(t.getSource()));
-                    Label currVBoxLabel = (Label)(currentVBox.getChildren().get(0));
-                    UMLClass currClass = classDiagram.findClass(currVBoxLabel.getText());
+            SeparatorMenuItem attributeSeparator = new SeparatorMenuItem();
+            SeparatorMenuItem methodSeparator = new SeparatorMenuItem();
+            SeparatorMenuItem relationSeparator = new SeparatorMenuItem();
 
-                    contextMenu = new ContextMenu();
-                    MenuItem itemClassEdit = new MenuItem("Edit class");
-                    MenuItem itemAddAttr = new MenuItem("Add attribute");
-                    Menu editAttributesMenu = new Menu("Edit Attributes");
+            contextMenu.getItems().addAll(
+                itemClassEdit,
+                attributeSeparator,
+                itemAddAttr,
+                editAttributesMenu,
+                methodSeparator,
+                itemAddMethod,
+                editMethodMenu,
+                relationSeparator,
+                editRelationMenu
+            );
+            contextMenu.show(mainPane, t.getScreenX(), t.getScreenY());
 
-                    // Set event handlers to attributes
-                    for (Attribute attr : currClass.getAttributeList()) {
-                        MenuItem editAttr = new MenuItem(attr.getName());
+            itemClassEdit.setOnAction(e -> editClassWindow(currClass));
 
-                        editAttr.setOnAction(e -> editAttributeWindow(attr, currClass));
+            itemAddAttr.setOnAction(e -> addAttributeWindow(currClass));
 
-                        editAttributesMenu.getItems().add(editAttr);
-                    }
+            itemAddMethod.setOnAction(e -> addMethodWindow(currClass));
+        }
+    };
 
-                    MenuItem itemAddMethod = new MenuItem("Add method");
-                    Menu editMethodMenu = new Menu("Edit Methods");
-
-                    // Set event handlers to methods
-                    for (Method method : currClass.getMethodList()) {
-                        MenuItem editMethod = new MenuItem(method.getName());
-
-                        editMethod.setOnAction(e -> editMethodWindow(method, currClass));
-
-                        editMethodMenu.getItems().add(editMethod);
-                    }
-
-                    Menu editRelationMenu = new Menu("Edit relations");
-
-                    // Set event handlers to relations
-                    for (UMLRelation relation : classDiagram.findRelationsForClass(currClass.getName())) {
-                        StringBuilder menuItemText = new StringBuilder("with ");
-
-                        if (relation.getTarget().equals(currClass.getName())) {
-                            menuItemText.append(relation.getSource());
-                        } else {
-                            menuItemText.append(relation.getTarget());
-                        }
-
-                        MenuItem editRelation = new MenuItem(menuItemText.toString());
-
-                        editRelation.setOnAction(e -> editRelationWindow(relation));
-
-                        editRelationMenu.getItems().add(editRelation);
-                    }
-
-                    SeparatorMenuItem attributeSeparator = new SeparatorMenuItem();
-                    SeparatorMenuItem methodSeparator = new SeparatorMenuItem();
-                    SeparatorMenuItem relationSeparator = new SeparatorMenuItem();
-
-                    contextMenu.getItems().addAll(
-                        itemClassEdit,
-                        attributeSeparator,
-                        itemAddAttr,
-                        editAttributesMenu,
-                        methodSeparator,
-                        itemAddMethod,
-                        editMethodMenu,
-                        relationSeparator,
-                        editRelationMenu
-                    );
-                    contextMenu.show(mainPane, t.getScreenX(), t.getScreenY());
-
-                    itemClassEdit.setOnAction(e -> editClassWindow(currClass));
-
-                    itemAddAttr.setOnAction(e -> addAttributeWindow(currClass));
-
-                    itemAddMethod.setOnAction(e -> addMethodWindow(currClass));
-                }
-            }
-        };
-
-    EventHandler<MouseEvent> mainPaneOnMouseClicked =
-        new EventHandler<>() {
-            @Override
-            public void handle(MouseEvent t) {
-                if (t.getButton().equals(MouseButton.PRIMARY))
-                    if (contextMenu != null) contextMenu.hide();
-            }
-        };
-
+    EventHandler<MouseEvent> mainPaneOnMouseClicked = t -> {
+        if (t.getButton().equals(MouseButton.PRIMARY))
+            if (contextMenu != null) contextMenu.hide();
+    };
 }

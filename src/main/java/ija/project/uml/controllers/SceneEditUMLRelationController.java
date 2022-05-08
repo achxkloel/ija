@@ -93,7 +93,7 @@ public class SceneEditUMLRelationController {
         typeComboBox.setValue(editedRelation.getType());
     }
 
-    public void closeWindow (ActionEvent e) {
+    private void closeWindow (ActionEvent e) {
         final Node source = (Node) e.getSource();
         final Stage stage = (Stage) source.getScene().getWindow();
         stage.close();
