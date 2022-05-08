@@ -2,8 +2,8 @@
  * Project:     IJA, UML Editor
  * Authors:     Lukáš Vincenc <xvince01@vut.cz>
  *              Evgeny Torbin <xtorbi00@vut.cz>
- * File:        SceneMainController.java
- * Description: Controller for the welcome scene, which contains the file select button
+ * File:        SceneAddUMLClassController.java
+ * Description: Controller for Add UML Class window.
  */
 
 package ija.project.uml.controllers;
@@ -19,20 +19,35 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
- * Controller for the editUMLClass scene.
+ * Add UML class controller.
  */
 public class SceneAddUMLClassController {
 
+    /**
+     * Add button.
+     */
     @FXML
     Button addButton;
 
+    /**
+     * Name text field.
+     */
     @FXML
     TextField nameTextField;
 
+    /**
+     * Parent class diagram.
+     */
     ClassDiagram parentDiagram;
 
+    /**
+     * Main controller.
+     */
     SceneMainController mainController;
 
+    /**
+     * Controller initialization.
+     */
     @FXML
     public void initialize () {
         addButton.setOnAction(event -> {
@@ -56,14 +71,29 @@ public class SceneAddUMLClassController {
         });
     }
 
+    /**
+     * Set the main controller.
+     *
+     * @param mainController main controller instance.
+     */
     public void setMainController(SceneMainController mainController) {
         this.mainController = mainController;
     }
 
+    /**
+     * Set the parent diagram.
+     *
+     * @param parentDiagram parent diagram instance.
+     */
     public void setParentDiagram (ClassDiagram parentDiagram) {
         this.parentDiagram = parentDiagram;
     }
 
+    /**
+     * Close the window.
+     *
+     * @param e current event.
+     */
     public void closeWindow (ActionEvent e) {
         final Node source = (Node) e.getSource();
         final Stage stage = (Stage) source.getScene().getWindow();

@@ -2,8 +2,8 @@
  * Project:     IJA, UML Editor
  * Authors:     Lukáš Vincenc <xvince01@vut.cz>
  *              Evgeny Torbin <xtorbi00@vut.cz>
- * File:        SceneMainController.java
- * Description: Controller for the welcome scene, which contains the file select button
+ * File:        SceneAddUMLRelationController.java
+ * Description: Controller for Add UML Relation window.
  */
 
 package ija.project.uml.controllers;
@@ -15,43 +15,66 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 
-import java.util.List;
-
 /**
- * Controller for the editUMLClass scene.
+ * Add UML Relation window.
  */
 public class SceneAddUMLRelationController {
 
+    /**
+     * Add button.
+     */
     @FXML
     Button addButton;
 
+    /**
+     * Name text field.
+     */
     @FXML
     TextField nameTextField;
 
+    /**
+     * Type combo box.
+     */
     @FXML
     ComboBox<String> typeComboBox;
 
+    /**
+     * Source combo box.
+     */
     @FXML
     ComboBox<String> sourceComboBox;
 
+    /**
+     * Target combo box.
+     */
     @FXML
     ComboBox<String> targetComboBox;
 
+    /**
+     * Parent class diagram.
+     */
     ClassDiagram parentDiagram;
 
+    /**
+     * Main pane.
+     */
     Pane mainPane;
 
+    /**
+     * Main controller.
+     */
     SceneMainController sceneMainController;
 
+    /**
+     * Controller initialization.
+     */
     @FXML
     public void initialize () {
         addButton.setOnAction(event -> {
@@ -104,6 +127,13 @@ public class SceneAddUMLRelationController {
         });
     }
 
+    /**
+     * Set the parent diagram.
+     *
+     * @param parentDiagram parent diagram instance.
+     * @param mainPane main pane instance.
+     * @param controller main controller instance.
+     */
     public void setParentDiagram (ClassDiagram parentDiagram, Pane mainPane, SceneMainController controller) {
         this.parentDiagram = parentDiagram;
         this.mainPane = mainPane;
@@ -129,6 +159,11 @@ public class SceneAddUMLRelationController {
         }
     }
 
+    /**
+     * Close the window.
+     *
+     * @param e current event.
+     */
     public void closeWindow (ActionEvent e) {
         final Node source = (Node) e.getSource();
         final Stage stage = (Stage) source.getScene().getWindow();
