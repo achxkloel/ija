@@ -36,6 +36,15 @@ public class UMLRelation extends Element {
 
     private Polyline polyline = null;
 
+    /**
+     * Constructor for the UML relation
+     * @param name name of the relation
+     * @param type type of the relation (aggregation, association...)
+     * @param source which class is this relation coming from
+     * @param target which class is this relation going to
+     * @param cardinalityFrom cardinality at the source
+     * @param cardinalityTo cardinality at the target
+     */
     public UMLRelation (String name, String type, String source, String target, String cardinalityFrom, String cardinalityTo) {
         super(name);
         this.type = type;
@@ -45,54 +54,106 @@ public class UMLRelation extends Element {
         this.cardinalityTo = cardinalityTo;
     }
 
+    /**
+     * Setter for the type
+     * @param newType new type of the relation
+     */
     public void setType(String newType) {
         this.type = newType;
     }
 
+    /**
+     * Getter for the type
+     * @return type of the relation
+     */
     public String getType() {
         return type;
     }
 
+    /**
+     * Getter for the source
+     * @return which class is this relation coming from
+     */
     public String getSource() {
         return source;
     }
 
+    /**
+     * Getter for the target
+     * @return which class is this relation going to
+     */
     public String getTarget() {
         return target;
     }
 
+    /**
+     * Setter for the target
+     * @param newTarget new target
+     */
     public void setTarget (String newTarget) {
         this.target = newTarget;
     }
 
+    /**
+     * Setter for the source
+     * @param newSource new source
+     */
     public void setSource (String newSource) {
         this.source = newSource;
     }
 
+    /**
+     * Getter for the cardinality from
+     * @return cardinality at the source
+     */
     public String getCardinalityFrom() {
         return cardinalityFrom;
     }
 
+    /**
+     * Getter for the cardinality to
+     * @return cardinality at the target
+     */
     public String getCardinalityTo() {
         return cardinalityTo;
     }
 
+    /**
+     * Getter for the VBox representation of the source
+     * @return the VBox representation of the source
+     */
     public VBox getVboxFrom() {
         return vboxFrom;
     }
 
+    /**
+     * Getter for the VBox representation of the target
+     * @return the VBox representation of the target
+     */
     public VBox getVboxTo() {
         return vboxTo;
     }
 
+    /**
+     * Getter for the line representation of the relation
+     * @return the line representation of the relation
+     */
     public Line getLine() {
         return line;
     }
 
+    /**
+     * Getter for the polygon representation of the type
+     * @return the polygon representation of the type
+     */
     public Polygon getPolygon() {
         return polygon;
     }
 
+    /**
+     * Returns arrow, if the type is association, else returns the polygon
+     * @return arrow or polygon
+     */
     public Node getArrow() {
         if (this.type.equals("association")) {
             return this.polyline;
@@ -101,18 +162,35 @@ public class UMLRelation extends Element {
         }
     }
 
+    /**
+     * Setter for the VBox from
+     * @param vboxFrom new VBox from
+     */
     public void setVboxFrom(VBox vboxFrom) {
         this.vboxFrom = vboxFrom;
     }
 
+    /**
+     * Setter for the VBox to
+     * @param vboxTo new VBox to
+     */
     public void setVboxTo(VBox vboxTo) {
         this.vboxTo = vboxTo;
     }
 
+    /**
+     * Setter for the line
+     * @param line new line
+     */
     public void setLine(Line line) {
         this.line = line;
     }
 
+    /**
+     * This function updates the coordinates of all the lines and polygons, that are related
+     * somehow to the class, that was being dragged around the screen, so it can be
+     * rendered correctly.
+     */
     public void updateCoordinates() {
         this.line.setStartX(vboxFrom.getLayoutX() + vboxFrom.getTranslateX() + vboxFrom.getWidth() / 2);
         this.line.setStartY(vboxFrom.getLayoutY() + vboxFrom.getTranslateY() + vboxFrom.getHeight() / 2);
@@ -218,6 +296,10 @@ public class UMLRelation extends Element {
         }
     }
 
+    /**
+     * Finds the point, where the line intersects a border of a VBox
+     * @return the point, where the line intersects a border of a VBox
+     */
     public Point2D getIntersectionPoint() {
         Point2D point = new Point2D(
                 vboxTo.getLayoutX() + vboxTo.getTranslateX(),
