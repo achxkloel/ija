@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="600.0" prefWidth="900.0" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ija.project.uml.SceneWelcomeController">
+<VBox prefHeight="600.0" prefWidth="900.0" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ija.project.uml.SceneWelcomeController">
     <MenuBar VBox.vgrow="NEVER">
         <Menu mnemonicParsing="false" text="Help">
             <MenuItem mnemonicParsing="false" text="About" />
@@ -30,6 +30,14 @@
                 <HBox.margin>
                    <Insets left="10.0" right="10.0" />
                 </HBox.margin>
+              </Button>
+              <Button mnemonicParsing="false" onAction="#switchToSceneSequence" text="Load Sequence Diagram" >
+                  <font>
+                      <Font size="15.0" />
+                  </font>
+                  <HBox.margin>
+                      <Insets left="10.0" right="10.0" />
+                  </HBox.margin>
               </Button>
               <Button mnemonicParsing="false" onAction="#openNewDiagram" text="Create new diagram">
                 <font>

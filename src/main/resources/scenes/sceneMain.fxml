@@ -7,42 +7,27 @@
 <?import javafx.scene.layout.Pane?>
 
 <AnchorPane prefHeight="547.0" prefWidth="699.0" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ija.project.uml.SceneMainController">
-   <children>
-      <Pane fx:id="mainPane" layoutY="25.0" prefHeight="176.0" prefWidth="778.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0" />
-        <MenuBar AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <menus>
-                <Menu mnemonicParsing="false" text="File">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="Open Sequence Diagram" />
-                        <MenuItem mnemonicParsing="false" onAction="#saveClassDiagram" text="Save Class Diagram" />
-                        <MenuItem mnemonicParsing="false" onAction="#closeDiagram" text="Close Diagram" />
-                        <MenuItem mnemonicParsing="false" onAction="#quitApplication" text="Quit" />
-                    </items>
-                </Menu>
-          <Menu mnemonicParsing="false" text="Select">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Class Diagram" />
-                  <MenuItem mnemonicParsing="false" text="Sequence Diagram" />
-            </items>
-          </Menu>
-                <Menu mnemonicParsing="false" text="Edit">
-                    <items>
-                        <MenuItem mnemonicParsing="false" onAction="#editDiagramWindow" text="Rename diagram" />
+  <Pane fx:id="mainPane" layoutY="25.0" prefHeight="176.0" prefWidth="778.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0" />
+    <MenuBar AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <Menu mnemonicParsing="false" text="File">
+            <MenuItem mnemonicParsing="false" onAction="#saveClassDiagram" text="Save Class Diagram" />
+            <MenuItem mnemonicParsing="false" onAction="#closeDiagram" text="Close Diagram" />
+            <MenuItem mnemonicParsing="false" onAction="#quitApplication" text="Quit" />
+        </Menu>
+      <Menu mnemonicParsing="false" text="Select">
+          <MenuItem mnemonicParsing="false" text="Class Diagram" />
+          <MenuItem mnemonicParsing="false" text="Sequence Diagram" />
+      </Menu>
+        <Menu mnemonicParsing="false" text="Edit">
+            <MenuItem mnemonicParsing="false" onAction="#editDiagramWindow" text="Rename diagram" />
                         <MenuItem mnemonicParsing="false" text="Undo" />
-                        <MenuItem mnemonicParsing="false" text="Redo" />
-                    </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Add">
-                    <items>
-                        <MenuItem mnemonicParsing="false" onAction="#addClassWindow" text="New class" />
-                    </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Help">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="About" />
-                    </items>
-                </Menu>
-            </menus>
-        </MenuBar>
-   </children>
+            <MenuItem mnemonicParsing="false" text="Redo" />
+        </Menu>
+        <Menu mnemonicParsing="false" text="Add">
+            <MenuItem mnemonicParsing="false" onAction="#addClassWindow" text="New class" />
+        </Menu>
+        <Menu mnemonicParsing="false" text="Help">
+            <MenuItem mnemonicParsing="false" text="About" />
+        </Menu>
+    </MenuBar>
 </AnchorPane>

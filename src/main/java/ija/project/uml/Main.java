@@ -30,8 +30,8 @@ public class Main extends Application {
         scene.getStylesheets().add(getClass().getResource("/styles/styles.css").toExternalForm());
 
         stage.setTitle("IJA Project");
-        stage.setMinWidth(500);
-        stage.setMinHeight(400);
+        stage.setMinWidth(700);
+        stage.setMinHeight(500);
         stage.setScene(scene);
         stage.show();
     }

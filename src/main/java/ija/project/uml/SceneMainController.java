@@ -334,8 +334,8 @@ public class SceneMainController {
         scene.getStylesheets().add(getClass().getResource("/styles/styles.css").toExternalForm());
 
         stage.setScene(scene);
-        stage.setMinWidth(500);
-        stage.setMinHeight(400);
+        stage.setMinWidth(700);
+        stage.setMinHeight(500);
         stage.show();
     }
 
