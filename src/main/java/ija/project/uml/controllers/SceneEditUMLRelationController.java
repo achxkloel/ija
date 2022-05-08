@@ -2,8 +2,8 @@
  * Project:     IJA, UML Editor
  * Authors:     Lukáš Vincenc <xvince01@vut.cz>
  *              Evgeny Torbin <xtorbi00@vut.cz>
- * File:        SceneMainController.java
- * Description: Controller for the welcome scene, which contains the file select button
+ * File:        SceneEditUMLRelationController.java
+ * Description: Controller for Edit UML Relation window.
  */
 
 package ija.project.uml.controllers;
@@ -18,31 +18,59 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+/**
+ * Edit UML Relation controller.
+ */
 public class SceneEditUMLRelationController {
 
+    /**
+     * Save button.
+     */
     @FXML
     Button saveButton;
 
+    /**
+     * Direction button.
+     */
     @FXML
     Button directionButton;
 
+    /**
+     * Delete button.
+     */
     @FXML
     Button deleteButton;
 
+    /**
+     * Type combo box.
+     */
     @FXML
     ComboBox<String> typeComboBox;
 
+    /**
+     * Name text field.
+     */
     @FXML
     TextField nameTextField;
 
+    /**
+     * Parent diagram.
+     */
     ClassDiagram parentDiagram;
 
+    /**
+     * Edited UML relation.
+     */
     UMLRelation editedRelation;
 
+    /**
+     * Main controller.
+     */
     SceneMainController sceneMainController;
 
     @FXML
     public void initialize () {
+        // on Save button click
         saveButton.setOnAction(event -> {
             String newName = nameTextField.getText().trim();
             String newType = typeComboBox.getValue();
@@ -61,6 +89,7 @@ public class SceneEditUMLRelationController {
             closeWindow(event);
         });
 
+        // on Direction button click
         directionButton.setOnAction(event -> {
             // Change source and target
             String tmpClassName = editedRelation.getSource();
@@ -78,12 +107,20 @@ public class SceneEditUMLRelationController {
             closeWindow(event);
         });
 
+        // on Delete button click
         deleteButton.setOnAction(event -> {
             parentDiagram.removeRelation(editedRelation);
             closeWindow(event);
         });
     }
 
+    /**
+     * Set the edited UML relation.
+     *
+     * @param editedRelation UML relation instance.
+     * @param parentDiagram parent diagram instance.
+     * @param controller main controller instance.
+     */
     public void setRelation (UMLRelation editedRelation, ClassDiagram parentDiagram, SceneMainController controller) {
         this.editedRelation = editedRelation;
         this.parentDiagram = parentDiagram;
@@ -93,6 +130,11 @@ public class SceneEditUMLRelationController {
         typeComboBox.setValue(editedRelation.getType());
     }
 
+    /**
+     * Close the window.
+     *
+     * @param e current event.
+     */
     private void closeWindow (ActionEvent e) {
         final Node source = (Node) e.getSource();
         final Stage stage = (Stage) source.getScene().getWindow();
