@@ -24,7 +24,7 @@
             <MenuItem mnemonicParsing="false" onAction="#clearDiagram" text="Clear Class Diagram" />
             <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem mnemonicParsing="false" onAction="#openSequenceDiagram" text="Open Sequence Diagram" />
-            <MenuItem mnemonicParsing="false" text="Close Sequence Diagram" />
+            <MenuItem mnemonicParsing="false" onAction="#closeSequenceDiagram" text="Close Sequence Diagram" />
         </Menu>
         <Menu mnemonicParsing="false" text="Edit">
             <MenuItem mnemonicParsing="false" onAction="#editDiagramWindow" text="Rename Class Diagram" />
@@ -35,9 +35,6 @@
         <Menu mnemonicParsing="false" text="Add">
             <MenuItem mnemonicParsing="false" onAction="#addClassWindow" text="New Class" />
             <MenuItem mnemonicParsing="false" onAction="#addRelationWindow" text="New Relation" />
-        </Menu>
-        <Menu mnemonicParsing="false" text="Help">
-            <MenuItem mnemonicParsing="false" text="About" />
         </Menu>
     </MenuBar>
 </AnchorPane>

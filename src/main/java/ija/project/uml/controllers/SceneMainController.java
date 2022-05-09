@@ -549,6 +549,16 @@ public class SceneMainController {
         }
     }
 
+    @FXML
+    public void closeSequenceDiagram() {
+        if (sequenceDiagram != null) {
+            tabPane.getSelectionModel().select(classTab);
+            sequencePane.getChildren().clear();
+            sequenceDiagram = null;
+            sequenceTab.setDisable(true);
+        }
+    }
+
     /**
      * Creates a VBox representation of a sequence
      * @param name name of the sequence
