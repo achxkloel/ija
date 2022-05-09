@@ -33,3 +33,20 @@
     -fx-padding: 15px 20px;
     -fx-cursor: hand;
 }
+
+.button:hover {
+    -fx-background-color: #171617;
+}
+
+.confirmButton {
+    -fx-padding: 5px 10px;
+}
+
+.deleteButton {
+    -fx-background-color: #bf0f0f;
+    -fx-padding: 5px 10px;
+}
+
+.deleteButton:hover {
+    -fx-background-color: #ad0202;
+}
