@@ -501,6 +501,8 @@ public class SceneMainController {
             tabPane.getSelectionModel().select(classTab);
             sequencePane.getChildren().clear();
             sequenceDiagram = null;
+            positionX = 50;
+            positionY = 50;
             sequenceTab.setDisable(true);
         }
     }
