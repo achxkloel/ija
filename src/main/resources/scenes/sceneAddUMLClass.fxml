@@ -4,11 +4,24 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.geometry.Insets?>
 
-<VBox prefHeight="300" prefWidth="300" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ija.project.uml.controllers.SceneAddUMLClassController">
+<VBox fx:id="mainBlock" prefHeight="300" prefWidth="300" spacing="5.0" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ija.project.uml.controllers.SceneAddUMLClassController">
    <children>
       <Label text="Name:" />
       <TextField fx:id="nameTextField" />
-      <Button fx:id="addButton" mnemonicParsing="false" text="Add class" />
+      <HBox alignment="CENTER">
+         <children>
+            <Button fx:id="addButton" mnemonicParsing="false" styleClass="confirmButton" text="Save class">
+               <HBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
    </children>
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
 </VBox>

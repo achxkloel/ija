@@ -15,7 +15,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,7 +75,7 @@ public class SceneEditUMLClassController extends EditWindowController {
 
             if (!newName.equals(editedClass.getName()) &&
                 parentDiagram.findClass(newName) != null) {
-                displayAlertBlock("Class \"" + newName + "\" is already exists!");
+                displayAlertBlock("Class \"" + newName + "\" is already exist!");
                 return;
             }
 

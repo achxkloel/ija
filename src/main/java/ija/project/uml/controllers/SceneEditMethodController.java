@@ -11,20 +11,24 @@ package ija.project.uml.controllers;
 import ija.project.uml.Attribute;
 import ija.project.uml.Method;
 import ija.project.uml.UMLClass;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
+import javafx.scene.layout.VBox;
 import java.util.Scanner;
 
 /**
  * Edit Method controller.
  */
-public class SceneEditMethodController {
+public class SceneEditMethodController extends EditWindowController {
+
+    /**
+     * Main block.
+     */
+    @FXML
+    VBox mainBlock;
 
     /**
      * Save button.
@@ -77,6 +81,8 @@ public class SceneEditMethodController {
      */
     @FXML
     public void initialize () {
+        setParentBlock(mainBlock);
+
         // On add button click
         saveButton.setOnAction(event -> {
             String newName = methodNameTextField.getText().trim();
@@ -85,13 +91,13 @@ public class SceneEditMethodController {
             String newParams = methodParamsTextArea.getText().trim();
 
             if (newName.isEmpty() || newType.isEmpty()) {
-                System.out.println("Some text fields are empty");
+                displayAlertBlock("Some text fields are empty!");
                 return;
             }
 
             if (!newName.equals(editedMethod.getName()) &&
                 parentClass.findAttribute(newName) != null) {
-                System.out.println("Method \"" + newName + "\" is already exists!");
+                displayAlertBlock("Method \"" + newName + "\" is already exist!");
                 return;
             }
 
@@ -104,7 +110,7 @@ public class SceneEditMethodController {
                         String[] paramArr = param.split(":");
 
                         if (paramArr.length != 2) {
-                            System.out.println("Wrong method parameters!");
+                            displayAlertBlock("Wrong method parameters!");
                             return;
                         }
 
@@ -146,16 +152,5 @@ public class SceneEditMethodController {
         for (Attribute param : editedMethod.getAttributeList()) {
             methodParamsTextArea.appendText(param.getName() + ":" + param.getType() + "\n");
         }
-    }
-
-    /**
-     * Close thw window.
-     *
-     * @param e current event.
-     */
-    private void closeWindow (ActionEvent e) {
-        final Node source = (Node) e.getSource();
-        final Stage stage = (Stage) source.getScene().getWindow();
-        stage.close();
     }
 }

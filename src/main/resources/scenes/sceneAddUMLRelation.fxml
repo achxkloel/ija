@@ -5,10 +5,12 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.ComboBox?>
-
 <?import javafx.collections.FXCollections?>
 <?import java.lang.String?>
-<VBox prefHeight="300" prefWidth="300" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ija.project.uml.controllers.SceneAddUMLRelationController">
+<?import javafx.scene.layout.HBox?>
+<?import javafx.geometry.Insets?>
+
+<VBox fx:id="mainBlock" prefHeight="300" prefWidth="300" spacing="5.0" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ija.project.uml.controllers.SceneAddUMLRelationController">
    <children>
       <Label text="Name:" />
       <TextField fx:id="nameTextField" />
@@ -38,6 +40,17 @@
             <FXCollections fx:factory="observableArrayList" />
          </items>
       </ComboBox>
-      <Button fx:id="addButton" mnemonicParsing="false" text="Add class" />
+      <HBox alignment="CENTER">
+         <children>
+            <Button fx:id="addButton" mnemonicParsing="false" styleClass="confirmButton" text="Save relation">
+               <HBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
    </children>
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
 </VBox>

@@ -12,20 +12,24 @@ import ija.project.uml.ClassDiagram;
 import ija.project.uml.UMLClass;
 import ija.project.uml.UMLRelation;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.Line;
-import javafx.stage.Stage;
 
 /**
  * Add UML Relation window.
  */
-public class SceneAddUMLRelationController {
+public class SceneAddUMLRelationController extends EditWindowController {
+
+    /**
+     * Main block.
+     */
+    @FXML
+    VBox mainBlock;
 
     /**
      * Add button.
@@ -77,6 +81,8 @@ public class SceneAddUMLRelationController {
      */
     @FXML
     public void initialize () {
+        setParentBlock(mainBlock);
+
         addButton.setOnAction(event -> {
             String relationName = nameTextField.getText().trim();
             String type = typeComboBox.getValue();
@@ -84,17 +90,17 @@ public class SceneAddUMLRelationController {
             String target = targetComboBox.getValue();
 
             if (relationName.isEmpty()) {
-                System.out.println("Relation name is empty!");
+                displayAlertBlock("Name is empty!");
                 return;
             }
 
             if (source.equals(target)) {
-                System.out.println("Cannot connect the same class");
+                displayAlertBlock("Cannot connect the same class!");
                 return;
             }
 
             if (parentDiagram.findRelation(source, target) != null) {
-                System.out.println("Relation is already exists");
+                displayAlertBlock("Relation is already exist!");
                 return;
             }
 
@@ -157,16 +163,5 @@ public class SceneAddUMLRelationController {
             sourceComboBox.setValue(selectedValue);
             targetComboBox.setValue(selectedValue);
         }
-    }
-
-    /**
-     * Close the window.
-     *
-     * @param e current event.
-     */
-    private void closeWindow (ActionEvent e) {
-        final Node source = (Node) e.getSource();
-        final Stage stage = (Stage) source.getScene().getWindow();
-        stage.close();
     }
 }

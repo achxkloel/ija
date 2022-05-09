@@ -9,19 +9,22 @@
 package ija.project.uml.controllers;
 
 import ija.project.uml.*;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 /**
  * Edit UML Relation controller.
  */
-public class SceneEditUMLRelationController {
+public class SceneEditUMLRelationController extends EditWindowController {
+
+    /**
+     * Main block.
+     */
+    @FXML
+    VBox mainBlock;
 
     /**
      * Save button.
@@ -70,13 +73,15 @@ public class SceneEditUMLRelationController {
 
     @FXML
     public void initialize () {
+        setParentBlock(mainBlock);
+
         // on Save button click
         saveButton.setOnAction(event -> {
             String newName = nameTextField.getText().trim();
             String newType = typeComboBox.getValue();
 
             if (newName.isEmpty()) {
-                System.out.println("Some text fields are empty");
+                displayAlertBlock("Name is empty!");
                 return;
             }
 
@@ -128,16 +133,5 @@ public class SceneEditUMLRelationController {
 
         nameTextField.setText(editedRelation.getName());
         typeComboBox.setValue(editedRelation.getType());
-    }
-
-    /**
-     * Close the window.
-     *
-     * @param e current event.
-     */
-    private void closeWindow (ActionEvent e) {
-        final Node source = (Node) e.getSource();
-        final Stage stage = (Stage) source.getScene().getWindow();
-        stage.close();
     }
 }

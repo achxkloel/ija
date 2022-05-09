@@ -9,17 +9,22 @@
 package ija.project.uml.controllers;
 
 import ija.project.uml.ClassDiagram;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
  * Edit Diagram controller.
  */
-public class SceneEditDiagramController {
+public class SceneEditDiagramController extends EditWindowController {
+
+    /**
+     * Main block.
+     */
+    @FXML
+    VBox mainBlock;
 
     /**
      * Save button.
@@ -48,11 +53,13 @@ public class SceneEditDiagramController {
      */
     @FXML
     public void initialize () {
+        setParentBlock(mainBlock);
+
         saveButton.setOnAction(event -> {
             String newName = nameTextField.getText().trim();
 
             if (newName.isEmpty()) {
-                System.out.println("Text field is empty!");
+                displayAlertBlock("Name is empty!");
                 return;
             }
 
@@ -72,16 +79,5 @@ public class SceneEditDiagramController {
         this.classDiagram = classDiagram;
         this.parentStage = parentStage;
         nameTextField.setText(parentStage.getTitle());
-    }
-
-    /**
-     * Close the window.
-     *
-     * @param e current event.
-     */
-    private void closeWindow (ActionEvent e) {
-        final Node source = (Node) e.getSource();
-        final Stage stage = (Stage) source.getScene().getWindow();
-        stage.close();
     }
 }

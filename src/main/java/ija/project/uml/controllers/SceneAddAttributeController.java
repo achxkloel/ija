@@ -10,18 +10,22 @@ package ija.project.uml.controllers;
 
 import ija.project.uml.Attribute;
 import ija.project.uml.UMLClass;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
+import javafx.scene.layout.VBox;
 
 /**
  * Add attribute controller.
  */
-public class SceneAddAttributeController {
+public class SceneAddAttributeController extends EditWindowController {
+
+    /**
+     * Main block.
+     */
+    @FXML
+    VBox mainBlock;
 
     /**
      * Save button.
@@ -57,6 +61,8 @@ public class SceneAddAttributeController {
      */
     @FXML
     public void initialize () {
+        setParentBlock(mainBlock);
+
         // On save button click
         saveButton.setOnAction(event -> {
             String newName = attributeNameTextField.getText().trim();
@@ -64,12 +70,12 @@ public class SceneAddAttributeController {
             String newVisibility = attributeVisibilityComboBox.getValue();
 
             if (newName.isEmpty() || newType.isEmpty()) {
-                System.out.println("Some text fields are empty");
+                displayAlertBlock("Some text fields are empty!");
                 return;
             }
 
             if (editedClass.findAttribute(newName) != null) {
-                System.out.println("Attribute \"" + newName + "\" is already exists!");
+                displayAlertBlock("Attribute \"" + newName + "\" is already exist!");
                 return;
             }
 
@@ -89,16 +95,5 @@ public class SceneAddAttributeController {
      */
     public void setUMLClass (UMLClass editedClass) {
         this.editedClass = editedClass;
-    }
-
-    /**
-     * Close the window.
-     *
-     * @param e current event.
-     */
-    private void closeWindow (ActionEvent e) {
-        final Node source = (Node) e.getSource();
-        final Stage stage = (Stage) source.getScene().getWindow();
-        stage.close();
     }
 }

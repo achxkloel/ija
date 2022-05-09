@@ -80,5 +80,5 @@
 }
 
 .alertMessage {
-    -fx-text-fill: white;
+    -fx-fill: white;
 }

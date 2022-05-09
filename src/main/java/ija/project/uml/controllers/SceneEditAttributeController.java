@@ -10,18 +10,22 @@ package ija.project.uml.controllers;
 
 import ija.project.uml.Attribute;
 import ija.project.uml.UMLClass;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
+import javafx.scene.layout.VBox;
 
 /**
  * Edit Attribute controller.
  */
-public class SceneEditAttributeController {
+public class SceneEditAttributeController extends EditWindowController {
+
+    /**
+     * Main block.
+     */
+    @FXML
+    VBox mainBlock;
 
     /**
      * Save button.
@@ -68,6 +72,8 @@ public class SceneEditAttributeController {
      */
     @FXML
     public void initialize () {
+        setParentBlock(mainBlock);
+
         // On save button click
         saveButton.setOnAction(event -> {
             String newName = attributeNameTextField.getText().trim();
@@ -75,13 +81,13 @@ public class SceneEditAttributeController {
             String newVisibility = attributeVisibilityComboBox.getValue();
 
             if (newName.isEmpty() || newType.isEmpty()) {
-                System.out.println("Some text fields are empty");
+                displayAlertBlock("Some text fields are empty!");
                 return;
             }
 
             if (!newName.equals(editedAttribute.getName()) &&
                 parentClass.findAttribute(newName) != null) {
-                System.out.println("Attribute \"" + newName + "\" is already exists!");
+                displayAlertBlock("Attribute \"" + newName + "\" is already exist!");
                 return;
             }
 
@@ -111,16 +117,5 @@ public class SceneEditAttributeController {
         attributeVisibilityComboBox.setValue(editedAttribute.getVisibility());
         attributeNameTextField.setText(editedAttribute.getName());
         attributeTypeTextField.setText(editedAttribute.getType());
-    }
-
-    /**
-     * Close the window.
-     *
-     * @param e current event.
-     */
-    private void closeWindow (ActionEvent e) {
-        final Node source = (Node) e.getSource();
-        final Stage stage = (Stage) source.getScene().getWindow();
-        stage.close();
     }
 }

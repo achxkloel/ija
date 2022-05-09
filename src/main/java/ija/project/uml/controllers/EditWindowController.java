@@ -14,7 +14,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -77,8 +76,7 @@ public class EditWindowController {
         alertBlock.setAlignment(Pos.CENTER_LEFT);
 
         alertMessage = new Text();
-//        alertMessage.getStyleClass().add("alertMessage");
-        alertMessage.setFill(Paint.valueOf("WHITE"));
+        alertMessage.getStyleClass().add("alertMessage");
 
         alertBlock.getChildren().add(alertMessage);
     }

@@ -225,7 +225,7 @@ public class SceneMainController {
 
         Scene scene = new Scene(root);
         stage.setResizable(false);
-        stage.setTitle("Add new class");
+        stage.setTitle("Add New Class");
         stage.setMinWidth(300);
         stage.setMinHeight(300);
         stage.setScene(scene);
@@ -256,7 +256,7 @@ public class SceneMainController {
 
         Scene scene = new Scene(root);
         stage.setResizable(false);
-        stage.setTitle("Add new relation");
+        stage.setTitle("Add New Relation");
         stage.setMinWidth(300);
         stage.setMinHeight(300);
         stage.setScene(scene);
@@ -282,7 +282,7 @@ public class SceneMainController {
 
         Scene scene = new Scene(root);
         stage.setResizable(false);
-        stage.setTitle("Edit UMLClass");
+        stage.setTitle("Edit " + currClass.getName());
         stage.setMinWidth(300);
         stage.setMinHeight(300);
         stage.setScene(scene);
@@ -309,7 +309,7 @@ public class SceneMainController {
 
         Scene scene = new Scene(root);
         stage.setResizable(false);
-        stage.setTitle("Rename diagram");
+        stage.setTitle("Rename Class Diagram");
         stage.setMinWidth(300);
         stage.setMinHeight(300);
         stage.setScene(scene);
@@ -335,7 +335,7 @@ public class SceneMainController {
 
         Scene scene = new Scene(root);
         stage.setResizable(false);
-        stage.setTitle("Add class attribute");
+        stage.setTitle("Add Class Attribute");
         stage.setMinWidth(300);
         stage.setMinHeight(300);
         stage.setScene(scene);
@@ -361,7 +361,7 @@ public class SceneMainController {
 
         Scene scene = new Scene(root);
         stage.setResizable(false);
-        stage.setTitle("Add class method");
+        stage.setTitle("Add Class Method");
         stage.setMinWidth(300);
         stage.setMinHeight(300);
         stage.setScene(scene);
@@ -387,7 +387,7 @@ public class SceneMainController {
 
         Scene scene = new Scene(root);
         stage.setResizable(false);
-        stage.setTitle("Edit attribute");
+        stage.setTitle("Edit " + attr.getName());
         stage.setMinWidth(300);
         stage.setMinHeight(300);
         stage.setScene(scene);
@@ -413,7 +413,7 @@ public class SceneMainController {
 
         Scene scene = new Scene(root);
         stage.setResizable(false);
-        stage.setTitle("Edit method");
+        stage.setTitle("Edit " + method.getName());
         stage.setMinWidth(300);
         stage.setMinHeight(300);
         stage.setScene(scene);
@@ -423,7 +423,7 @@ public class SceneMainController {
     /**
      * Opens a window for editing a relation.
      */
-    private void editRelationWindow (UMLRelation relation) {
+    private void editRelationWindow (UMLClass currClass, UMLRelation relation) {
         Parent root;
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/scenes/sceneEditUMLRelation.fxml"));
@@ -439,7 +439,7 @@ public class SceneMainController {
 
         Scene scene = new Scene(root);
         stage.setResizable(false);
-        stage.setTitle("Edit relation");
+        stage.setTitle("Edit " + currClass.getName() + " relation");
         stage.setMinWidth(300);
         stage.setMinHeight(300);
         stage.setScene(scene);
@@ -763,7 +763,7 @@ public class SceneMainController {
 
                 MenuItem editRelation = new MenuItem(menuItemText.toString());
 
-                editRelation.setOnAction(e -> editRelationWindow(relation));
+                editRelation.setOnAction(e -> editRelationWindow(currClass, relation));
 
                 editRelationMenu.getItems().add(editRelation);
             }

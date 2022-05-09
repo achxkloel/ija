@@ -11,20 +11,24 @@ package ija.project.uml.controllers;
 import ija.project.uml.Attribute;
 import ija.project.uml.Method;
 import ija.project.uml.UMLClass;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
+import javafx.scene.layout.VBox;
 import java.util.Scanner;
 
 /**
  * Add method controller.
  */
-public class SceneAddMethodController {
+public class SceneAddMethodController extends EditWindowController {
+
+    /**
+     * Main block.
+     */
+    @FXML
+    VBox mainBlock;
 
     /**
      * Save button.
@@ -66,6 +70,8 @@ public class SceneAddMethodController {
      */
     @FXML
     public void initialize () {
+        setParentBlock(mainBlock);
+
         saveButton.setOnAction(event -> {
             String newName = methodNameTextField.getText().trim();
             String newReturnType = methodReturnTypeTextField.getText().trim();
@@ -73,12 +79,12 @@ public class SceneAddMethodController {
             String newParams = methodParamsTextArea.getText().trim();
 
             if (newName.isEmpty() || newReturnType.isEmpty()) {
-                System.out.println("Some text fields are empty");
+                displayAlertBlock("Some text fields are empty!");
                 return;
             }
 
             if (editedClass.findMethod(newName) != null) {
-                System.out.println("Method \"" + newName + "\" is already exists!");
+                displayAlertBlock("Method \"" + newName + "\" is already exist!");
                 return;
             }
 
@@ -96,7 +102,7 @@ public class SceneAddMethodController {
                         String[] paramArr = param.split(":");
 
                         if (paramArr.length != 2) {
-                            System.out.println("Wrong method parameters!");
+                            displayAlertBlock("Wrong method parameters!");
                             return;
                         }
 
@@ -120,16 +126,5 @@ public class SceneAddMethodController {
      */
     public void setUMLClass (UMLClass editedClass) {
         this.editedClass = editedClass;
-    }
-
-    /**
-     * Close the window.
-     *
-     * @param e current event.
-     */
-    private void closeWindow (ActionEvent e) {
-        final Node source = (Node) e.getSource();
-        final Stage stage = (Stage) source.getScene().getWindow();
-        stage.close();
     }
 }

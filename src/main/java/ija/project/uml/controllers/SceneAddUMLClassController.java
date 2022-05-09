@@ -10,18 +10,21 @@ package ija.project.uml.controllers;
 
 import ija.project.uml.ClassDiagram;
 import ija.project.uml.UMLClass;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 /**
  * Add UML class controller.
  */
-public class SceneAddUMLClassController {
+public class SceneAddUMLClassController extends EditWindowController {
+
+    /**
+     * Main block.
+     */
+    @FXML
+    VBox mainBlock;
 
     /**
      * Add button.
@@ -50,16 +53,18 @@ public class SceneAddUMLClassController {
      */
     @FXML
     public void initialize () {
+        setParentBlock(mainBlock);
+
         addButton.setOnAction(event -> {
             String className = nameTextField.getText().trim();
 
             if (className.isEmpty()) {
-                System.out.println("Text field is empty!");
+                displayAlertBlock("Name is empty!");
                 return;
             }
 
             if (parentDiagram.findClass(className) != null) {
-                System.out.println("Class \"" + className + "\" is already exists!");
+                displayAlertBlock("Class \"" + className + "\" is already exist!");
                 return;
             }
 
@@ -87,16 +92,5 @@ public class SceneAddUMLClassController {
      */
     public void setParentDiagram (ClassDiagram parentDiagram) {
         this.parentDiagram = parentDiagram;
-    }
-
-    /**
-     * Close the window.
-     *
-     * @param e current event.
-     */
-    private void closeWindow (ActionEvent e) {
-        final Node source = (Node) e.getSource();
-        final Stage stage = (Stage) source.getScene().getWindow();
-        stage.close();
     }
 }

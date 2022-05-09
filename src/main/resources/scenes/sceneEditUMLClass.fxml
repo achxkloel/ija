@@ -16,11 +16,13 @@
             <Button fx:id="saveButton" mnemonicParsing="false" styleClass="confirmButton" text="Save">
                <HBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </HBox.margin></Button>
-            <Button fx:id="deleteButton" mnemonicParsing="false" styleClass="deleteButton" text="Delete class">
+               </HBox.margin>
+            </Button>
+            <Button fx:id="deleteButton" mnemonicParsing="false" styleClass="deleteButton" text="Delete">
                <HBox.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </HBox.margin></Button>
+               </HBox.margin>
+            </Button>
          </children>
       </HBox>
    </children>
