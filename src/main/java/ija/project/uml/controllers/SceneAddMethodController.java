@@ -78,8 +78,8 @@ public class SceneAddMethodController extends EditWindowController {
             String newVisibility = methodVisibilityComboBox.getValue();
             String newParams = methodParamsTextArea.getText().trim();
 
-            if (newName.isEmpty() || newReturnType.isEmpty()) {
-                displayAlertBlock("Some text fields are empty!");
+            if (newName.isEmpty()) {
+                displayAlertBlock("Name is empty!");
                 return;
             }
 

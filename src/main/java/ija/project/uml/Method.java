@@ -78,9 +78,13 @@ public class Method extends Attribute {
             }
         }
 
-        methodSb
-            .append(") : ")
-            .append(this.type);
+        methodSb.append(")");
+
+        if (!this.type.isEmpty()) {
+            methodSb
+                .append(" : ")
+                .append(this.type);
+        }
 
         return methodSb.toString();
     }
