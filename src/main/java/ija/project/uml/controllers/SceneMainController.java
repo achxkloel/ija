@@ -500,6 +500,8 @@ public class SceneMainController {
         if (sequenceDiagram != null) {
             tabPane.getSelectionModel().select(classTab);
             sequencePane.getChildren().clear();
+            sequenceLineList.clear();
+            sequenceVboxList.clear();
             sequenceDiagram = null;
             positionX = 50;
             positionY = 50;
@@ -512,15 +514,29 @@ public class SceneMainController {
      * @param name name of the sequence
      */
     private void createSequenceVBox(String name) {
-        final VBox vbox = new VBox();
+        VBox vbox = new VBox();
+        Label vboxLabel = new Label();
+        vboxLabel.setText(name);
 
-        String cssLayoutVbox = "-fx-border-color: black;\n" +
-                "-fx-border-width: 2;\n" +
-                "-fx-border-style: solid;\n" +
-                "-fx-background-color: white;\n";
+        StringBuilder cssLabel = new StringBuilder("-fx-padding: 5px;\n");
 
-        vbox.setStyle(cssLayoutVbox);
-        vbox.getChildren().add(getLabelFromString(name));
+        StringBuilder cssLayoutVbox = new StringBuilder(
+            "-fx-border-width: 2;\n" +
+            "-fx-border-style: solid;\n" +
+            "-fx-background-color: white;\n"
+        );
+
+        if (classDiagram.findClass(name) == null) {
+            cssLabel.append("-fx-text-fill: red;\n");
+            cssLayoutVbox.append("-fx-border-color: red;\n");
+        } else {
+            cssLabel.append("-fx-text-fill: black;\n");
+            cssLayoutVbox.append("-fx-border-color: black;\n");
+        }
+
+        vboxLabel.setStyle(cssLabel.toString());
+        vbox.setStyle(cssLayoutVbox.toString());
+        vbox.getChildren().add(vboxLabel);
 
         vbox.setId(generateClassId(name));
         vbox.setTranslateX(positionX);
@@ -546,23 +562,6 @@ public class SceneMainController {
 
         vbox.toFront();
         positionX += 150;
-    }
-
-    /**
-     * Creates a Label from a string
-     * @param string string, from which we want to create a label
-     * @return label representation of the string
-     */
-    private Label getLabelFromString(String string) {
-        Label label = new Label();
-        label.setText(string);
-
-        String cssLabel = "-fx-text-fill: black;\n" +
-                "-fx-padding: 5px";
-
-        label.setStyle(cssLabel);
-
-        return label;
     }
 
     /**
