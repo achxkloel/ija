@@ -203,7 +203,7 @@ public class UMLRelation extends Element {
             polygon = new Polygon();
             polygon.setStroke(Color.BLACK);
             if (!Objects.equals(type, "composition"))
-                polygon.setFill(Color.TRANSPARENT);
+                polygon.setFill(Color.WHITE);
 
             if (Objects.equals(lineOrientation, "top")) {
                 polygon.getPoints().addAll(point.getX(), point.getY(),
@@ -237,7 +237,7 @@ public class UMLRelation extends Element {
         } else if (Objects.equals(type, "generalization")) {
             polygon = new Polygon();
             polygon.setStroke(Color.BLACK);
-            polygon.setFill(Color.TRANSPARENT);
+            polygon.setFill(Color.WHITE);
 
             if (Objects.equals(lineOrientation, "top")) {
                 polygon.getPoints().addAll(point.getX(), point.getY(),
