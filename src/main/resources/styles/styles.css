@@ -74,3 +74,11 @@
     -fx-font-size: 12px;
     -fx-font-weight: bold;
 }
+
+.alertBlock {
+    -fx-background-color: #d64242;
+}
+
+.alertMessage {
+    -fx-text-fill: white;
+}
