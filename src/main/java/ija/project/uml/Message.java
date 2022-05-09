@@ -16,6 +16,8 @@ public class Message extends Element {
     private final String type;
     private final String source;
     private final String target;
+    private double startX;
+    private double endX;
 
     /**
      * Message constructor
@@ -53,5 +55,21 @@ public class Message extends Element {
      */
     public String getTarget () {
         return target;
+    }
+
+    public double getStartX() {
+        return startX;
+    }
+
+    public double getEndX() {
+        return endX;
+    }
+
+    public void setStartX(double startX) {
+        this.startX = startX;
+    }
+
+    public void setEndX(double endX) {
+        this.endX = endX;
     }
 }

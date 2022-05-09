@@ -20,6 +20,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Polygon;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -485,6 +486,24 @@ public class SceneMainController {
 
         for (VBox vbox : sequenceVboxList)
             sequencePane.getChildren().add(vbox);
+
+        for (Message message : sequenceDiagram.getMessageList()) {
+            positionY += 70;
+            Line line = new Line();
+            line.setStartX(message.getStartX());
+            line.setEndX(message.getEndX());
+            line.setStartY(positionY);
+            line.setEndY(positionY);
+
+            Polygon polygon = new Polygon();
+            polygon.getPoints().addAll(message.getEndX(), positionY,
+                    message.getEndX() - 10, positionY - 10,
+                    message.getEndX() - 10, positionY + 10);
+
+            Text text = new Text(message.getStartX() + 10, positionY - 10, message.getName());
+
+            sequencePane.getChildren().addAll(line, polygon, text);
+        }
     }
 
     /**
@@ -502,11 +521,27 @@ public class SceneMainController {
         vbox.setStyle(cssLayoutVbox);
         vbox.getChildren().add(getLabelFromString(name));
 
-        vbox.toFront();
         vbox.setTranslateX(positionX);
         vbox.setTranslateY(positionY);
-        positionX += 150;
         sequenceVboxList.add(vbox);
+
+        Line line = new Line();
+        line.setStartX(positionX + 40);
+        line.setStartY(positionY);
+        line.setEndX(positionX + 40);
+        line.setEndY(sequencePane.getHeight() - positionY - 50);
+
+        for (Message message : sequenceDiagram.getMessageList()) {
+            if (Objects.equals(message.getSource(), name))
+                message.setStartX(positionX + 40);
+            if (Objects.equals(message.getTarget(), name))
+                message.setEndX(positionX + 40);
+        }
+
+        sequencePane.getChildren().add(line);
+
+        vbox.toFront();
+        positionX += 150;
     }
 
     /**
@@ -582,7 +617,7 @@ public class SceneMainController {
 
     /**
      * Handler for what should happen, when a VBox is pressed.
-     * Saves some values, that are later needed for calculating the translate axis.
+     * Saves some values, that are later needed for calculating the translation axis.
      */
     EventHandler<MouseEvent> vboxOnMousePressedEventHandler = t -> {
         orgSceneX = t.getSceneX();

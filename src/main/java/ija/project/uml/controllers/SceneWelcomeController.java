@@ -40,7 +40,7 @@ public class SceneWelcomeController {
     private void openExistingDiagram(ActionEvent event) throws Exception {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Class Diagram File");
-        fileChooser.getExtensionFilters().add( new FileChooser.ExtensionFilter("JSON files", "*.json"));
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JSON files", "*.json"));
         File selectedFile = fileChooser.showOpenDialog(stage);
 
         if (selectedFile == null) return;
