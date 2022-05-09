@@ -266,17 +266,6 @@ public class SceneMainController {
         setupStage(root, "Edit " + currClass.getName());
     }
 
-    private void setupStage(Parent root, String title) {
-        Stage stage = new Stage();
-        Scene scene = new Scene(root);
-        stage.setResizable(false);
-        stage.setTitle(title);
-        stage.setMinWidth(300);
-        stage.setMinHeight(300);
-        stage.setScene(scene);
-        stage.show();
-    }
-
     /**
      * Opens a window for adding a diagram name.
      */
@@ -390,6 +379,17 @@ public class SceneMainController {
         sceneEditUMLRelationController.setRelation(relation, classDiagram, this);
 
         setupStage(root, "Edit " + currClass.getName() + " relation");
+    }
+
+    private void setupStage(Parent root, String title) {
+        Stage stage = new Stage();
+        Scene scene = new Scene(root);
+        stage.setResizable(false);
+        stage.setTitle(title);
+        stage.setMinWidth(300);
+        stage.setMinHeight(300);
+        stage.setScene(scene);
+        stage.show();
     }
 
     /**
