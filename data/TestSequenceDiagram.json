@@ -1,12 +1,30 @@
 {
   "type": "SequenceDiagram",
   "name": "testSequenceDiagram",
-  "objects": ["testClass", "testClass 1"],
+  "objects": ["testClass", "testClass 1", "testClass 2"],
   "messages": [
     {
       "name": "testMethod",
       "message_type": "synchronous",
       "source": "testClass",
+      "target": "testClass 1"
+    },
+    {
+      "name": "testMethod 2",
+      "message_type": "asynchronous",
+      "source": "testClass 1",
+      "target": "testClass"
+    },
+    {
+      "name": "testMethod 3",
+      "message_type": "synchronous",
+      "source": "testClass 1",
+      "target": "testClass 2"
+    },
+    {
+      "name": "testMethod reply",
+      "message_type": "reply",
+      "source": "testClass 2",
       "target": "testClass 1"
     }
   ]

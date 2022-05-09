@@ -19,6 +19,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
 import javafx.scene.text.Text;
@@ -496,11 +497,29 @@ public class SceneMainController {
             line.setEndY(positionY);
 
             Polygon polygon = new Polygon();
-            polygon.getPoints().addAll(message.getEndX(), positionY,
-                    message.getEndX() - 10, positionY - 10,
-                    message.getEndX() - 10, positionY + 10);
+            if (Objects.equals(message.getType(), "asynchronous")) {
+                polygon.setFill(Color.TRANSPARENT);
+                polygon.setStroke(Color.BLACK);
+            } else if (Objects.equals(message.getType(), "reply"))
+                line.getStrokeDashArray().addAll(25d, 10d);
 
-            Text text = new Text(message.getStartX() + 10, positionY - 10, message.getName());
+            Text text = new Text(message.getName());
+
+            if (line.getStartX() < line.getEndX()) {
+                polygon.getPoints().addAll(message.getEndX(), positionY,
+                        message.getEndX() - 10, positionY - 10,
+                        message.getEndX() - 10, positionY + 10);
+
+                text.setX(message.getStartX() + 10);
+                text.setY(positionY - 10);
+            } else {
+                polygon.getPoints().addAll(message.getEndX(), positionY,
+                        message.getEndX() + 10, positionY - 10,
+                        message.getEndX() + 10, positionY + 10);
+
+                text.setX(message.getEndX() + 10);
+                text.setY(positionY - 10);
+            }
 
             sequencePane.getChildren().addAll(line, polygon, text);
         }
