@@ -61,6 +61,7 @@ public class SceneMainController {
     private ContextMenu contextMenu;
     private final List<VBox> classVboxList = new ArrayList<>();
     private final List<VBox> sequenceVboxList = new ArrayList<>();
+    private final List<Line> sequenceLineList = new ArrayList<>();
 
     private double positionX = 50;
     private double positionY = 50;
@@ -488,13 +489,31 @@ public class SceneMainController {
         for (VBox vbox : sequenceVboxList)
             sequencePane.getChildren().add(vbox);
 
+        positionY += 20;
         for (Message message : sequenceDiagram.getMessageList()) {
-            positionY += 70;
+            positionY += 50;
             Line line = new Line();
             line.setStartX(message.getStartX());
             line.setEndX(message.getEndX());
             line.setStartY(positionY);
             line.setEndY(positionY);
+
+            if (Objects.equals(message.getType(), "create")) {
+                for (VBox vbox : sequenceVboxList)
+                    if (generateClassId(message.getTarget()).equals(vbox.getId())) {
+                        line.setEndX(message.getEndX() - 40);
+                        vbox.setTranslateY(positionY - 10);
+                    }
+                for (Line sequenceLine : sequenceLineList)
+                    if (generateClassId(message.getTarget()).equals(sequenceLine.getId()))
+                        sequenceLine.setStartY(positionY);
+            }
+
+            if (Objects.equals(message.getType(), "delete")) {
+                for (Line sequenceLine : sequenceLineList)
+                    if (generateClassId(message.getTarget()).equals(sequenceLine.getId()))
+                        sequenceLine.setEndY(positionY);
+            }
 
             Polygon polygon = new Polygon();
             if (Objects.equals(message.getType(), "asynchronous")) {
@@ -506,12 +525,17 @@ public class SceneMainController {
             Text text = new Text(message.getName());
 
             if (line.getStartX() < line.getEndX()) {
-                polygon.getPoints().addAll(message.getEndX(), positionY,
-                        message.getEndX() - 10, positionY - 10,
-                        message.getEndX() - 10, positionY + 10);
+                if (Objects.equals(message.getType(), "create"))
+                    polygon.getPoints().addAll(message.getEndX() - 40, positionY,
+                            message.getEndX() - 50, positionY - 10,
+                            message.getEndX() - 50, positionY + 10);
+                else
+                    polygon.getPoints().addAll(message.getEndX(), positionY,
+                            message.getEndX() - 10, positionY - 10,
+                            message.getEndX() - 10, positionY + 10);
 
                 text.setX(message.getStartX() + 10);
-                text.setY(positionY - 10);
+                text.setY(positionY - 15);
             } else {
                 polygon.getPoints().addAll(message.getEndX(), positionY,
                         message.getEndX() + 10, positionY - 10,
@@ -540,6 +564,7 @@ public class SceneMainController {
         vbox.setStyle(cssLayoutVbox);
         vbox.getChildren().add(getLabelFromString(name));
 
+        vbox.setId(generateClassId(name));
         vbox.setTranslateX(positionX);
         vbox.setTranslateY(positionY);
         sequenceVboxList.add(vbox);
@@ -549,6 +574,8 @@ public class SceneMainController {
         line.setStartY(positionY);
         line.setEndX(positionX + 40);
         line.setEndY(sequencePane.getHeight() - positionY - 50);
+        line.setId(generateClassId(name));
+        sequenceLineList.add(line);
 
         for (Message message : sequenceDiagram.getMessageList()) {
             if (Objects.equals(message.getSource(), name))

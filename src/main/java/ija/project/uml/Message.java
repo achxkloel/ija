@@ -8,6 +8,8 @@
 
 package ija.project.uml;
 
+import java.util.Objects;
+
 /**
  * Message between objects in the sequence diagram.
  */
@@ -63,6 +65,13 @@ public class Message extends Element {
 
     public double getEndX() {
         return endX;
+    }
+
+    @Override
+    public String getName() {
+        return Objects.equals(type, "create") || Objects.equals(type, "delete")
+                ? "<<" + type + ">> " + name
+                : name;
     }
 
     public void setStartX(double startX) {
