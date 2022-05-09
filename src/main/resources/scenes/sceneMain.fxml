@@ -7,8 +7,8 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
-
 <?import javafx.scene.control.SeparatorMenuItem?>
+
 <AnchorPane prefHeight="547.0" prefWidth="699.0" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ija.project.uml.controllers.SceneMainController">
   <TabPane fx:id="tabPane" layoutY="25.0" side="BOTTOM" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
     <Tab fx:id="classTab" closable="false" text="Class diagram">

@@ -50,3 +50,27 @@
 .deleteButton:hover {
     -fx-background-color: #ad0202;
 }
+
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-border-color: transparent transparent #171617 transparent;
+    -fx-background-color: #3e383e;
+    -fx-border-width: 2px;
+}
+
+.tab-pane .tab {
+    -fx-background-color: #2b2a2b;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.tab-pane .tab:selected {
+    -fx-background-color: #171617;
+    -fx-border-color: transparent;
+}
+
+.tab .tab-label {
+    -fx-alignment: CENTER;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
