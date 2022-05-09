@@ -1,7 +1,7 @@
 {
   "type": "SequenceDiagram",
   "name": "testSequenceDiagram",
-  "objects": ["testClass", "testClass 1", "testClass 2"],
+  "objects": ["testClass", "testClass 1", "testClass 2", "testClass 3"],
   "messages": [
     {
       "name": "testMethod",
@@ -22,10 +22,28 @@
       "target": "testClass 2"
     },
     {
-      "name": "testMethod reply",
+      "name": "testReply",
       "message_type": "reply",
       "source": "testClass 2",
       "target": "testClass 1"
+    },
+    {
+      "name": "testCreate",
+      "message_type": "create",
+      "source": "testClass 2",
+      "target": "testClass 3"
+    },
+    {
+      "name": "testMethod 4",
+      "message_type": "asynchronous",
+      "source": "testClass 1",
+      "target": "testClass 2"
+    },
+    {
+      "name": "testDelete",
+      "message_type": "delete",
+      "source": "testClass 2",
+      "target": "testClass 3"
     }
   ]
 }
