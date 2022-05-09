@@ -1,0 +1,67 @@
+{
+  "type": "SequenceDiagram",
+  "name": "testSequenceDiagram",
+  "objects": ["Main", "ClassDiagram", "UMLClass", "UMLAttribute"],
+  "messages": [
+    {
+      "name": "createClass",
+      "message_type": "synchronous",
+      "source": "Main",
+      "target": "ClassDiagram"
+    },
+    {
+      "name": "('c1')",
+      "message_type": "create",
+      "source": "ClassDiagram",
+      "target": "UMLClass"
+    },
+    {
+      "name": "c1",
+      "message_type": "reply",
+      "source": "ClassDiagram",
+      "target": "Main"
+    },
+    {
+      "name": "classifierForName",
+      "message_type": "synchronous",
+      "source": "Main",
+      "target": "ClassDiagram"
+    },
+    {
+      "name": "cInt",
+      "message_type": "reply",
+      "source": "ClassDiagram",
+      "target": "Main"
+    },
+    {
+      "name": "('a1', cInt)",
+      "message_type": "create",
+      "source": "Main",
+      "target": "UMLAttribute"
+    },
+    {
+      "name": "addAttribute",
+      "message_type": "synchronous",
+      "source": "Main",
+      "target": "UMLClass"
+    },
+    {
+      "name": "true",
+      "message_type": "reply",
+      "source": "UMLClass",
+      "target": "Main"
+    },
+    {
+      "name": "isAbstract()",
+      "message_type": "synchronous",
+      "source": "Main",
+      "target": "UMLAttribute"
+    },
+    {
+      "name": "false",
+      "message_type": "reply",
+      "source": "UMLAttribute",
+      "target": "Main"
+    }
+  ]
+}

@@ -1,0 +1,214 @@
+{
+  "classes": [
+    {
+      "positionY": 42,
+      "name": "Element",
+      "items": [
+        {
+          "visibility": "public",
+          "item_type": "Attribute",
+          "name": "name",
+          "type": "String"
+        },
+        {
+          "visibility": "public",
+          "item_type": "Method",
+          "name": "Element",
+          "type": "",
+          "params": [{
+            "name": "name",
+            "type": "String"
+          }]
+        },
+        {
+          "visibility": "public",
+          "item_type": "Method",
+          "name": "getName",
+          "type": "String",
+          "params": []
+        },
+        {
+          "visibility": "public",
+          "item_type": "Method",
+          "name": "rename",
+          "type": "void",
+          "params": [{
+            "name": "name",
+            "type": "String"
+          }]
+        }
+      ],
+      "positionX": 377
+    },
+    {
+      "positionY": 225,
+      "name": "UMLAttribute",
+      "items": [
+        {
+          "visibility": "public",
+          "item_type": "Attribute",
+          "name": "type",
+          "type": "UMLClassifier"
+        },
+        {
+          "visibility": "public",
+          "item_type": "Method",
+          "name": "getType",
+          "type": "UMLClassifier",
+          "params": []
+        }
+      ],
+      "positionX": 107
+    },
+    {
+      "positionY": 229,
+      "name": "UMLClassifier",
+      "items": [
+        {
+          "visibility": "public",
+          "item_type": "Method",
+          "name": "UMLClassifier",
+          "type": "",
+          "params": [{
+            "name": "name",
+            "type": "String"
+          }]
+        },
+        {
+          "visibility": "public",
+          "item_type": "Method",
+          "name": "isUserDefined",
+          "type": "boolean",
+          "params": []
+        }
+      ],
+      "positionX": 377
+    },
+    {
+      "positionY": 222,
+      "name": "ClassDiagram",
+      "items": [
+        {
+          "visibility": "public",
+          "item_type": "Attribute",
+          "name": "classes",
+          "type": "List<UMLClassifier>"
+        },
+        {
+          "visibility": "public",
+          "item_type": "Method",
+          "name": "createClass",
+          "type": "UMLClass",
+          "params": [{
+            "name": "name",
+            "type": "String"
+          }]
+        },
+        {
+          "visibility": "public",
+          "item_type": "Method",
+          "name": "classifierForName",
+          "type": "UMLClassifier",
+          "params": [{
+            "name": "name",
+            "type": "String"
+          }]
+        }
+      ],
+      "positionX": 611
+    },
+    {
+      "positionY": 395,
+      "name": "UMLClass",
+      "items": [
+        {
+          "visibility": "public",
+          "item_type": "Attribute",
+          "name": "attributes",
+          "type": "List<UMLAttributes>"
+        },
+        {
+          "visibility": "public",
+          "item_type": "Method",
+          "name": "addAttribute",
+          "type": "boolean",
+          "params": [{
+            "name": "attr",
+            "type": "UMLAttribute"
+          }]
+        },
+        {
+          "visibility": "public",
+          "item_type": "Method",
+          "name": "getAttrPosition",
+          "type": "int",
+          "params": [{
+            "name": "attr",
+            "type": "UMLAttribute"
+          }]
+        }
+      ],
+      "positionX": 345
+    }
+  ],
+  "name": "UMLClassDiagram",
+  "type": "ClassDiagram",
+  "relations": [
+    {
+      "cardinality_to": "",
+      "name": "UMLClassifierToElement",
+      "source": "UMLClassifier",
+      "type": "generalization",
+      "cardinality_from": "",
+      "target": "Element"
+    },
+    {
+      "cardinality_to": "",
+      "name": "UMLAttributeToElement",
+      "source": "UMLAttribute",
+      "type": "generalization",
+      "cardinality_from": "",
+      "target": "Element"
+    },
+    {
+      "cardinality_to": "",
+      "name": "ClassDiagramToElement",
+      "source": "ClassDiagram",
+      "type": "generalization",
+      "cardinality_from": "",
+      "target": "Element"
+    },
+    {
+      "cardinality_to": "",
+      "name": "AttributeToClassifier",
+      "source": "UMLAttribute",
+      "type": "association",
+      "cardinality_from": "",
+      "target": "UMLClassifier"
+    },
+    {
+      "cardinality_to": "",
+      "name": "ClassDiagramToUMLClassifier",
+      "source": "ClassDiagram",
+      "type": "association",
+      "cardinality_from": "",
+      "target": "UMLClassifier"
+    },
+    {
+      "cardinality_to": "",
+      "name": "ClassToClassifier",
+      "source": "UMLClass",
+      "type": "generalization",
+      "cardinality_from": "",
+      "target": "UMLClassifier"
+    },
+    {
+      "cardinality_to": "",
+      "name": "ClassToAttribute",
+      "source": "UMLClass",
+      "type": "association",
+      "cardinality_from": "",
+      "target": "UMLAttribute"
+    }
+  ]
+}
