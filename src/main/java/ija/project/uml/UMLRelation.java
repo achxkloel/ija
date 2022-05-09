@@ -264,7 +264,7 @@ public class UMLRelation extends Element {
                 line.setEndX(point.getX() + 10);
                 line.setEndY(point.getY());
             }
-        } else if (Objects.equals(type, "__association__")) { // change to "association" to enable this type
+        } else if (Objects.equals(type, "association")) {
             polyline = new Polyline();
             polyline.setStroke(Color.BLACK);
 
