@@ -210,7 +210,6 @@ public class SceneMainController {
     @FXML
     private void addClassWindow () {
         Parent root;
-        Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/scenes/sceneAddUMLClass.fxml"));
 
         try {
@@ -223,13 +222,7 @@ public class SceneMainController {
         sceneAddUMLClassController.setMainController(this);
         sceneAddUMLClassController.setParentDiagram(classDiagram);
 
-        Scene scene = new Scene(root);
-        stage.setResizable(false);
-        stage.setTitle("Add New Class");
-        stage.setMinWidth(300);
-        stage.setMinHeight(300);
-        stage.setScene(scene);
-        stage.show();
+        setupStage(root, "Add New Class");
     }
 
     /**
@@ -237,12 +230,9 @@ public class SceneMainController {
      */
     @FXML
     private void addRelationWindow () {
-        if (classDiagram.getClassList().size() < 2) {
-            return;
-        }
+        if (classDiagram.getClassList().size() < 2) return;
 
         Parent root;
-        Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/scenes/sceneAddUMLRelation.fxml"));
 
         try {
@@ -254,13 +244,7 @@ public class SceneMainController {
         SceneAddUMLRelationController sceneAddUMLRelationController = loader.getController();
         sceneAddUMLRelationController.setParentDiagram(classDiagram, mainPane, this);
 
-        Scene scene = new Scene(root);
-        stage.setResizable(false);
-        stage.setTitle("Add New Relation");
-        stage.setMinWidth(300);
-        stage.setMinHeight(300);
-        stage.setScene(scene);
-        stage.show();
+        setupStage(root, "Add New Relation");
     }
 
     /**
@@ -268,7 +252,6 @@ public class SceneMainController {
      */
     private void editClassWindow (UMLClass currClass) {
         Parent root;
-        Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/scenes/sceneEditUMLClass.fxml"));
 
         try {
@@ -280,9 +263,14 @@ public class SceneMainController {
         SceneEditUMLClassController sceneEditUMLClassController = loader.getController();
         sceneEditUMLClassController.setUMLClass(currClass, classDiagram);
 
+        setupStage(root, "Edit " + currClass.getName());
+    }
+
+    private void setupStage(Parent root, String title) {
+        Stage stage = new Stage();
         Scene scene = new Scene(root);
         stage.setResizable(false);
-        stage.setTitle("Edit " + currClass.getName());
+        stage.setTitle(title);
         stage.setMinWidth(300);
         stage.setMinHeight(300);
         stage.setScene(scene);
@@ -295,7 +283,6 @@ public class SceneMainController {
     @FXML
     private void editDiagramWindow () {
         Parent root;
-        Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/scenes/sceneEditDiagram.fxml"));
 
         try {
@@ -307,13 +294,7 @@ public class SceneMainController {
         SceneEditDiagramController sceneEditDiagramController = loader.getController();
         sceneEditDiagramController.setDiagram(classDiagram, this.stage);
 
-        Scene scene = new Scene(root);
-        stage.setResizable(false);
-        stage.setTitle("Rename Class Diagram");
-        stage.setMinWidth(300);
-        stage.setMinHeight(300);
-        stage.setScene(scene);
-        stage.show();
+        setupStage(root, "Rename Class Diagram");
     }
 
     /**
@@ -321,7 +302,6 @@ public class SceneMainController {
      */
     private void addAttributeWindow (UMLClass currClass) {
         Parent root;
-        Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/scenes/sceneAddAttribute.fxml"));
 
         try {
@@ -333,13 +313,7 @@ public class SceneMainController {
         SceneAddAttributeController sceneAddAttributeController = loader.getController();
         sceneAddAttributeController.setUMLClass(currClass);
 
-        Scene scene = new Scene(root);
-        stage.setResizable(false);
-        stage.setTitle("Add Class Attribute");
-        stage.setMinWidth(300);
-        stage.setMinHeight(300);
-        stage.setScene(scene);
-        stage.show();
+        setupStage(root, "Add Class Attribute");
     }
 
     /**
@@ -347,7 +321,6 @@ public class SceneMainController {
      */
     private void addMethodWindow (UMLClass currClass) {
         Parent root;
-        Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/scenes/sceneAddMethod.fxml"));
 
         try {
@@ -359,13 +332,7 @@ public class SceneMainController {
         SceneAddMethodController sceneAddMethodController = loader.getController();
         sceneAddMethodController.setUMLClass(currClass);
 
-        Scene scene = new Scene(root);
-        stage.setResizable(false);
-        stage.setTitle("Add Class Method");
-        stage.setMinWidth(300);
-        stage.setMinHeight(300);
-        stage.setScene(scene);
-        stage.show();
+        setupStage(root, "Add Class Method");
     }
 
     /**
@@ -373,7 +340,6 @@ public class SceneMainController {
      */
     private void editAttributeWindow (Attribute attr, UMLClass parentClass) {
         Parent root;
-        Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/scenes/sceneEditAttribute.fxml"));
 
         try {
@@ -385,13 +351,7 @@ public class SceneMainController {
         SceneEditAttributeController sceneEditAttributeController = loader.getController();
         sceneEditAttributeController.setAttribute(attr, parentClass);
 
-        Scene scene = new Scene(root);
-        stage.setResizable(false);
-        stage.setTitle("Edit " + attr.getName());
-        stage.setMinWidth(300);
-        stage.setMinHeight(300);
-        stage.setScene(scene);
-        stage.show();
+        setupStage(root, "Edit " + attr.getName());
     }
 
     /**
@@ -399,7 +359,6 @@ public class SceneMainController {
      */
     private void editMethodWindow (Method method, UMLClass parentClass) {
         Parent root;
-        Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/scenes/sceneEditMethod.fxml"));
 
         try {
@@ -411,13 +370,7 @@ public class SceneMainController {
         SceneEditMethodController sceneEditMethodController = loader.getController();
         sceneEditMethodController.setMethod(method, parentClass);
 
-        Scene scene = new Scene(root);
-        stage.setResizable(false);
-        stage.setTitle("Edit " + method.getName());
-        stage.setMinWidth(300);
-        stage.setMinHeight(300);
-        stage.setScene(scene);
-        stage.show();
+        setupStage(root, "Edit " + method.getName());
     }
 
     /**
@@ -425,7 +378,6 @@ public class SceneMainController {
      */
     private void editRelationWindow (UMLClass currClass, UMLRelation relation) {
         Parent root;
-        Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/scenes/sceneEditUMLRelation.fxml"));
 
         try {
@@ -437,13 +389,7 @@ public class SceneMainController {
         SceneEditUMLRelationController sceneEditUMLRelationController = loader.getController();
         sceneEditUMLRelationController.setRelation(relation, classDiagram, this);
 
-        Scene scene = new Scene(root);
-        stage.setResizable(false);
-        stage.setTitle("Edit " + currClass.getName() + " relation");
-        stage.setMinWidth(300);
-        stage.setMinHeight(300);
-        stage.setScene(scene);
-        stage.show();
+        setupStage(root, "Edit " + currClass.getName() + " relation");
     }
 
     /**
