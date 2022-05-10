@@ -533,6 +533,8 @@ public class SceneMainController {
 
             Text text = new Text(message.getName());
 
+            text.setStyle("-fx-fill: #ece3e3");
+
             if (line.getStartX() < line.getEndX()) {
                 if (Objects.equals(message.getType(), "create"))
                     polygon.getPoints().addAll(message.getEndX() - 40, positionY,
