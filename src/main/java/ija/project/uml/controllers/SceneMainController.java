@@ -441,20 +441,6 @@ public class SceneMainController {
         }
     }
 
-    @FXML
-    public void redo() {
-        if (historyIndex > 0) {
-            historyIndex--;
-            HistoryElement operation = history.get(historyIndex);
-
-            double newTranslateX = operation.getX();
-            double newTranslateY = operation.getY();
-            MouseEvent t = operation.getT();
-
-            updateVBoxPosition(t, newTranslateX, newTranslateY);
-        }
-    }
-
     /**
      * Clears the diagram.
      */
