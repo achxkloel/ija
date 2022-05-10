@@ -9,6 +9,8 @@
 package ija.project.uml.controllers;
 
 import ija.project.uml.ClassDiagram;
+import ija.project.uml.SequenceDiagram;
+import ija.project.uml.SequenceObject;
 import ija.project.uml.UMLClass;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -44,6 +46,11 @@ public class SceneAddUMLClassController extends EditWindowController {
     ClassDiagram parentDiagram;
 
     /**
+     * Sequence diagram.
+     */
+    SequenceDiagram sequenceDiagram;
+
+    /**
      * Main controller.
      */
     SceneMainController mainController;
@@ -72,6 +79,13 @@ public class SceneAddUMLClassController extends EditWindowController {
             parentDiagram.addClass(newClass);
             VBox classVBox = mainController.createClassVBox(newClass);
             parentDiagram.getDiagramView().getChildren().add(classVBox);
+
+            SequenceObject seqObj = sequenceDiagram.findSequenceObject(className);
+
+            if (seqObj != null) {
+                seqObj.setDefined(true);
+            }
+
             closeWindow(event);
         });
     }
@@ -90,7 +104,8 @@ public class SceneAddUMLClassController extends EditWindowController {
      *
      * @param parentDiagram parent diagram instance.
      */
-    public void setParentDiagram (ClassDiagram parentDiagram) {
+    public void setParentDiagram (ClassDiagram parentDiagram, SequenceDiagram sequenceDiagram) {
         this.parentDiagram = parentDiagram;
+        this.sequenceDiagram = sequenceDiagram;
     }
 }

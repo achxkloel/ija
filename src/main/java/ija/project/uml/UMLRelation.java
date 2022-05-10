@@ -143,14 +143,6 @@ public class UMLRelation extends Element {
     }
 
     /**
-     * Getter for the polygon representation of the type
-     * @return the polygon representation of the type
-     */
-    public Polygon getPolygon() {
-        return polygon;
-    }
-
-    /**
      * Returns arrow, if the type is association, else returns the polygon
      * @return arrow or polygon
      */

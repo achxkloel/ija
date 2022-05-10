@@ -222,7 +222,7 @@ public class SceneMainController {
 
         SceneAddUMLClassController sceneAddUMLClassController = loader.getController();
         sceneAddUMLClassController.setMainController(this);
-        sceneAddUMLClassController.setParentDiagram(classDiagram);
+        sceneAddUMLClassController.setParentDiagram(classDiagram, sequenceDiagram);
 
         setupStage(root, "Add New Class");
     }
