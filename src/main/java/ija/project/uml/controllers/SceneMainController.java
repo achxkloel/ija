@@ -429,23 +429,9 @@ public class SceneMainController {
 
     @FXML
     public void undo() {
-        if (historyIndex < history.size() - 1) {
+        if (historyIndex < history.size()) {
+            HistoryElement operation = history.get(historyIndex);
             historyIndex++;
-            HistoryElement operation = history.get(historyIndex);
-
-            double newTranslateX = operation.getX();
-            double newTranslateY = operation.getY();
-            MouseEvent t = operation.getT();
-
-            updateVBoxPosition(t, newTranslateX, newTranslateY);
-        }
-    }
-
-    @FXML
-    public void redo() {
-        if (historyIndex > 0) {
-            historyIndex--;
-            HistoryElement operation = history.get(historyIndex);
 
             double newTranslateX = operation.getX();
             double newTranslateY = operation.getY();
@@ -727,14 +713,11 @@ public class SceneMainController {
     EventHandler<MouseEvent> vboxOnMouseReleasedEventHandler = t -> {
         orgSceneX = t.getSceneX();
         orgSceneY = t.getSceneY();
-        orgTranslateX = ((VBox)(t.getSource())).getTranslateX();
-        orgTranslateY = ((VBox)(t.getSource())).getTranslateY();
 
         for (; historyIndex > 0; historyIndex--)
             history.remove(0);
 
         history.add(0, new HistoryElement(orgTranslateX + t.getSceneX() - orgSceneX, orgTranslateY + t.getSceneY() - orgSceneY, t));
-
     };
 
     /**
