@@ -533,6 +533,8 @@ public class SceneMainController {
 
             Text text = new Text(message.getName());
 
+            text.setStyle("-fx-fill: #ece3e3");
+
             if (line.getStartX() < line.getEndX()) {
                 if (Objects.equals(message.getType(), "create"))
                     polygon.getPoints().addAll(message.getEndX() - 40, positionY,
@@ -684,10 +686,6 @@ public class SceneMainController {
             mainPane.getChildren().add(relation.getArrow());
     }
 
-    private void addToHistory(HistoryElement element) {
-        history.add(0, element);
-    }
-
     /**
      * Handler for what should happen, when a VBox is pressed.
      * Saves some values, that are later needed for calculating the translation axis.
@@ -698,7 +696,7 @@ public class SceneMainController {
         orgTranslateX = ((VBox)(t.getSource())).getTranslateX();
         orgTranslateY = ((VBox)(t.getSource())).getTranslateY();
         if (history.isEmpty())
-            addToHistory(new HistoryElement(orgTranslateX + t.getSceneX() - orgSceneX, orgTranslateY + t.getSceneY() - orgSceneY, t));
+            history.add(0, new HistoryElement(orgTranslateX + t.getSceneX() - orgSceneX, orgTranslateY + t.getSceneY() - orgSceneY, t));
     };
 
     EventHandler<MouseEvent> vboxOnMouseReleasedEventHandler = t -> {
@@ -706,7 +704,12 @@ public class SceneMainController {
         orgSceneY = t.getSceneY();
         orgTranslateX = ((VBox)(t.getSource())).getTranslateX();
         orgTranslateY = ((VBox)(t.getSource())).getTranslateY();
-        addToHistory(new HistoryElement(orgTranslateX + t.getSceneX() - orgSceneX, orgTranslateY + t.getSceneY() - orgSceneY, t));
+
+        for (; historyIndex > 0; historyIndex--)
+            history.remove(0);
+
+        history.add(0, new HistoryElement(orgTranslateX + t.getSceneX() - orgSceneX, orgTranslateY + t.getSceneY() - orgSceneY, t));
+
     };
 
     /**
