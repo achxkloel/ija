@@ -12,6 +12,10 @@ package ija.project.uml;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
+
+import java.awt.*;
 
 /**
  * Object of the sequence diagram.
@@ -27,6 +31,11 @@ public class SequenceObject extends Element {
      * Object Label
      */
     Label objectLabel = null;
+
+    /**
+     * Object line
+     */
+    Line objectLine = null;
 
     /**
      * Creates new class.
@@ -70,6 +79,15 @@ public class SequenceObject extends Element {
     }
 
     /**
+     * Set object line
+     *
+     * @param objectLine object line
+     */
+    public void setObjectLine(Line objectLine) {
+        this.objectLine = objectLine;
+    }
+
+    /**
      * Set object to defined state.
      *
      * @param defined defined flag.
@@ -83,9 +101,11 @@ public class SequenceObject extends Element {
         if (defined) {
             currVBoxClass.add("objectVBoxDefined");
             currLabelClass.add("objectLabelDefined");
+            this.objectLine.setStroke(Color.BLACK);
         } else {
             currVBoxClass.add("objectVBoxNotDefined");
             currLabelClass.add("objectLabelNotDefined");
+            this.objectLine.setStroke(Color.RED);
         }
     }
 }

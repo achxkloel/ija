@@ -122,6 +122,12 @@ public class SceneEditUMLClassController extends EditWindowController {
                 parentDiagram.removeRelation(relation);
             }
 
+            SequenceObject seqObj = sequenceDiagram.findSequenceObject(editedClass.getName());
+
+            if (seqObj != null) {
+                seqObj.setDefined(false);
+            }
+
             parentDiagram.removeClass(editedClass);
             closeWindow(event);
         });
