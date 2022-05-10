@@ -448,7 +448,7 @@ public class SceneMainController {
 
     /**
      * Calls a function in the DataParser, which exports the class diagram to a JSON file.
-     * @throws IOException
+     * @throws IOException exception for wrong output
      */
     @FXML
     private void saveClassDiagram () throws IOException {
