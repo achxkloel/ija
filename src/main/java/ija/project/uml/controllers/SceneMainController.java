@@ -29,7 +29,6 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Stack;
 
 
 /**
@@ -63,10 +62,11 @@ public class SceneMainController {
     private final List<VBox> classVboxList = new ArrayList<>();
     private final List<VBox> sequenceVboxList = new ArrayList<>();
     private final List<Line> sequenceLineList = new ArrayList<>();
-    private final Stack<HistoryElement> history = new Stack<>();
+    private final List<HistoryElement> history = new ArrayList<>();
 
     private double positionX = 50;
     private double positionY = 50;
+    private int historyIndex = 0;
 
     /**
      * Setter for the class diagram
@@ -186,6 +186,7 @@ public class SceneMainController {
         vbox.setOnMousePressed(vboxOnMousePressedEventHandler);
         vbox.setOnMouseDragged(vboxOnMouseDraggedEventHandler);
         vbox.setOnMouseClicked(vboxOnMouseClickedEventHandler);
+        vbox.setOnMouseReleased(vboxOnMouseReleasedEventHandler);
 
         vbox.toFront();
         vbox.setTranslateX(umlClass.getPositionX());
@@ -428,13 +429,30 @@ public class SceneMainController {
 
     @FXML
     public void undo() {
-        HistoryElement operation = history.pop();
+        if (historyIndex < history.size() - 1) {
+            historyIndex++;
+            HistoryElement operation = history.get(historyIndex);
 
-        double newTranslateX = operation.getX();
-        double newTranslateY = operation.getY();
-        MouseEvent t = operation.getT();
+            double newTranslateX = operation.getX();
+            double newTranslateY = operation.getY();
+            MouseEvent t = operation.getT();
 
-        updateVBoxPosition(t, newTranslateX, newTranslateY);
+            updateVBoxPosition(t, newTranslateX, newTranslateY);
+        }
+    }
+
+    @FXML
+    public void redo() {
+        if (historyIndex > 0) {
+            historyIndex--;
+            HistoryElement operation = history.get(historyIndex);
+
+            double newTranslateX = operation.getX();
+            double newTranslateY = operation.getY();
+            MouseEvent t = operation.getT();
+
+            updateVBoxPosition(t, newTranslateX, newTranslateY);
+        }
     }
 
     /**
@@ -663,6 +681,10 @@ public class SceneMainController {
             mainPane.getChildren().add(relation.getArrow());
     }
 
+    private void addToHistory(HistoryElement element) {
+        history.add(0, element);
+    }
+
     /**
      * Handler for what should happen, when a VBox is pressed.
      * Saves some values, that are later needed for calculating the translation axis.
@@ -672,7 +694,16 @@ public class SceneMainController {
         orgSceneY = t.getSceneY();
         orgTranslateX = ((VBox)(t.getSource())).getTranslateX();
         orgTranslateY = ((VBox)(t.getSource())).getTranslateY();
-        history.push(new HistoryElement(orgTranslateX + t.getSceneX() - orgSceneX, orgTranslateY + t.getSceneY() - orgSceneY, t));
+        if (history.isEmpty())
+            addToHistory(new HistoryElement(orgTranslateX + t.getSceneX() - orgSceneX, orgTranslateY + t.getSceneY() - orgSceneY, t));
+    };
+
+    EventHandler<MouseEvent> vboxOnMouseReleasedEventHandler = t -> {
+        orgSceneX = t.getSceneX();
+        orgSceneY = t.getSceneY();
+        orgTranslateX = ((VBox)(t.getSource())).getTranslateX();
+        orgTranslateY = ((VBox)(t.getSource())).getTranslateY();
+        addToHistory(new HistoryElement(orgTranslateX + t.getSceneX() - orgSceneX, orgTranslateY + t.getSceneY() - orgSceneY, t));
     };
 
     /**

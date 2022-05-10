@@ -30,7 +30,7 @@
             <MenuItem mnemonicParsing="false" onAction="#editDiagramWindow" text="Rename Class Diagram" />
             <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem mnemonicParsing="false" onAction="#undo" text="Undo" />
-            <MenuItem mnemonicParsing="false" text="Redo" />
+            <MenuItem mnemonicParsing="false" onAction="#redo" text="Redo" />
         </Menu>
         <Menu mnemonicParsing="false" text="Add">
             <MenuItem mnemonicParsing="false" onAction="#addClassWindow" text="New Class" />
