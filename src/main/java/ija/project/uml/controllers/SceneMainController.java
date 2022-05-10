@@ -583,10 +583,12 @@ public class SceneMainController {
 
         VBox vbox = new VBox();
         Label vboxLabel = new Label();
+        Line line = new Line();
         vboxLabel.setText(name);
 
         sequenceObject.setObjectLabel(vboxLabel);
         sequenceObject.setObjectVBox(vbox);
+        sequenceObject.setObjectLine(line);
 
         String objectVBoxClass = "objectVBoxDefined";
         String objectLabelClass = "objectLabelDefined";
@@ -594,6 +596,7 @@ public class SceneMainController {
         if (classDiagram.findClass(name) == null) {
             objectVBoxClass = "objectVBoxNotDefined";
             objectLabelClass = "objectLabelNotDefined";
+            line.setStroke(Color.RED);
         }
 
         vboxLabel.getStyleClass().add(objectLabelClass);
@@ -605,7 +608,6 @@ public class SceneMainController {
         vbox.setTranslateY(positionY);
         sequenceVboxList.add(vbox);
 
-        Line line = new Line();
         line.setStartX(positionX + 40);
         line.setStartY(positionY);
         line.setEndX(positionX + 40);
