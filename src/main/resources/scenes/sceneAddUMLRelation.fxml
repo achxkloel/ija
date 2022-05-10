@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.geometry.Insets?>
 
-<VBox fx:id="mainBlock" prefHeight="300" prefWidth="300" spacing="5.0" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ija.project.uml.controllers.SceneAddUMLRelationController">
+<VBox fx:id="mainBlock" prefHeight="300" prefWidth="300" spacing="5.0" stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ija.project.uml.controllers.SceneAddUMLRelationController">
    <children>
       <Label text="Name:" />
       <TextField fx:id="nameTextField" />
