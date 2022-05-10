@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class SequenceDiagram extends Element {
 
-    private final List<String> sequenceObjects = new ArrayList<>();
+    private final List<SequenceObject> sequenceObjects = new ArrayList<>();
     private final List<Message> messageList = new ArrayList<>();
 
     /**
@@ -31,7 +31,7 @@ public class SequenceDiagram extends Element {
      * Adds new sequence object to the list of sequence objects
      * @param sequenceObject new sequence object
      */
-    public void addSequenceObject(String sequenceObject) {
+    public void addSequenceObject(SequenceObject sequenceObject) {
         this.sequenceObjects.add(sequenceObject);
     }
 
@@ -44,10 +44,19 @@ public class SequenceDiagram extends Element {
     }
 
     /**
+     * Removes the message from the list of messages.
+     *
+     * @param messageToRemove message to remove.
+     */
+    public void removeMessage(Message messageToRemove) {
+        this.messageList.remove(messageToRemove);
+    }
+
+    /**
      * Getter for the list of sequence objects.
      * @return list of sequence objects
      */
-    public List<String> getSequenceObjects() {
+    public List<SequenceObject> getSequenceObjects() {
         return sequenceObjects;
     }
 
@@ -57,5 +66,18 @@ public class SequenceDiagram extends Element {
      */
     public List<Message> getMessageList() {
         return messageList;
+    }
+
+    /**
+     * Find object by his name.
+     *
+     * @param objectName name of object
+     * @return instance of object or null.
+     */
+    public SequenceObject findSequenceObject (String objectName) {
+        return this.sequenceObjects.stream().
+                filter(U -> U.getName().equals(objectName)).
+                findFirst().
+                orElse(null);
     }
 }

@@ -168,7 +168,7 @@ public class DataParser {
             JSONArray objectList = jsonObject.getJSONArray("objects");
 
             for (int i = 0; i < objectList.length(); i++) {
-                sequenceDiagram.addSequenceObject(objectList.getString(i));
+                sequenceDiagram.addSequenceObject(new SequenceObject(objectList.getString(i)));
             }
 
             // Add messages to the diagram

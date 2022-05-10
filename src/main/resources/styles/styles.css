@@ -82,3 +82,27 @@
 .alertMessage {
     -fx-fill: white;
 }
+
+.objectVBoxDefined {
+    -fx-border-width: 2;
+    -fx-border-style: solid;
+    -fx-background-color: white;
+    -fx-border-color: black;
+}
+
+.objectVBoxNotDefined {
+    -fx-border-width: 2;
+    -fx-border-style: solid;
+    -fx-background-color: white;
+    -fx-border-color: red;
+}
+
+.objectLabelDefined {
+    -fx-padding: 5px;
+    -fx-text-fill: black;
+}
+
+.objectLabelNotDefined {
+    -fx-padding: 5px;
+    -fx-text-fill: red;
+}

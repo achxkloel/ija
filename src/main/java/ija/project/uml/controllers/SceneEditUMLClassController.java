@@ -8,9 +8,7 @@
 
 package ija.project.uml.controllers;
 
-import ija.project.uml.ClassDiagram;
-import ija.project.uml.UMLClass;
-import ija.project.uml.UMLRelation;
+import ija.project.uml.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -48,9 +46,14 @@ public class SceneEditUMLClassController extends EditWindowController {
     TextField nameTextField;
 
     /**
-     * Parent diagram.
+     * Parent class diagram.
      */
     ClassDiagram parentDiagram;
+
+    /**
+     * Sequence diagram.
+     */
+    SequenceDiagram sequenceDiagram;
 
     /**
      * Edited UML Class.
@@ -89,6 +92,17 @@ public class SceneEditUMLClassController extends EditWindowController {
                 }
             }
 
+            SequenceObject oldSeqObj = sequenceDiagram.findSequenceObject(editedClass.getName());
+            SequenceObject newSeqObj = sequenceDiagram.findSequenceObject(newName);
+
+            if (oldSeqObj != null) {
+                oldSeqObj.setName(newName);
+            }
+
+            if (newSeqObj != null) {
+                newSeqObj.setDefined(true);
+            }
+
             editedClass.setName(newName);
             closeWindow(event);
         });
@@ -118,10 +132,12 @@ public class SceneEditUMLClassController extends EditWindowController {
      *
      * @param editedClass edited UML class instance.
      * @param parentDiagram parent diagram instance.
+*    * @param sequenceDiagram sequence diagram.
      */
-    public void setUMLClass (UMLClass editedClass, ClassDiagram parentDiagram) {
+    public void setUMLClass (UMLClass editedClass, ClassDiagram parentDiagram, SequenceDiagram sequenceDiagram) {
         this.editedClass = editedClass;
         this.parentDiagram = parentDiagram;
+        this.sequenceDiagram = sequenceDiagram;
         nameTextField.setText(editedClass.getName());
     }
 }

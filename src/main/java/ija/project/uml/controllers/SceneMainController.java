@@ -263,7 +263,7 @@ public class SceneMainController {
         }
 
         SceneEditUMLClassController sceneEditUMLClassController = loader.getController();
-        sceneEditUMLClassController.setUMLClass(currClass, classDiagram);
+        sceneEditUMLClassController.setUMLClass(currClass, classDiagram, sequenceDiagram);
 
         setupStage(root, "Edit " + currClass.getName());
     }
@@ -492,7 +492,7 @@ public class SceneMainController {
         sequenceTab.setDisable(false);
         tabPane.getSelectionModel().select(sequenceTab);
 
-        for (String object : sequenceDiagram.getSequenceObjects())
+        for (SequenceObject object : sequenceDiagram.getSequenceObjects())
             createSequenceVBox(object);
 
         for (VBox vbox : sequenceVboxList)
@@ -574,31 +574,28 @@ public class SceneMainController {
 
     /**
      * Creates a VBox representation of a sequence
-     * @param name name of the sequence
+     * @param sequenceObject object.
      */
-    private void createSequenceVBox(String name) {
+    private void createSequenceVBox(SequenceObject sequenceObject) {
+        final String name = sequenceObject.getName();
+
         VBox vbox = new VBox();
         Label vboxLabel = new Label();
         vboxLabel.setText(name);
 
-        StringBuilder cssLabel = new StringBuilder("-fx-padding: 5px;\n");
+        sequenceObject.setObjectLabel(vboxLabel);
+        sequenceObject.setObjectVBox(vbox);
 
-        StringBuilder cssLayoutVbox = new StringBuilder(
-            "-fx-border-width: 2;\n" +
-            "-fx-border-style: solid;\n" +
-            "-fx-background-color: white;\n"
-        );
+        String objectVBoxClass = "objectVBoxDefined";
+        String objectLabelClass = "objectLabelDefined";
 
         if (classDiagram.findClass(name) == null) {
-            cssLabel.append("-fx-text-fill: red;\n");
-            cssLayoutVbox.append("-fx-border-color: red;\n");
-        } else {
-            cssLabel.append("-fx-text-fill: black;\n");
-            cssLayoutVbox.append("-fx-border-color: black;\n");
+            objectVBoxClass = "objectVBoxNotDefined";
+            objectLabelClass = "objectLabelNotDefined";
         }
 
-        vboxLabel.setStyle(cssLabel.toString());
-        vbox.setStyle(cssLayoutVbox.toString());
+        vboxLabel.getStyleClass().add(objectLabelClass);
+        vbox.getStyleClass().add(objectVBoxClass);
         vbox.getChildren().add(vboxLabel);
 
         vbox.setId(generateClassId(name));
@@ -613,6 +610,12 @@ public class SceneMainController {
         line.setEndY(sequencePane.getHeight() - positionY - 50);
         line.setId(generateClassId(name));
         sequenceLineList.add(line);
+
+//        List<Message> messagesToRemove = new ArrayList<>();
+//        // Remove wrong relations
+//        for (Message message : messagesToRemove) {
+//            sequenceDiagram.removeMessage(message);
+//        }
 
         for (Message message : sequenceDiagram.getMessageList()) {
             if (Objects.equals(message.getSource(), name))
