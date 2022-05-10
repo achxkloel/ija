@@ -8,6 +8,11 @@
 
 package ija.project.uml;
 
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.Polygon;
+import javafx.scene.text.Text;
+
 import java.util.Objects;
 
 /**
@@ -20,6 +25,10 @@ public class Message extends Element {
     private final String target;
     private double startX;
     private double endX;
+
+    Text messageText = null;
+    Polygon messagePolygon = null;
+    Line messageLine = null;
 
     /**
      * Message constructor
@@ -80,5 +89,39 @@ public class Message extends Element {
 
     public void setEndX(double endX) {
         this.endX = endX;
+    }
+
+    public void setMessagePolygon(Polygon messagePolygon) {
+        this.messagePolygon = messagePolygon;
+    }
+
+    public void setMessageText(Text messageText) {
+        this.messageText = messageText;
+    }
+
+    public void setMessageLine(Line messageLine) {
+        this.messageLine = messageLine;
+    }
+
+    public String cutMessageName () {
+        int iend = this.name.indexOf("(");
+
+        if (iend != -1) {
+            return this.name.substring(0, iend).trim();
+        }
+
+        return this.name;
+    }
+
+    public void setDefined (boolean defined) {
+        if (defined) {
+            this.messagePolygon.setStroke(Color.BLACK);
+            this.messageLine.setStroke(Color.BLACK);
+            this.messageText.setStyle("-fx-fill: #ece3e3");
+        } else {
+            this.messagePolygon.setStroke(Color.RED);
+            this.messageLine.setStroke(Color.RED);
+            this.messageText.setStyle("-fx-fill: red");
+        }
     }
 }

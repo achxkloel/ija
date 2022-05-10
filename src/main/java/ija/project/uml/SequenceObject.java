@@ -15,7 +15,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 
-import java.awt.*;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Object of the sequence diagram.
@@ -36,6 +39,11 @@ public class SequenceObject extends Element {
      * Object line
      */
     Line objectLine = null;
+
+    /**
+     * List of messages
+     */
+    List<Message> messageList = new ArrayList<>();
 
     /**
      * Creates new class.
@@ -107,5 +115,31 @@ public class SequenceObject extends Element {
             currLabelClass.add("objectLabelNotDefined");
             this.objectLine.setStroke(Color.RED);
         }
+    }
+
+    /**
+     * Add new message.
+     *
+     * @param newMessage new message.
+     */
+    public void addNewMessage (Message newMessage) {
+        this.messageList.add(newMessage);
+    }
+
+    /**
+     * Find message by his name.
+     *
+     * @param msgName name of object
+     * @return instance of message or null.
+     */
+    public Message findSequenceMessage (String msgName) {
+        return this.messageList.stream().
+                filter(M -> M.getName().split("\\(", 1)[0].trim().equals(msgName)).
+                findFirst().
+                orElse(null);
+    }
+
+    public List<Message> getMessageList() {
+        return Collections.unmodifiableList(messageList);
     }
 }

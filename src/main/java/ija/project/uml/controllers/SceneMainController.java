@@ -502,6 +502,7 @@ public class SceneMainController {
         for (Message message : sequenceDiagram.getMessageList()) {
             positionY += 50;
             Line line = new Line();
+            message.setMessageLine(line);
             line.setStartX(message.getStartX());
             line.setEndX(message.getEndX());
             line.setStartY(positionY);
@@ -525,6 +526,7 @@ public class SceneMainController {
             }
 
             Polygon polygon = new Polygon();
+            message.setMessagePolygon(polygon);
             if (Objects.equals(message.getType(), "asynchronous")) {
                 polygon.setFill(Color.TRANSPARENT);
                 polygon.setStroke(Color.BLACK);
@@ -532,6 +534,7 @@ public class SceneMainController {
                 line.getStrokeDashArray().addAll(25d, 10d);
 
             Text text = new Text(message.getName());
+            message.setMessageText(text);
 
             text.setStyle("-fx-fill: #ece3e3");
 
@@ -554,6 +557,23 @@ public class SceneMainController {
 
                 text.setX(message.getEndX() + 10);
                 text.setY(positionY - 10);
+            }
+
+            UMLClass messageClass = classDiagram.findClass(message.getTarget());
+            if (messageClass == null) {
+                if (!message.getType().equals("reply") &&
+                    !message.getType().equals("create") &&
+                    !message.getType().equals("delete")) {
+                    message.setDefined(false);
+                }
+            } else {
+                if (messageClass.findMethod(message.cutMessageName()) == null) {
+                    if (!message.getType().equals("reply") &&
+                        !message.getType().equals("create") &&
+                        !message.getType().equals("delete")) {
+                        message.setDefined(false);
+                    }
+                }
             }
 
             sequencePane.getChildren().addAll(line, polygon, text);
@@ -624,8 +644,11 @@ public class SceneMainController {
         for (Message message : sequenceDiagram.getMessageList()) {
             if (Objects.equals(message.getSource(), name))
                 message.setStartX(positionX + 40);
-            if (Objects.equals(message.getTarget(), name))
+
+            if (Objects.equals(message.getTarget(), name)) {
+                sequenceObject.addNewMessage(message);
                 message.setEndX(positionX + 40);
+            }
         }
 
         sequencePane.getChildren().add(line);
