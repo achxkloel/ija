@@ -60,15 +60,13 @@ public class SceneMainController {
     private ClassDiagram classDiagram;
     private SequenceDiagram sequenceDiagram;
     private ContextMenu contextMenu;
-    private List<VBox> classVboxList = new ArrayList<>();
+    private final List<VBox> classVboxList = new ArrayList<>();
     private final List<VBox> sequenceVboxList = new ArrayList<>();
     private final List<Line> sequenceLineList = new ArrayList<>();
-    private Stack<HistoryElement> history = new Stack<>();
+    private final Stack<HistoryElement> history = new Stack<>();
 
     private double positionX = 50;
     private double positionY = 50;
-    private int historyIndex = 0;
-
 
     /**
      * Setter for the class diagram
