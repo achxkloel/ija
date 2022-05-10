@@ -22,12 +22,12 @@ public class ClassDiagram extends Element {
     /**
      * List of classes.
      */
-    private final List<UMLClass> classList = new ArrayList<>();
+    private List<UMLClass> classList = new ArrayList<>();
 
     /**
      * List of relations.
      */
-    private final List<UMLRelation> relationList = new ArrayList<>();
+    private List<UMLRelation> relationList = new ArrayList<>();
 
     /**
      * Diagram view.
@@ -41,6 +41,13 @@ public class ClassDiagram extends Element {
      */
     public ClassDiagram (String name) {
         super(name);
+    }
+
+    public ClassDiagram (ClassDiagram old) {
+        super(old.name);
+        this.classList = old.classList;
+        this.relationList = old.relationList;
+        this.diagramView = old.diagramView;
     }
 
     /**

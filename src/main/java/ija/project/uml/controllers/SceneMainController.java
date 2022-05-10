@@ -29,6 +29,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Stack;
 
 
 /**
@@ -59,12 +60,14 @@ public class SceneMainController {
     private ClassDiagram classDiagram;
     private SequenceDiagram sequenceDiagram;
     private ContextMenu contextMenu;
-    private final List<VBox> classVboxList = new ArrayList<>();
+    private List<VBox> classVboxList = new ArrayList<>();
     private final List<VBox> sequenceVboxList = new ArrayList<>();
     private final List<Line> sequenceLineList = new ArrayList<>();
+    private Stack<HistoryElement> history = new Stack<>();
 
     private double positionX = 50;
     private double positionY = 50;
+    private int historyIndex = 0;
 
 
     /**
@@ -392,6 +395,50 @@ public class SceneMainController {
         stage.show();
     }
 
+    private void updateVBoxPosition(MouseEvent t, double translateX, double translateY) {
+        double originalX = ((VBox)(t.getSource())).getLayoutX() + ((VBox)(t.getSource())).getWidth() / 2;
+        double originalY = ((VBox)(t.getSource())).getLayoutY() + ((VBox)(t.getSource())).getHeight() / 2;
+
+        double paneX = mainPane.getWidth();
+        double paneY = mainPane.getHeight();
+
+        if (originalX + translateX < 0) translateX = -originalX;
+        if (originalX + translateX > paneX) translateX = paneX - originalX;
+        if (originalY + translateY < 0) translateY = -originalY;
+        if (originalY + translateY > paneY) translateY = paneY - originalY;
+
+        ((VBox)(t.getSource())).setTranslateX(translateX);
+        ((VBox)(t.getSource())).setTranslateY(translateY);
+
+        List<UMLRelation> relationList = classDiagram.getRelationList();
+
+        for (UMLRelation currentRelation : relationList) {
+            if (Objects.equals(currentRelation.getVboxFrom().getId(), ((VBox) (t.getSource())).getId()) ||
+                    Objects.equals(currentRelation.getVboxTo().getId(), ((VBox) (t.getSource())).getId())) {
+                if (currentRelation.getArrow() != null)
+                    clearPolygon(currentRelation);
+
+                currentRelation.updateCoordinates();
+            }
+            else continue;
+
+            addPolygon(currentRelation);
+        }
+
+        ((VBox)(t.getSource())).toFront();
+    }
+
+    @FXML
+    public void undo() {
+        HistoryElement operation = history.pop();
+
+        double newTranslateX = operation.getX();
+        double newTranslateY = operation.getY();
+        MouseEvent t = operation.getT();
+
+        updateVBoxPosition(t, newTranslateX, newTranslateY);
+    }
+
     /**
      * Clears the diagram.
      */
@@ -627,6 +674,7 @@ public class SceneMainController {
         orgSceneY = t.getSceneY();
         orgTranslateX = ((VBox)(t.getSource())).getTranslateX();
         orgTranslateY = ((VBox)(t.getSource())).getTranslateY();
+        history.push(new HistoryElement(orgTranslateX + t.getSceneX() - orgSceneX, orgTranslateY + t.getSceneY() - orgSceneY, t));
     };
 
     /**
@@ -637,36 +685,7 @@ public class SceneMainController {
         double newTranslateX = orgTranslateX + t.getSceneX() - orgSceneX;
         double newTranslateY = orgTranslateY + t.getSceneY() - orgSceneY;
 
-        double originalX = ((VBox)(t.getSource())).getLayoutX() + ((VBox)(t.getSource())).getWidth() / 2;
-        double originalY = ((VBox)(t.getSource())).getLayoutY() + ((VBox)(t.getSource())).getHeight() / 2;
-
-        double paneX = mainPane.getWidth();
-        double paneY = mainPane.getHeight();
-
-        if (originalX + newTranslateX < 0) newTranslateX = -originalX;
-        if (originalX + newTranslateX > paneX) newTranslateX = paneX - originalX;
-        if (originalY + newTranslateY < 0) newTranslateY = -originalY;
-        if (originalY + newTranslateY > paneY) newTranslateY = paneY - originalY;
-
-        List<UMLRelation> relationList = classDiagram.getRelationList();
-
-        for (UMLRelation currentRelation : relationList) {
-            if (Objects.equals(currentRelation.getVboxFrom().getId(), ((VBox) (t.getSource())).getId()) ||
-                    Objects.equals(currentRelation.getVboxTo().getId(), ((VBox) (t.getSource())).getId())) {
-                if (currentRelation.getArrow() != null)
-                    clearPolygon(currentRelation);
-
-                currentRelation.updateCoordinates();
-            }
-            else continue;
-
-            addPolygon(currentRelation);
-        }
-
-        ((VBox)(t.getSource())).toFront();
-
-        ((VBox)(t.getSource())).setTranslateX(newTranslateX);
-        ((VBox)(t.getSource())).setTranslateY(newTranslateY);
+        updateVBoxPosition(t, newTranslateX, newTranslateY);
     };
 
     /**
