@@ -429,9 +429,9 @@ public class SceneMainController {
 
     @FXML
     public void undo() {
-        if (historyIndex < history.size() - 1) {
-            historyIndex++;
+        if (historyIndex < history.size()) {
             HistoryElement operation = history.get(historyIndex);
+            historyIndex++;
 
             double newTranslateX = operation.getX();
             double newTranslateY = operation.getY();
@@ -702,14 +702,11 @@ public class SceneMainController {
     EventHandler<MouseEvent> vboxOnMouseReleasedEventHandler = t -> {
         orgSceneX = t.getSceneX();
         orgSceneY = t.getSceneY();
-        orgTranslateX = ((VBox)(t.getSource())).getTranslateX();
-        orgTranslateY = ((VBox)(t.getSource())).getTranslateY();
 
         for (; historyIndex > 0; historyIndex--)
             history.remove(0);
 
         history.add(0, new HistoryElement(orgTranslateX + t.getSceneX() - orgSceneX, orgTranslateY + t.getSceneY() - orgSceneY, t));
-
     };
 
     /**
